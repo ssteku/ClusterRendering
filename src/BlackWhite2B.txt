@@ -1,0 +1,96 @@
+	Context c;
+	c.dimension[0] = 1920;
+	c.dimension[1] = 1080;
+	c.window[0][0] = 30;
+	c.window[0][1] = 130;
+	c.window[1][0] = 230;
+	c.window[1][1] = 250;
+
+	c.background[0] = 0.0;
+	c.background[1] = 0.0;
+	c.background[2] = 0.0;
+
+	c.maxRayBounce = 1;
+
+	c.viewportSize[0] = 19.2;
+	c.viewportSize[1] = 10.8;
+	c.viewportSize[2] = 17.0;
+
+	c.globalLight[0] = 0.1;
+	c.globalLight[1] = 0.1;
+	c.globalLight[2] = 0.1;
+
+	c.cameraPosition[0] = 0.0;
+	c.cameraPosition[1] = 2.0;
+	c.cameraPosition[2] = 15.0;
+
+	c.cameraX[0] = 1.0; c.cameraX[1] = 0.0; c.cameraX[2] = 0.0;
+	c.cameraY[0] = 0.0; c.cameraY[1] = 1.0; c.cameraY[2] = 0.0;
+	c.cameraZ[0] = 0.0; c.cameraZ[1] = 0.0; c.cameraZ[2] = 1.0;
+
+	Context::Sphere s;
+	s.r = 100.0;
+	s.position[0] = 4.0; s.position[1] = -102.0; s.position[2] = 0.0;
+	s.ambient[0] = 0.1; s.ambient[1] = 0.1; s.ambient[2] = 0.1;
+	s.diffuse[0] = 0.1; s.diffuse[1] = 0.1; s.diffuse[2] = 0.1;
+	s.specular[0] = 0.9; s.specular[1] = 0.9; s.specular[2] = 0.9;
+	s.n = 0;
+	c.spheres.push_back(s);
+
+	s.r = 100.0;
+	s.position[0] = -108.0; s.position[1] = 0.0; s.position[2] = 0.0;
+	s.ambient[0] = 0.1; s.ambient[1] = 0.1; s.ambient[2] = 0.1;
+	s.diffuse[0] = 0.1; s.diffuse[1] = 0.1; s.diffuse[2] = 0.1;
+	s.specular[0] = 0.9; s.specular[1] = 0.9; s.specular[2] = 0.9;
+	s.n = 0;
+	c.spheres.push_back(s);
+
+	s.r = 100.0;
+	s.position[0] = 0.0; s.position[1] = 0.0; s.position[2] = -110.0;
+	s.ambient[0] = 0.1; s.ambient[1] = 0.1; s.ambient[2] = 0.1;
+	s.diffuse[0] = 0.1; s.diffuse[1] = 0.1; s.diffuse[2] = 0.1;
+	s.specular[0] = 0.9; s.specular[1] = 0.9; s.specular[2] = 0.9;
+	s.n = 0;
+	c.spheres.push_back(s);
+
+	
+
+	s.r = 2.0;
+	s.position[0] = -3.0; s.position[1] = 1.0; s.position[2] = 0.0;
+	s.ambient[0] = 0.2; s.ambient[1] = 0.2; s.ambient[2] = 0.2;
+	s.diffuse[0] = 0.5; s.diffuse[1] = 0.5; s.diffuse[2] = 0.5;
+	s.specular[0] = 0.9; s.specular[1] = 0.9; s.specular[2] = 0.9;
+	s.n = 50;
+	c.spheres.push_back(s);
+	
+	
+
+	
+	Context::Light l;
+	l.r = 10;
+	l.position[0] = 0.0; l.position[1] = 0.0; l.position[2] = 32;
+	l.ambient[0] = 0.1; l.ambient[1] = 0.1; l.ambient[2] = 0.1;
+	l.diffuse[0] = 0.9; l.diffuse[1] = 0.9; l.diffuse[2] = 0.9;
+	l.specular[0] = 0.9; l.specular[1] = 0.9; l.specular[2] = 0.9;
+	c.lights.push_back(l);
+
+
+	
+
+	c.spheres.push_back(s);
+	Task task;
+
+
+	task.id = rand();
+
+	for(int i=0;i<100;i++)
+	{
+		c.spheres[4].r = 0.7;
+		c.spheres[4].position[0] = 3.5-(0.05*i)*(0.1*i); c.spheres[4].position[1] = 3+i*0.1; c.spheres[4].position[2] = 0.0;
+		c.spheres[4].ambient[0] = 0.2; c.spheres[4].ambient[1] = 0.2; c.spheres[4].ambient[2] = 0.2;
+		c.spheres[4].diffuse[0] = 0.5; c.spheres[4].diffuse[1] = 0.5; c.spheres[4].diffuse[2] = 0.5;
+		c.spheres[4].specular[0] = 0.9; c.spheres[4].specular[1] = 0.9; c.spheres[4].specular[2] = 0.9;
+		c.spheres[4].n = 50;
+		
+		task.contexts.push_back(c);
+	}
