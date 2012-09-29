@@ -1,9 +1,4 @@
 #include <boost/mpi.hpp>
-#include <iostream>
-#include <boost/function.hpp>
-#include <boost/bind.hpp>
-#include <boost/serialization/string.hpp>
-#include <boost/thread.hpp>
 #include "Master.hpp"
 #include "Slave.hpp"
 
@@ -21,9 +16,6 @@ int main(int argc, char* argv[])
 		Slave slave(world);		
 		slave.startBehavior();	
 		slave.join();
-		
-			
-		
 	}
 	return 0;
 }

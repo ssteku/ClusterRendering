@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.6)
 PROJECT(ClusterRendering)
 
 SET(CMAKE_CXX_COMPILER mpicxx)
-set(CMAKE_CXX_FLAGS "-g3 -Wall -DDEBUG -O2 ")
+set(CMAKE_CXX_FLAGS "-g3 -Wall -DDEBUG -O2  ")
 
 include_directories(/usr/include/mysql ./xsd/xsd/libxsd /etc/alternatives/mpi /usr/include/xsd)
 

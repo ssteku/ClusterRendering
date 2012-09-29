@@ -35,8 +35,8 @@ void SqlReader::notify(Task task){
 void SqlReader::manageWork(){
 	cout<<"Notyfing!!!!!!!!!"<<endl;		
 	Context c;
-	c.dimension[0] = 800;
-	c.dimension[1] = 600;
+	c.dimension[0] = 1920;
+	c.dimension[1] = 1080;
 	c.window[0][0] = 30;
 	c.window[0][1] = 130;
 	c.window[1][0] = 230;
@@ -48,8 +48,8 @@ void SqlReader::manageWork(){
 
 	c.maxRayBounce = 2;
 
-	c.viewportSize[0] = 16.0;
-	c.viewportSize[1] = 12.0;
+	c.viewportSize[0] = 19.2;
+	c.viewportSize[1] = 10.8;
 	c.viewportSize[2] = 17.0;
 
 	c.globalLight[0] = 0.1;
@@ -124,8 +124,8 @@ void SqlReader::manageWork(){
 	l.r = 10;
 	l.position[0] = 0.0; l.position[1] = 0.0; l.position[2] = 32;
 	l.ambient[0] = 0.1; l.ambient[1] = 0.1; l.ambient[2] = 0.1;
-	l.diffuse[0] = 0.9; l.diffuse[1] = 0.9; l.diffuse[2] = 0.9;
-	l.specular[0] = 0.9; l.specular[1] = 0.9; l.specular[2] = 0.9;
+	l.diffuse[0] = 0.5; l.diffuse[1] = 0.5; l.diffuse[2] = 0.5;
+	l.specular[0] = 0.5; l.specular[1] = 0.5; l.specular[2] = 0.5;
 	c.lights.push_back(l);
 
 
@@ -133,10 +133,10 @@ void SqlReader::manageWork(){
 
 	Task task;
 
-	for(int i=0;i<1000;i++)
+	for(int i=0;i<3;i++)
 	{
 		
-		// c.lights[0].position[0] = 0.0; c.lights[0].position[1] = 0.0+0.25*i; c.lights[0].position[2] = 32- 0.1*i;
+		 c.lights[0].position[0] = 0.0; c.lights[0].position[1] = 0.0+0.25*i; c.lights[0].position[2] = 32- 0.1*i;
 		l.ambient[0] = 0.1; l.ambient[1] = 0.1+0.01*i; l.ambient[2] = 0.1;
 
 		c.spheres[4].r = 0.7;

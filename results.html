@@ -1,0 +1,75 @@
+Flawfinder version 1.27, (C) 2001-2004 David A. Wheeler.
+Number of dangerous functions in C/C++ ruleset: 160
+Warning: skipping non-regular file −−quiet
+Warning: skipping non-regular file −−html
+Warning: skipping non-regular file −−context
+Examining src/Cluster/Master.hpp
+Examining src/Cluster/Slave.hpp
+Examining src/Cluster/WorkerObject.cpp
+Examining src/Cluster/Master.cpp
+Examining src/Cluster/WorkerObject.hpp
+Examining src/Cluster/Slave.cpp
+Examining src/SqlModule/SqlReader.hpp
+Examining src/SqlModule/SqlReader.cpp
+Examining src/Rendering/Raytracer.cpp
+Examining src/Rendering/Raytracer.h
+Examining src/XMLParser/SceneReader.cpp
+Examining src/XMLParser/scene.cxx
+Examining src/XMLParser/SceneReader.hpp
+Examining src/Interface/IObserver.hpp
+Examining src/Utils/Part.hpp
+Examining src/Utils/Task.hpp
+Examining src/Utils/Client.cpp
+Examining src/Utils/MovieCreator.hpp
+Examining src/Utils/Client.hpp
+Examining src/Utils/ImageCreator.hpp
+Examining src/Utils/Part.cpp
+Examining src/Utils/Frame.cpp
+Examining src/Utils/MovieCreator.cpp
+Examining src/Utils/Context.h
+Examining src/Utils/FramesManager.hpp
+Examining src/Utils/ImageCreator.cpp
+Examining src/Utils/Frame.hpp
+Examining src/Utils/FramesManager.cpp
+Examining src/main.cpp
+src/Utils/Context.h:12:  [4] (race) access:
+  This usually indicates a security flaw.  If an attacker can change
+  anything along the path between the call to access() and the file's actual
+  use (e.g., by moving files), the attacker can exploit the race
+  condition. Set up the correct permissions (e.g., using setuid()) and try to
+  open the file directly. 
+src/Utils/Context.h:33:  [4] (race) access:
+  This usually indicates a security flaw.  If an attacker can change
+  anything along the path between the call to access() and the file's actual
+  use (e.g., by moving files), the attacker can exploit the race
+  condition. Set up the correct permissions (e.g., using setuid()) and try to
+  open the file directly. 
+src/Utils/Context.h:56:  [4] (race) access:
+  This usually indicates a security flaw.  If an attacker can change
+  anything along the path between the call to access() and the file's actual
+  use (e.g., by moving files), the attacker can exploit the race
+  condition. Set up the correct permissions (e.g., using setuid()) and try to
+  open the file directly. 
+src/Utils/MovieCreator.cpp:26:  [4] (shell) system:
+  This causes a new program to execute and is difficult to use safely.
+  try using a library call that implements the same functionality if
+  available. 
+src/SqlModule/SqlReader.cpp:307:  [2] (misc) open:
+  Check when opening files - can an attacker redirect it (via symlinks),
+  force the opening of special file type (e.g., device files), move
+  things around to create a race condition, control its ancestors, or change
+  its contents?. 
+src/SqlModule/SqlReader.cpp:286:  [1] (buffer) read:
+  Check buffer boundaries if used in a loop. 
+src/SqlModule/SqlReader.cpp:316:  [1] (buffer) read:
+  Check buffer boundaries if used in a loop. 
+
+Hits = 7
+Lines analyzed = 6031 in 0.58 seconds (74010 lines/second)
+Physical Source Lines of Code (SLOC) = 4680
+Hits@level = [0]   0 [1]   2 [2]   1 [3]   0 [4]   4 [5]   0
+Hits@level+ = [0+]   7 [1+]   7 [2+]   5 [3+]   4 [4+]   4 [5+]   0
+Hits/KSLOC@level+ = [0+] 1.49573 [1+] 1.49573 [2+] 1.06838 [3+] 0.854701 [4+] 0.854701 [5+]   0
+Minimum risk level = 1
+Not every hit is necessarily a security vulnerability.
+There may be other security vulnerabilities; review your code!

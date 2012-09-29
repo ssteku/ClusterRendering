@@ -166,7 +166,7 @@ void FramesManager::addPartsToQueue(Task& task)
 	unsigned int numberOfParts = (world.size()-1)*piecesPerSlave;
 	// unsigned int numberOfParts = (1);
 
-	unsigned int partLength = floor(task.contexts[0].dimension[1]/(numberOfParts));
+	unsigned int partLength = static_cast<unsigned int>(floor(task.contexts[0].dimension[1]/(numberOfParts)));
 
 	tasks[task.id] = map<int,boost::shared_ptr<Frame> >();
 	

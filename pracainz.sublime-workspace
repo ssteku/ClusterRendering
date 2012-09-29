@@ -1,0 +1,1545 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"inc",
+				"include"
+			],
+			[
+				"clie",
+				"clientReleased"
+			],
+			[
+				"par",
+				"partLength"
+			],
+			[
+				"co",
+				"commStream"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/SqlModule/SqlReader.cpp",
+			"settings":
+			{
+				"buffer_size": 8991,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Utils/FramesManager.cpp",
+			"settings":
+			{
+				"buffer_size": 6051,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "#include \"FramesManager.hpp\"\n#include \"Task.hpp\"\n#include \"boost/date_time/posix_time/posix_time.hpp\"\n#include \"SqlReader.hpp\"\n#include <boost/bind.hpp>\n#include <boost/function.hpp>\n#include \"Part.hpp\"\n#include \"Frame.hpp\"\n#include \"Client.hpp\"\n#include <iostream>\n#include \"MovieCreator.hpp\"\n\nusing namespace std;\n\nFramesManager::FramesManager(mpi::communicator& comm,SqlReader& reader) : sqlReader(reader), \n	world(comm), hasFreeClient(false),hasPart(false),piecesPerSlave(1)\n{\n	boost::mutex::scoped_lock lock2(clientMutex);\n	// cout<<\"Frame manager Client\"<<endl;\n	for(int i=1; i<world.size(); ++i)\n	{\n		clients[i] = boost::shared_ptr<Client>(new Client(i,world,mpiServiceMutex));\n		freeClients.push(clients[i].get());\n		clients[i]->startBehavior();\n	}\n	hasFreeClient = true;\n	clientReleased.notify_all();\n	// cout<<\"world : \"<<world.size()<<endl;\n	// cout<<\"Frame manager after Client\"<<endl;\n\n}\nFramesManager::~FramesManager()\n{\n\n}\n\nvoid FramesManager::manageWork(){\n	\n	sqlReader.startBehavior();\n\n	taskService = boost::thread(&FramesManager::serveTasks, this);\n	while(1){\n				\n		boost::optional<Task> task = sqlReader.getTask();\n		if(task.is_initialized())\n		{\n			cout<<\"Got task\"<<endl;\n			// sqlReader.changeStatus(task->id,2);\n			addPartsToQueue(task.get());\n			// sqlReader.saveVideoToDb(task.id,path);							\n			// sqlReader.changeStatus(task->id,3);\n		}	\n		else\n		{\n			executedThread.yield();\n			\n		}\n		\n		\n		boost::posix_time::seconds workTime(1);  \n		boost::this_thread::sleep(workTime);		\n	}\n\n\n\n	// cout<<\"serveTasks 00\"<<endl;\n	\n\n}\n\nvoid FramesManager::serveTasks()\n{		\n	while(1)\n	{\n		\n		{\n		\n		boost::mutex::scoped_lock lock2(clientMutex);\n		while(!hasFreeClient)\n			clientReleased.wait(lock2);\n		// cout<<\"freeClients.size() : \"<<freeClients.size()<<endl;\n		for(int i=0;i<freeClients.size();++i)\n		{\n			\n			\n			boost::optional<boost::shared_ptr<Part> > task = getPart();\n			if(task.is_initialized())\n			{\n				cout<<\"Take free client\"<<\"on thread: \"<<boost::this_thread::get_id()<<endl;\n				Client* client = freeClients.front();\n				freeClients.pop();\n				if(freeClients.size()==0)\n				{\n					// cout<<\"hasFreeClient = false;\"<<endl;\n					hasFreeClient = false;\n				}			\n\n				boost::mutex::scoped_lock mpiL(mpiServiceMutex);\n\n				boost::function<void (bool)> callback = boost::bind(&FramesManager::releaseClient,this,client->getNumber(),\n					task.get()->getTaskId(),task.get()->getFrameNr(),_1);\n				// cout<<\"Taking partNr: \"<<task.get()->getPartNumber()<<endl;\n				{\n				world.send(client->getNumber(), 0, *(task.get()->getContext()));\n				}\n				client->render(task.get(), callback);\n			}\n			else\n			{\n				taskService.yield();				\n			}\n			\n		}\n		taskService.yield();\n	 	}\n	}\n}\n\nvoid FramesManager::waitForFreeClient()\n{\n	// boost::mutex::scoped_lock lock(clientMutex);\n	// cout<<\"waitForFreeClient\"<<endl;\n	\n}\n\nvoid FramesManager::releaseClient(const int clientNumber, const int taskId, const int frameId, bool removeFrame)\n{\n	cout<<\"Client released with removeFrame: \"<<removeFrame<<\" on thread: \"<<boost::this_thread::get_id()<<endl;\n\n	{\n		boost::mutex::scoped_lock lock(clientMutex);\n		cout<<\"After mutex\"<<endl;\n		freeClients.push(clients[clientNumber].get());\n		hasFreeClient = true;	\n		clientReleased.notify_all();\n		// lock.unlock();\n	}\n\n	if(removeFrame)\n	{\n			boost::mutex::scoped_lock lock(io_mutex);\n		 	cout<<\"Removing, tasks[taskId].size() : \"<<tasks[taskId].size()<<endl;\n			map<int,boost::shared_ptr<Frame> >::iterator it;\n			it=tasks[taskId].find(frameId);\n	  		tasks[taskId].erase (it);\n	  		//sqlReader.incrementDoneFrames(taskId, c+1);\n	  		if(tasks[taskId].size()==0)\n	  		{\n	  			cout<<\"Removing task\"<<endl;\n	  			std::map<int,map<int,boost::shared_ptr<Frame> > >::iterator fIt;\n	  			fIt = tasks.find(taskId);\n				MovieCreator movieCreator;	\n\n				movieCreator.createMovie(taskId);\n	  			tasks.erase(fIt);\n	  		}\n	  		\n	}\n\n\n}\n\nvoid FramesManager::addPartsToQueue(Task& task)\n{\n	unsigned int numberOfParts = (world.size()-1)*piecesPerSlave;\n	// unsigned int numberOfParts = (1);\n\n	unsigned int partLength = floor(task.contexts[0].dimension[1]/(numberOfParts));\n\n	tasks[task.id] = map<int,boost::shared_ptr<Frame> >();\n	\n\n	unsigned int floatsPerPart =  partLength*task.contexts[0].dimension[0]*3;\n	for(unsigned int c=0; c<task.contexts.size();++c)\n	{\n		tasks[task.id][c] = boost::shared_ptr<Frame>(new Frame(c,numberOfParts,task.contexts[c].dimension[0],task.contexts[c].dimension[1],floatsPerPart));\n		boost::function<bool (boost::shared_ptr<std::vector<float> > pixels, const int partNr)> saver = \n			boost::bind(&Frame::saveToImage, tasks[task.id][c].get(),_1,_2);\n		for(unsigned int i=0;i<numberOfParts;++i){\n\n			boost::shared_ptr<Part> currentContext(new Part(boost::shared_ptr<Context>(new Context(task.contexts[c])),saver, task.id, i,c));\n\n			currentContext->getContext()->window[0][0] = 0;\n			currentContext->getContext()->window[1][0] = currentContext->getContext()->dimension[0];	\n\n			currentContext->getContext()->window[0][1]= (i)*partLength;				\n			if(i==numberOfParts-1){\n				currentContext->getContext()->window[1][1]=currentContext->getContext()->dimension[1];			\n				// cout<<\"IF\"<<endl;\n			}\n			else{\n				currentContext->getContext()->window[1][1]= (i+1)*partLength;\n				// cout<<\"Else\"<<endl;\n			}	\n			// cout<<\"getContext()->window[0][0] : \"<<currentContext->getContext()->window[0][0]<<endl;\n			// cout<<\"getContext()->window[0][1] : \"<<currentContext->getContext()->window[0][1]<<endl;	\n			// cout<<\"getContext()->window[1][0] : \"<<currentContext->getContext()->window[1][0]<<endl;\n			// cout<<\"getContext()->window[1][1] : \"<<currentContext->getContext()->window[1][1]<<endl;\n			cout<<\"currentContext->getContext()->lights[0].specular[0]: \"<<currentContext->getContext()->lights[0].specular[0]<<endl;\n			boost::mutex::scoped_lock lock(io_mutex);			\n			\n			partQueue.push(currentContext);\n			// hasPart = true;\n		}\n	}\n	addedPart.notify_one();\n\n\n}\n\nboost::optional<boost::shared_ptr<Part> > FramesManager::getPart()\n{\n	boost::mutex::scoped_lock lock(io_mutex);\n	boost::optional<boost::shared_ptr<Part> > retObj;\n	if(partQueue.size()>0)\n	{\n		retObj.reset(partQueue.front());\n		partQueue.pop();\n	}	\n	return retObj;\n}\n",
+			"settings":
+			{
+				"buffer_size": 6176,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 36 files for \"unlock\" (case sensitive)\n\n0 matches across 0 files\n\n\nSearching 36 files for \"unlock\" (case sensitive)\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Client.cpp:\n   37  	            world.recv(  l_status->source(), clientNr, *(results.get()));\n   38  				hasTask = false;\n   39: 				mpiLock.unlock();\n   40  		     \n   41  	   	 	}\n   ..\n   43  	   	 	{	\n   44     	 			// cout<<\"probe else\"<<endl;\n   45: 	   	 		mpiLock.unlock();\n   46  		       	// boost::this_thread::yield();   \n   47  	        	continue;	 		\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/FramesManager.cpp:\n  136  		hasFreeClient = true;	\n  137  		clientReleased.notify_all();\n  138: 		// lock.unlock();\n  139  	}\n  140  \n\n3 matches across 2 files\n\n\nSearching 36 files for \"light\" (case sensitive)\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/BlackWhite2B.txt:\n   73  	l.diffuse[0] = 0.9; l.diffuse[1] = 0.9; l.diffuse[2] = 0.9;\n   74  	l.specular[0] = 0.9; l.specular[1] = 0.9; l.specular[2] = 0.9;\n   75: 	c.lights.push_back(l);\n   76  \n   77  \n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/BlackWhiteMovingLight2B.txt:\n   83  	l.diffuse[0] = 0.9; l.diffuse[1] = 0.9; l.diffuse[2] = 0.9;\n   84  	l.specular[0] = 0.9; l.specular[1] = 0.9; l.specular[2] = 0.9;\n   85: 	c.lights.push_back(l);\n   86  \n   87  \n   ..\n   93  	{\n   94  		\n   95: 		c.lights[0].position[0] = 0.0; c.lights[0].position[1] = 0.0+0.25*i; c.lights[0].position[2] = 32- 0.1*i;\n   96  		task.contexts.push_back(c);\n   97  	}\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Raytracer.cpp:\n   22  		INTERSECT_STATUS *status, int objectId) {\n   23  	float a = dotProduct(d, d);\n   24: 	float b = 2*(d[0]*(p[0]-context->lights[objectId].position[0]) + d[1]*(p[1]-context->lights[objectId].position[1]) + d[2]*(p[2]-context->lights[objectId].position[2]));\n   25: 	float tmp = (p[0]-context->lights[objectId].position[0]);\n   26  	tmp *= tmp;\n   27  	float c = tmp;\n   28: 	tmp = (p[1]-context->lights[objectId].position[1]);\n   29  	tmp *= tmp;\n   30  	c += tmp;\n   31: 	tmp = (p[2]-context->lights[objectId].position[2]);\n   32  	tmp *= tmp;\n   33  	c += tmp;\n   34: 	c -= context->lights[objectId].r*context->lights[objectId].r;\n   35  	float delta = b*b - 4*a*c;\n   36  	if( delta >= 0 ) {\n   ..\n   45  	  color ambientSum = {0.0, 0.0, 0.0};\n   46  	  Normalization(V);\n   47: 	  for(unsigned int Li = 0; Li < context->lights.size(); ++Li) {\n   48: 		float lightLen = Distance(q, context->lights[Li].position);\n   49: 		if(lightLen >= MAX_LIGHT_DISTANCE) continue;\n   50  		bool isVisible = true;\n   51: 		myVector L = {context->lights[Li].position[0]-q[0],\n   52: 					context->lights[Li].position[1]-q[1],\n   53: 					context->lights[Li].position[2]-q[2]};\n   54  		Normalization(L);\n   55  		for(unsigned int Si = 0; Si < context->spheres.size(); ++Si) {\n   ..\n   57  		  INTERSECT_STATUS status;\n   58  		  point tmp;\n   59: 		  IntersectWithSphere(context->lights[Li].position, L, &status, Si, tmp);\n   60  		  if(status == INTERSECTION) {\n   61: 			myVector tmp2 =  {context->lights[Li].position[0]-tmp[0],\n   62: 						   context->lights[Li].position[1]-tmp[1],\n   63: 						   context->lights[Li].position[2]-tmp[2]};\n   64  			Normalization(tmp2);\n   65  			if(tmp2[0] != L[0] && tmp2[1] != L[1] && tmp2[2] != L[2]) continue;\n   66: 			if(Distance(tmp, context->lights[Li].position) < lightLen) {\n   67  			  isVisible = false;\n   68  			  break;\n   ..\n   73  		color tmpC = {0.0, 0.0, 0.0};\n   74  		myVector R;\n   75: 		Reflect(context->lights[Li].position, q, n,  R);\n   76  		Normalization(R);\n   77  		float RdotV = dotProduct(R, V);\n   78  		if(RdotV >  0) {\n   79  		  RdotV = pow(RdotV, float(context->spheres[objectId].n));\n   80: 		  tmpC[0] = context->spheres[objectId].specular[0]*context->lights[Li].specular[0]*RdotV;\n   81: 		  tmpC[1] = context->spheres[objectId].specular[1]*context->lights[Li].specular[1]*RdotV;\n   82: 		  tmpC[2] = context->spheres[objectId].specular[2]*context->lights[Li].specular[2]*RdotV;\n   83  		}\n   84  		float NdotL = dotProduct(n, L);\n   85  		if(NdotL > 0) {\n   86: 		  tmpC[0] += context->spheres[objectId].diffuse[0]*context->lights[Li].diffuse[0]*NdotL;\n   87: 		  tmpC[1] += context->spheres[objectId].diffuse[1]*context->lights[Li].diffuse[1]*NdotL;\n   88: 		  tmpC[2] += context->spheres[objectId].diffuse[2]*context->lights[Li].diffuse[2]*NdotL;\n   89  		}\n   90: 		float dist = Fatt(lightLen);\n   91  		tmpC[0] *= dist;\n   92  		tmpC[1] *= dist;\n   93  		tmpC[2] *= dist;\n   94  \n   95: 		ambientSum[0] = context->lights[Li].ambient[0];\n   96: 		ambientSum[1] = context->lights[Li].ambient[1];\n   97: 		ambientSum[2] = context->lights[Li].ambient[2];\n   98  		myColor tmpColor;\n   99  		tmpColor.R = tmpC[0];\n  ...\n  105  	  ret[1] = context->spheres[objectId].ambient[1]*context->globalLight[1];\n  106  	  ret[2] = context->spheres[objectId].ambient[2]*context->globalLight[2];\n  107: 	  int lightCnt = singlePhongColors.size();\n  108: 	  for(int i = 0; i < lightCnt; ++i) {\n  109  		ret[0] += singlePhongColors[i].R;\n  110  		ret[1] += singlePhongColors[i].G;\n  111  		  ret[2] += singlePhongColors[i].B;\n  112  	  }\n  113: 	  if(lightCnt > 0) {\n  114: 		ret[0] += (ambientSum[0]/lightCnt)*context->spheres[objectId].ambient[0];\n  115: 		ret[1] += (ambientSum[1]/lightCnt)*context->spheres[objectId].ambient[1];\n  116: 		ret[2] += (ambientSum[2]/lightCnt)*context->spheres[objectId].ambient[2];\n  117  	  }\n  118  }\n  ...\n  160  	Intersect(p, d, &status, &objectId, q);\n  161  	if(status == LIGHT_SOURCE) {\n  162: //		float lattr = Fatt(Distance(p, context->lights[objectId].position));\n  163: //		ret[0] = context->lights[objectId].ambient[0] +context->lights[objectId].diffuse[0] + context->lights[objectId].specular[0]; //\n  164: //		ret[1] = context->lights[objectId].ambient[1] +context->lights[objectId].diffuse[1] + context->lights[objectId].specular[1];//\n  165: //		ret[2] = context->lights[objectId].ambient[2] +context->lights[objectId].diffuse[2] + context->lights[objectId].specular[2];//\n  166  //		ret[0] *= lattr;\n  167  //		ret[1] *= lattr;\n  ...\n  265  	ret[2] = tmpret[2];\n  266  	float min_Ldistance = 100000.0;\n  267: 	for(unsigned int Li = 0; Li < context->lights.size(); ++Li) {\n  268  		 IntersectWithLight(p, d, &tmpstatus, Li);\n  269  		 if(tmpstatus == NO_INTERSECTION) continue;\n  270: 		 myVector tmp = {context->lights[Li].position[0]-p[0], context->lights[Li].position[1]-p[1], context->lights[Li].position[2]-p[2]};\n  271  		 if( ((tmp[0] >= 0 && d[0] >= 0) || (tmp[0] < 0 && d[0] < 0)) &&\n  272  		  ((tmp[1] >= 0 && d[1] >= 0) || (tmp[1] < 0 && d[1] < 0)) &&\n  273  		  ((tmp[2] >= 0 && d[2] >= 0) || (tmp[2] < 0 && d[2] < 0))  ) {\n  274  		//jest swiatlo\n  275: 		  float tmpdist = Distance(p, context->lights[Li].position);\n  276  		  if(tmpdist < min_Ldistance && tmpdist < min_distance) { //sprawdzenie czy ten punk swiatla jest blizszy niz poprzedni, oraz czy jest blizej niz obiekt\n  277  			*status = LIGHT_SOURCE;\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Raytracer.h:\n   46  \n   47  	float Fatt(float d);\n   48: 	void calculateMLD(); //max light distance\n   49  };\n   50  \n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/SqlModule/SqlReader.cpp:\n  161  	l.diffuse[0] = 0.9; l.diffuse[1] = 0.9; l.diffuse[2] = 0.9;\n  162  	l.specular[0] = 0.9; l.specular[1] = 0.9; l.specular[2] = 0.9;\n  163: 	c.lights.push_back(l);\n  164  	l.r = 3;\n  165  	l.position[0] = -10.0; l.position[1] = 12.0; l.position[2] = -10.0;\n  ...\n  167  	l.diffuse[0] = 0.0; l.diffuse[1] = 0.0; l.diffuse[2] = 1.0;\n  168  	l.specular[0] = 1.0; l.specular[1] = 1.0; l.specular[2] = 1.0;\n  169: 	c.lights.push_back(l);\n  170  \n  171  	l.r = 7;\n  ...\n  174  	l.diffuse[0] = 0.0; l.diffuse[1] = 0.0; l.diffuse[2] = 1.0;\n  175  	l.specular[0] = 1.0; l.specular[1] = 1.0; l.specular[2] = 1.0;\n  176: 	c.lights.push_back(l);\n  177  \n  178  	l.r = 0.11;\n  ...\n  181  	l.diffuse[0] = 0.1; l.diffuse[1] = 0.1; l.diffuse[2] = 1.0;\n  182  	l.specular[0] = 1.0; l.specular[1] = 1.0; l.specular[2] = 1.0;\n  183: 	c.lights.push_back(l);\n  184  \n  185  \n  ...\n  189  	{\n  190  		\n  191: 		// c.lights[0].position[0] = 0.0; c.lights[0].position[1] = 0.0+0.25*i; c.lights[0].position[2] = 32- 0.1*i;\n  192  		task.contexts.push_back(c);\n  193  	}\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Context.h:\n   64  		ar & background;\n   65  		ar & globalLight;\n   66: 		ar & lights;\n   67  		ar & spheres;\n   68  		ar & cameraPosition;\n   ..\n   80    float globalLight[3]; //oswietlenie globalne ambient\n   81  \n   82:   std::vector < Light > lights;\n   83    std::vector < Sphere > spheres;\n   84  \n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/FramesManager.cpp:\n  197  			// cout<<\"getContext()->window[1][0] : \"<<currentContext->getContext()->window[1][0]<<endl;\n  198  			// cout<<\"getContext()->window[1][1] : \"<<currentContext->getContext()->window[1][1]<<endl;\n  199: 			cout<<\"currentContext->getContext()->lights[0].specular[0]: \"<<currentContext->getContext()->lights[0].specular[0]<<endl;\n  200  			boost::mutex::scoped_lock lock(io_mutex);			\n  201  			\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/XMLParser/SceneReader.cpp:\n   32      initSphereData(c);\n   33      \n   34:     //getting light data\n   35      initLightData(c);\n   36  }\n   ..\n   72  void SceneReader::initLightData(Context &c) {\n   73      try {\n   74:         for(sceneInterface::light_const_iterator l (si->light().begin()); l != si->light().end(); l++) {\n   75:             Context::Light light;\n   76              \n   77:             light.position[0] = l->x();\n   78:             light.position[1] = l->y();\n   79:             light.position[2] = l->z();\n   80              \n   81:             light.r = l->r();\n   82              \n   83:             light.ambient[0] = l->ared();\n   84:             light.ambient[1] = l->agreen();\n   85:             light.ambient[2] = l->ablue();\n   86              \n   87:             light.diffuse[0] = l->dred();\n   88:             light.diffuse[1] = l->dgreen();\n   89:             light.diffuse[2] = l->dblue();\n   90              \n   91:             light.specular[0] = l->sred();\n   92:             light.specular[1] = l->sgreen();\n   93:             light.specular[2] = l->sblue();\n   94              \n   95:             light.id = l->id();\n   96              \n   97:             //adding light to vector\n   98:             c.lights.push_back(light);\n   99          }\n  100      }\n  ...\n  158          c.background[2] = si->bblue();\n  159          \n  160:         //global light\n  161          c.globalLight[0] = si->glred();\n  162          c.globalLight[0] = si->glgreen();\n  ...\n  271  void SceneReader::passLightData(Context &c, int frame) {\n  272      try {\n  273:         for(sceneInterface::light_const_iterator l (si->light().begin()); l != si->light().end(); l++) {\n  274              for(tweenInterface::tween_const_iterator t (l->tween().begin()); t != l->tween().end(); t++) {\n  275:                 for(vector<Context::Light>::iterator it = c.lights.begin(); it != c.lights.end(); it++) {\n  276                      if(it->id == l->id()) {\n  277                          if((string)t->type() == \"linear\") {\n  ...\n  362      passSphereData(c, frame);\n  363      \n  364:     //getting lightData\n  365      passLightData(c, frame);\n  366      \n  ...\n  376      }\n  377      \n  378:     for(vector<Context::Light>::iterator it = c.lights.begin(); it != c.lights.end(); it++) {\n  379          cout << \"Light #\" << it->id << \"\\t\";\n  380          cout << it->position[0] << \"\\t\" << it->position[1] << \"\\t\" << it->position[2] << \"\\t\" << it->ambient[0] << \"\\t\" << it->ambient[1] << \"\\t\" << it->ambient[2] << \"\\t\" << it->specular[0] << \"\\t\" << it->specular[1] << \"\\t\" << it->specular[2] << \"\\t\" << it->diffuse[0] << \"\\t\" << it->diffuse[1] << \"\\t\" << it->diffuse[2] << endl;\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/XMLParser/scene.cxx:\n   62  }\n   63  \n   64: const sceneInterface::light_sequence& sceneInterface::\n   65: light () const\n   66  {\n   67:   return this->light_;\n   68  }\n   69  \n   70: sceneInterface::light_sequence& sceneInterface::\n   71: light ()\n   72  {\n   73:   return this->light_;\n   74  }\n   75  \n   76  void sceneInterface::\n   77: light (const light_sequence& s)\n   78  {\n   79:   this->light_ = s;\n   80  }\n   81  \n   ..\n 1273  \n 1274  \n 1275: // lightInterface\n 1276  // \n 1277  \n 1278: const lightInterface::id_type& lightInterface::\n 1279  id () const\n 1280  {\n ....\n 1282  }\n 1283  \n 1284: lightInterface::id_type& lightInterface::\n 1285  id ()\n 1286  {\n ....\n 1288  }\n 1289  \n 1290: void lightInterface::\n 1291  id (const id_type& x)\n 1292  {\n ....\n 1294  }\n 1295  \n 1296: void lightInterface::\n 1297  id (::std::auto_ptr< id_type > x)\n 1298  {\n ....\n 1300  }\n 1301  \n 1302: const lightInterface::r_type& lightInterface::\n 1303  r () const\n 1304  {\n ....\n 1306  }\n 1307  \n 1308: lightInterface::r_type& lightInterface::\n 1309  r ()\n 1310  {\n ....\n 1312  }\n 1313  \n 1314: void lightInterface::\n 1315  r (const r_type& x)\n 1316  {\n ....\n 1318  }\n 1319  \n 1320: const lightInterface::x_type& lightInterface::\n 1321  x () const\n 1322  {\n ....\n 1324  }\n 1325  \n 1326: lightInterface::x_type& lightInterface::\n 1327  x ()\n 1328  {\n ....\n 1330  }\n 1331  \n 1332: void lightInterface::\n 1333  x (const x_type& x)\n 1334  {\n ....\n 1336  }\n 1337  \n 1338: const lightInterface::y_type& lightInterface::\n 1339  y () const\n 1340  {\n ....\n 1342  }\n 1343  \n 1344: lightInterface::y_type& lightInterface::\n 1345  y ()\n 1346  {\n ....\n 1348  }\n 1349  \n 1350: void lightInterface::\n 1351  y (const y_type& x)\n 1352  {\n ....\n 1354  }\n 1355  \n 1356: const lightInterface::z_type& lightInterface::\n 1357  z () const\n 1358  {\n ....\n 1360  }\n 1361  \n 1362: lightInterface::z_type& lightInterface::\n 1363  z ()\n 1364  {\n ....\n 1366  }\n 1367  \n 1368: void lightInterface::\n 1369  z (const z_type& x)\n 1370  {\n ....\n 1599  : ::xml_schema::type (),\n 1600    camera_ (::xml_schema::flags (), this),\n 1601:   light_ (::xml_schema::flags (), this),\n 1602    sphere_ (::xml_schema::flags (), this),\n 1603    elipsoid_ (::xml_schema::flags (), this),\n ....\n 1624  : ::xml_schema::type (x, f, c),\n 1625    camera_ (x.camera_, f, this),\n 1626:   light_ (x.light_, f, this),\n 1627    sphere_ (x.sphere_, f, this),\n 1628    elipsoid_ (x.elipsoid_, f, this),\n ....\n 1649  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),\n 1650    camera_ (f, this),\n 1651:   light_ (f, this),\n 1652    sphere_ (f, this),\n 1653    elipsoid_ (f, this),\n ....\n 1694      }\n 1695  \n 1696:     // light\n 1697      //\n 1698:     if (n.name () == \"light\" && n.namespace_ ().empty ())\n 1699      {\n 1700:       ::std::auto_ptr< light_type > r (\n 1701:         light_traits::create (i, f, this));\n 1702  \n 1703:       this->light_.push_back (r);\n 1704        continue;\n 1705      }\n ....\n 2891  }\n 2892  \n 2893: // lightInterface\n 2894  //\n 2895  \n 2896: lightInterface::\n 2897: lightInterface (const id_type& id,\n 2898                  const r_type& r,\n 2899                  const x_type& x,\n ....\n 2909  }\n 2910  \n 2911: lightInterface::\n 2912: lightInterface (const lightInterface& x,\n 2913                  ::xml_schema::flags f,\n 2914                  ::xml_schema::container* c)\n ....\n 2922  }\n 2923  \n 2924: lightInterface::\n 2925: lightInterface (const ::xercesc::DOMElement& e,\n 2926                  ::xml_schema::flags f,\n 2927                  ::xml_schema::container* c)\n ....\n 2940  }\n 2941  \n 2942: void lightInterface::\n 2943  parse (::xsd::cxx::xml::dom::parser< char >& p,\n 2944         ::xml_schema::flags f)\n ....\n 3024  }\n 3025  \n 3026: lightInterface* lightInterface::\n 3027  _clone (::xml_schema::flags f,\n 3028          ::xml_schema::container* c) const\n 3029  {\n 3030:   return new class lightInterface (*this, f, c);\n 3031  }\n 3032  \n 3033: lightInterface::\n 3034: ~lightInterface ()\n 3035  {\n 3036  }\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/XMLParser/scene.hxx:\n  230  class elipsoidInterface;\n  231  class planeInterface;\n  232: class lightInterface;\n  233  class tween;\n  234  class type;\n  ...\n  268    camera (const camera_sequence& s);\n  269  \n  270:   // light\n  271    // \n  272:   typedef ::lightInterface light_type;\n  273:   typedef ::xsd::cxx::tree::sequence< light_type > light_sequence;\n  274:   typedef light_sequence::iterator light_iterator;\n  275:   typedef light_sequence::const_iterator light_const_iterator;\n  276:   typedef ::xsd::cxx::tree::traits< light_type, char > light_traits;\n  277  \n  278:   const light_sequence&\n  279:   light () const;\n  280  \n  281:   light_sequence&\n  282:   light ();\n  283  \n  284    void\n  285:   light (const light_sequence& s);\n  286  \n  287    // sphere\n  ...\n  559    protected:\n  560    camera_sequence camera_;\n  561:   light_sequence light_;\n  562    sphere_sequence sphere_;\n  563    elipsoid_sequence elipsoid_;\n  ...\n 1474  };\n 1475  \n 1476: class lightInterface: public ::colorInterface\n 1477  {\n 1478    public:\n ....\n 1552    // Constructors.\n 1553    //\n 1554:   lightInterface (const id_type&,\n 1555                    const r_type&,\n 1556                    const x_type&,\n ....\n 1558                    const z_type&);\n 1559  \n 1560:   lightInterface (const ::xercesc::DOMElement& e,\n 1561                    ::xml_schema::flags f = 0,\n 1562                    ::xml_schema::container* c = 0);\n 1563  \n 1564:   lightInterface (const lightInterface& x,\n 1565                    ::xml_schema::flags f = 0,\n 1566                    ::xml_schema::container* c = 0);\n 1567  \n 1568:   virtual lightInterface*\n 1569    _clone (::xml_schema::flags f = 0,\n 1570            ::xml_schema::container* c = 0) const;\n 1571  \n 1572    virtual \n 1573:   ~lightInterface ();\n 1574  \n 1575    // Implementation.\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/XMLParser/scene.xsd:\n    7  		<xs:choice maxOccurs=\"unbounded\" minOccurs=\"0\">\n    8  			<xs:element name=\"camera\" type=\"cameraInterface\" maxOccurs=\"1\" minOccurs=\"1\" />\n    9: 			<xs:element name=\"light\" type=\"lightInterface\"/>\n   10  			<xs:element name=\"sphere\" type=\"sphereInterface\"/>\n   11  			<xs:element name=\"elipsoid\" type=\"elipsoidInterface\"/>\n   ..\n   89  	</xs:complexType>\n   90  \n   91: 	<xs:complexType name=\"lightInterface\">\n   92  		<xs:complexContent>\n   93  			<xs:extension base=\"colorInterface\">\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/scena (kopia).txt:\n  111  	l.diffuse[0] = 0.1; l.diffuse[1] = 0.1; l.diffuse[2] = 0.1;\n  112  	l.specular[0] = 0.1; l.specular[1] = 0.2; l.specular[2] = 0.1;\n  113: 	c.lights.push_back(l);\n  114  	l.r = 3;\n  115  	l.position[0] = -10.0; l.position[1] = 12.0; l.position[2] = -10.0;\n  ...\n  117  	l.diffuse[0] = 0.0; l.diffuse[1] = 0.0; l.diffuse[2] = 1.0;\n  118  	l.specular[0] = 1.0; l.specular[1] = 1.0; l.specular[2] = 1.0;\n  119: 	c.lights.push_back(l);\n  120  \n  121  	l.r = 7;\n  ...\n  124  	l.diffuse[0] = 0.0; l.diffuse[1] = 0.0; l.diffuse[2] = 1.0;\n  125  	l.specular[0] = 1.0; l.specular[1] = 1.0; l.specular[2] = 1.0;\n  126: 	c.lights.push_back(l);\n  127  \n  128  	l.r = 0.11;\n  ...\n  131  	l.diffuse[0] = 0.1; l.diffuse[1] = 0.1; l.diffuse[2] = 1.0;\n  132  	l.specular[0] = 1.0; l.specular[1] = 1.0; l.specular[2] = 1.0;\n  133: 	c.lights.push_back(l);\n  134  \n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/scena.txt:\n  111  	l.diffuse[0] = 0.1; l.diffuse[1] = 0.1; l.diffuse[2] = 0.1;\n  112  	l.specular[0] = 0.1; l.specular[1] = 0.2; l.specular[2] = 0.1;\n  113: 	c.lights.push_back(l);\n  114  	l.r = 3;\n  115  	l.position[0] = -10.0; l.position[1] = 12.0; l.position[2] = -10.0;\n  ...\n  117  	l.diffuse[0] = 0.0; l.diffuse[1] = 0.0; l.diffuse[2] = 1.0;\n  118  	l.specular[0] = 1.0; l.specular[1] = 1.0; l.specular[2] = 1.0;\n  119: 	c.lights.push_back(l);\n  120  \n  121  	l.r = 7;\n  ...\n  124  	l.diffuse[0] = 0.0; l.diffuse[1] = 0.0; l.diffuse[2] = 1.0;\n  125  	l.specular[0] = 1.0; l.specular[1] = 1.0; l.specular[2] = 1.0;\n  126: 	c.lights.push_back(l);\n  127  \n  128  	l.r = 0.11;\n  ...\n  131  	l.diffuse[0] = 0.1; l.diffuse[1] = 0.1; l.diffuse[2] = 1.0;\n  132  	l.specular[0] = 1.0; l.specular[1] = 1.0; l.specular[2] = 1.0;\n  133: 	c.lights.push_back(l);\n  134  \n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/scene.xsd:\n    7  		<xs:choice maxOccurs=\"unbounded\" minOccurs=\"0\">\n    8  			<xs:element name=\"camera\" type=\"cameraInterface\" maxOccurs=\"1\" minOccurs=\"1\" />\n    9: 			<xs:element name=\"light\" type=\"lightInterface\"/>\n   10  			<xs:element name=\"sphere\" type=\"sphereInterface\"/>\n   11  			<xs:element name=\"elipsoid\" type=\"elipsoidInterface\"/>\n   ..\n   89  	</xs:complexType>\n   90  \n   91: 	<xs:complexType name=\"lightInterface\">\n   92  		<xs:complexContent>\n   93  			<xs:extension base=\"colorInterface\">\n\n201 matches across 14 files\n\n\nSearching 36 files for \"+=\" (case sensitive)\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Raytracer.cpp:\n   28  	tmp = (p[1]-context->lights[objectId].position[1]);\n   29  	tmp *= tmp;\n   30: 	c += tmp;\n   31  	tmp = (p[2]-context->lights[objectId].position[2]);\n   32  	tmp *= tmp;\n   33: 	c += tmp;\n   34  	c -= context->lights[objectId].r*context->lights[objectId].r;\n   35  	float delta = b*b - 4*a*c;\n   ..\n   84  		float NdotL = dotProduct(n, L);\n   85  		if(NdotL > 0) {\n   86: 		  tmpC[0] += context->spheres[objectId].diffuse[0]*context->lights[Li].diffuse[0]*NdotL;\n   87: 		  tmpC[1] += context->spheres[objectId].diffuse[1]*context->lights[Li].diffuse[1]*NdotL;\n   88: 		  tmpC[2] += context->spheres[objectId].diffuse[2]*context->lights[Li].diffuse[2]*NdotL;\n   89  		}\n   90  		float dist = Fatt(lightLen);\n   ..\n  107  	  int lightCnt = singlePhongColors.size();\n  108  	  for(int i = 0; i < lightCnt; ++i) {\n  109: 		ret[0] += singlePhongColors[i].R;\n  110: 		ret[1] += singlePhongColors[i].G;\n  111: 		  ret[2] += singlePhongColors[i].B;\n  112  	  }\n  113  	  if(lightCnt > 0) {\n  114: 		ret[0] += (ambientSum[0]/lightCnt)*context->spheres[objectId].ambient[0];\n  115: 		ret[1] += (ambientSum[1]/lightCnt)*context->spheres[objectId].ambient[1];\n  116: 		ret[2] += (ambientSum[2]/lightCnt)*context->spheres[objectId].ambient[2];\n  117  	  }\n  118  }\n  ...\n  127  	tmp = (p[1]-context->spheres[objectId].position[1]);\n  128  	tmp *= tmp;\n  129: 	c += tmp;\n  130  	tmp = (p[2]-context->spheres[objectId].position[2]);\n  131  	tmp *= tmp;\n  132: 	c += tmp;\n  133  	c -= context->spheres[objectId].r*context->spheres[objectId].r;\n  134  	float delta = b*b - 4*a*c;\n  ...\n  197  	int i;\n  198  	for(i=0; i<3; ++i)\n  199: 		d+=p[i]*p[i];\n  200  	d=sqrt(d);\n  201  	if(d>0.0)\n  ...\n  322  \n  323  					Trace(starting_point, starting_direction, 0, tmpPixel);\n  324: 					pixel[0] += tmpPixel[0];\n  325: 					pixel[1] += tmpPixel[1];\n  326: 					pixel[2] += tmpPixel[2];\n  327              //	}\n  328              //}\n\n/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/ImageCreator.cpp:\n   36  			unsigned char b = round((pixels[cI+2] > 1.0 ? 1.0 : pixels[cI+2])*255);\n   37  			image[y][x] =  png::rgb_pixel(r, g, b);\n   38: 			cI += 3;\n   39  			// cout<<cI<<endl;\n   40  		}\n\n18 matches across 2 files\n",
+			"settings":
+			{
+				"buffer_size": 23506,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "src/Utils/Frame.cpp",
+			"settings":
+			{
+				"buffer_size": 1888,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Utils/Part.hpp",
+			"settings":
+			{
+				"buffer_size": 867,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Cluster/Slave.cpp",
+			"settings":
+			{
+				"buffer_size": 769,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "CMakeLists.txt",
+			"settings":
+			{
+				"buffer_size": 1219,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BlackWhite2B.txt",
+			"settings":
+			{
+				"buffer_size": 2796,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 54.0,
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"",
+				"Bookmarks: Select Next"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/MovieCreator.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Part.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/ImageCreator.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Frame.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Client.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/Master.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/MovieCreator.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Part.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/main.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/Master.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Client.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/BlackWhiteMovingLight2B.txt",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/CMakeLists.txt",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/BlackWhite2B.txt",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/Slave.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/Slave.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/WorkerObject.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Raytracer.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/FramesManager.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Frame.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/ImageCreator.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/Makefile",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/FramesManager.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/SqlModule/SqlReader.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/WorkerObject.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/core",
+		"/home/ssteku/Dokumenty/Semestr 6/Aplikacje siec i rozpr/aiir/cluster/MPI/Master.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Context.h",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/ContextWrapper.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/SqlModule/SqlReader.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/XMLParser/scene.hxx",
+		"/usr/include/c++/4.6.3/parallel/partial_sum.h",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Task.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Interface/IObserver.hpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/scena (kopia).txt",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Exec.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Exec.h",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/ImagesToAvi.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/ImagesToAvi.h",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/XMLParser/scene.cxx",
+		"/etc/profile",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/main.cpp",
+		"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/Debug/makefile",
+		"/home/ssteku/Dokumenty/Semestr 6/Aplikacje siec i rozpr/aiir/cluster/MPI/makefile",
+		"/home/ssteku/.config/sublime-text-2/Packages/Camaleon/Camaleon.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src",
+			"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils",
+			"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src",
+			"/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"+=",
+			"light",
+			"unlock",
+			"c.spheres[4]",
+			"l",
+			"mpiLock",
+			"clientReleased",
+			"unlock",
+			"s",
+			"releaseClient",
+			"tasks",
+			"movieCreator",
+			"(*(results.get()))",
+			"((*(results.get()))",
+			"pixels",
+			"results",
+			"pixels",
+			"(*pixels)",
+			" (*pixels)[",
+			"(*pixels)",
+			"cI",
+			" (*pixels)[",
+			"(*pixels)",
+			"dimension[0]",
+			"dimension",
+			"dimension[0]",
+			"dimension",
+			"dimension[0]",
+			"Frame",
+			"getNumber",
+			"clientMutex",
+			"mutex",
+			"task",
+			"Frame manager started",
+			"io_mutex",
+			"partQueue",
+			"TODO",
+			"saveToImage",
+			"diemension",
+			"getContext()->window[1][1] :",
+			"results",
+			"currentContext",
+			"frameId",
+			"releaseClient",
+			"getPart",
+			"*@brief",
+			"Frame",
+			"getContext().",
+			"window",
+			"->window",
+			"search",
+			"binary_search",
+			"algorithm",
+			"currentContext",
+			"partLength",
+			"currentContext",
+			"currentTask",
+			"currentContext",
+			"currentTask",
+			"reader",
+			"observer",
+			"notify",
+			"SQLREADER",
+			"IOBSERVER",
+			"WORKEROBJECT",
+			"results",
+			"++",
+			"imageNumber",
+			"int",
+			"m_argv",
+			"exec",
+			"bmp",
+			"total_milliseconds",
+			"c",
+			"observer",
+			"task",
+			";\n",
+			"Trace",
+			"createAviFilm",
+			"MovieCreator",
+			"imageWriter",
+			"ImageWriter",
+			"IMAGEWRITER",
+			"ImageWriter",
+			"IMAGEWRITER",
+			"std::",
+			"MPI_Type_indexed",
+			"ClusterRendering_SOURCES",
+			"Foo"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"pixels",
+			"results",
+			"(*(pixels.get()))"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/SqlModule/SqlReader.cpp",
+					"settings":
+					{
+						"buffer_size": 8991,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3555,
+								3555
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1980.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/Utils/FramesManager.cpp",
+					"settings":
+					{
+						"buffer_size": 6051,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3918,
+								3918
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3006.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"settings":
+					{
+						"buffer_size": 6176,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6176,
+								6176
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 677.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"settings":
+					{
+						"buffer_size": 23506,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										343,
+										349
+									],
+									[
+										474,
+										480
+									],
+									[
+										749,
+										755
+									],
+									[
+										1090,
+										1095
+									],
+									[
+										1375,
+										1380
+									],
+									[
+										1449,
+										1454
+									],
+									[
+										1480,
+										1485
+									],
+									[
+										1518,
+										1523
+									],
+									[
+										1823,
+										1828
+									],
+									[
+										1875,
+										1880
+									],
+									[
+										1927,
+										1932
+									],
+									[
+										1994,
+										1999
+									],
+									[
+										2097,
+										2102
+									],
+									[
+										2195,
+										2200
+									],
+									[
+										2286,
+										2291
+									],
+									[
+										2314,
+										2319
+									],
+									[
+										2525,
+										2530
+									],
+									[
+										2563,
+										2568
+									],
+									[
+										2595,
+										2600
+									],
+									[
+										2629,
+										2634
+									],
+									[
+										2735,
+										2740
+									],
+									[
+										2785,
+										2790
+									],
+									[
+										2835,
+										2840
+									],
+									[
+										3068,
+										3073
+									],
+									[
+										3188,
+										3193
+									],
+									[
+										3244,
+										3249
+									],
+									[
+										3300,
+										3305
+									],
+									[
+										3477,
+										3482
+									],
+									[
+										3500,
+										3505
+									],
+									[
+										3654,
+										3659
+									],
+									[
+										3917,
+										3922
+									],
+									[
+										4016,
+										4021
+									],
+									[
+										4115,
+										4120
+									],
+									[
+										4291,
+										4296
+									],
+									[
+										4389,
+										4394
+									],
+									[
+										4487,
+										4492
+									],
+									[
+										4554,
+										4559
+									],
+									[
+										4685,
+										4690
+									],
+									[
+										4742,
+										4747
+									],
+									[
+										4799,
+										4804
+									],
+									[
+										5064,
+										5069
+									],
+									[
+										5130,
+										5135
+									],
+									[
+										5303,
+										5308
+									],
+									[
+										5353,
+										5358
+									],
+									[
+										5436,
+										5441
+									],
+									[
+										5519,
+										5524
+									],
+									[
+										5731,
+										5736
+									],
+									[
+										5789,
+										5794
+									],
+									[
+										5827,
+										5832
+									],
+									[
+										5866,
+										5871
+									],
+									[
+										5928,
+										5933
+									],
+									[
+										5966,
+										5971
+									],
+									[
+										6005,
+										6010
+									],
+									[
+										6066,
+										6071
+									],
+									[
+										6104,
+										6109
+									],
+									[
+										6143,
+										6148
+									],
+									[
+										6352,
+										6357
+									],
+									[
+										6515,
+										6520
+									],
+									[
+										6553,
+										6558
+									],
+									[
+										6591,
+										6596
+									],
+									[
+										6911,
+										6916
+									],
+									[
+										7294,
+										7299
+									],
+									[
+										7571,
+										7576
+									],
+									[
+										7840,
+										7845
+									],
+									[
+										8041,
+										8046
+									],
+									[
+										8245,
+										8250
+									],
+									[
+										8322,
+										8327
+									],
+									[
+										8353,
+										8358
+									],
+									[
+										8391,
+										8396
+									],
+									[
+										8627,
+										8632
+									],
+									[
+										8795,
+										8800
+									],
+									[
+										9198,
+										9203
+									],
+									[
+										9254,
+										9259
+									],
+									[
+										9509,
+										9514
+									],
+									[
+										9669,
+										9674
+									],
+									[
+										9697,
+										9702
+									],
+									[
+										9724,
+										9729
+									],
+									[
+										9780,
+										9785
+									],
+									[
+										9826,
+										9831
+									],
+									[
+										9873,
+										9878
+									],
+									[
+										9920,
+										9925
+									],
+									[
+										9987,
+										9992
+									],
+									[
+										10044,
+										10049
+									],
+									[
+										10093,
+										10098
+									],
+									[
+										10144,
+										10149
+									],
+									[
+										10214,
+										10219
+									],
+									[
+										10263,
+										10268
+									],
+									[
+										10314,
+										10319
+									],
+									[
+										10384,
+										10389
+									],
+									[
+										10434,
+										10439
+									],
+									[
+										10486,
+										10491
+									],
+									[
+										10557,
+										10562
+									],
+									[
+										10625,
+										10630
+									],
+									[
+										10662,
+										10667
+									],
+									[
+										10679,
+										10684
+									],
+									[
+										10809,
+										10814
+									],
+									[
+										11033,
+										11038
+									],
+									[
+										11061,
+										11066
+									],
+									[
+										11088,
+										11093
+									],
+									[
+										11291,
+										11296
+									],
+									[
+										11315,
+										11320
+									],
+									[
+										11531,
+										11536
+									],
+									[
+										11675,
+										11680
+									],
+									[
+										11699,
+										11704
+									],
+									[
+										12249,
+										12254
+									],
+									[
+										12289,
+										12294
+									],
+									[
+										12335,
+										12340
+									],
+									[
+										12383,
+										12388
+									],
+									[
+										12423,
+										12428
+									],
+									[
+										12463,
+										12468
+									],
+									[
+										12524,
+										12529
+									],
+									[
+										12537,
+										12542
+									],
+									[
+										12580,
+										12585
+									],
+									[
+										12641,
+										12646
+									],
+									[
+										12688,
+										12693
+									],
+									[
+										12713,
+										12718
+									],
+									[
+										12788,
+										12793
+									],
+									[
+										12813,
+										12818
+									],
+									[
+										12887,
+										12892
+									],
+									[
+										12977,
+										12982
+									],
+									[
+										13080,
+										13085
+									],
+									[
+										13104,
+										13109
+									],
+									[
+										13178,
+										13183
+									],
+									[
+										13202,
+										13207
+									],
+									[
+										13275,
+										13280
+									],
+									[
+										13364,
+										13369
+									],
+									[
+										13388,
+										13393
+									],
+									[
+										13462,
+										13467
+									],
+									[
+										13486,
+										13491
+									],
+									[
+										13559,
+										13564
+									],
+									[
+										13648,
+										13653
+									],
+									[
+										13672,
+										13677
+									],
+									[
+										13746,
+										13751
+									],
+									[
+										13770,
+										13775
+									],
+									[
+										13843,
+										13848
+									],
+									[
+										13932,
+										13937
+									],
+									[
+										13956,
+										13961
+									],
+									[
+										14030,
+										14035
+									],
+									[
+										14054,
+										14059
+									],
+									[
+										14127,
+										14132
+									],
+									[
+										14276,
+										14281
+									],
+									[
+										14508,
+										14513
+									],
+									[
+										14518,
+										14523
+									],
+									[
+										14728,
+										14733
+									],
+									[
+										14845,
+										14850
+									],
+									[
+										14894,
+										14899
+									],
+									[
+										14973,
+										14978
+									],
+									[
+										15005,
+										15010
+									],
+									[
+										15068,
+										15073
+									],
+									[
+										15159,
+										15164
+									],
+									[
+										15199,
+										15204
+									],
+									[
+										15223,
+										15228
+									],
+									[
+										15368,
+										15373
+									],
+									[
+										15392,
+										15397
+									],
+									[
+										15414,
+										15419
+									],
+									[
+										15560,
+										15565
+									],
+									[
+										15584,
+										15589
+									],
+									[
+										15764,
+										15769
+									],
+									[
+										15903,
+										15908
+									],
+									[
+										15919,
+										15924
+									],
+									[
+										16058,
+										16063
+									],
+									[
+										16112,
+										16117
+									],
+									[
+										16137,
+										16142
+									],
+									[
+										16338,
+										16343
+									],
+									[
+										16463,
+										16468
+									],
+									[
+										16501,
+										16506
+									],
+									[
+										16516,
+										16521
+									],
+									[
+										16573,
+										16578
+									],
+									[
+										16586,
+										16591
+									],
+									[
+										16619,
+										16624
+									],
+									[
+										16644,
+										16649
+									],
+									[
+										16677,
+										16682
+									],
+									[
+										16708,
+										16713
+									],
+									[
+										16773,
+										16778
+									],
+									[
+										16792,
+										16797
+									],
+									[
+										16829,
+										16834
+									],
+									[
+										16854,
+										16859
+									],
+									[
+										16887,
+										16892
+									],
+									[
+										16912,
+										16917
+									],
+									[
+										16953,
+										16958
+									],
+									[
+										16966,
+										16971
+									],
+									[
+										17082,
+										17087
+									],
+									[
+										17097,
+										17102
+									],
+									[
+										17214,
+										17219
+									],
+									[
+										17333,
+										17338
+									],
+									[
+										17509,
+										17514
+									],
+									[
+										17684,
+										17689
+									],
+									[
+										17706,
+										17711
+									],
+									[
+										17860,
+										17865
+									],
+									[
+										18012,
+										18017
+									],
+									[
+										18333,
+										18338
+									],
+									[
+										18346,
+										18351
+									],
+									[
+										18560,
+										18565
+									],
+									[
+										18891,
+										18896
+									],
+									[
+										19160,
+										19165
+									],
+									[
+										19361,
+										19366
+									],
+									[
+										19565,
+										19570
+									],
+									[
+										19824,
+										19829
+									],
+									[
+										20093,
+										20098
+									],
+									[
+										20294,
+										20299
+									],
+									[
+										20498,
+										20503
+									],
+									[
+										20783,
+										20788
+									],
+									[
+										20796,
+										20801
+									],
+									[
+										21010,
+										21015
+									],
+									[
+										21364,
+										21366
+									],
+									[
+										21462,
+										21464
+									],
+									[
+										21666,
+										21668
+									],
+									[
+										21764,
+										21766
+									],
+									[
+										21862,
+										21864
+									],
+									[
+										22109,
+										22111
+									],
+									[
+										22152,
+										22154
+									],
+									[
+										22197,
+										22199
+									],
+									[
+										22281,
+										22283
+									],
+									[
+										22364,
+										22366
+									],
+									[
+										22447,
+										22449
+									],
+									[
+										22632,
+										22634
+									],
+									[
+										22731,
+										22733
+									],
+									[
+										22904,
+										22906
+									],
+									[
+										23057,
+										23059
+									],
+									[
+										23094,
+										23096
+									],
+									[
+										23131,
+										23133
+									],
+									[
+										23433,
+										23435
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								23409,
+								23409
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 4,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 646.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/Utils/Frame.cpp",
+					"settings":
+					{
+						"buffer_size": 1888,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1512,
+								1512
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 138.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/Utils/Part.hpp",
+					"settings":
+					{
+						"buffer_size": 867,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								563,
+								563
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/Cluster/Slave.cpp",
+					"settings":
+					{
+						"buffer_size": 769,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								563,
+								563
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "CMakeLists.txt",
+					"settings":
+					{
+						"buffer_size": 1219,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								36,
+								36
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CMake/CMake.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "src/BlackWhite2B.txt",
+					"settings":
+					{
+						"buffer_size": 2796,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2796,
+								2796
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 124.0
+	},
+	"replace":
+	{
+		"height": 72.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"e",
+				"src/Utils/Exec.cpp"
+			],
+			[
+				"exe",
+				"src/Utils/Exec.cpp"
+			],
+			[
+				"",
+				"in"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 256.0,
+	"status_bar_visible": true
+}
