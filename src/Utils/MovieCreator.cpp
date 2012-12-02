@@ -23,20 +23,11 @@ void MovieCreator::createMovie(int taskId)
 	
 	command = 	commStream.str();
 	cout<<"Executing command : "<<command<<endl;
-	system(command.c_str());
-
-	executeVideoConverter();
-	
-
-	//avconv -i images/0/image-%03d.png -y -r 20 -f flv movies/0.avi
-}
+	if(0 != system(command.c_str()))
+	{
+		cout<<"Command system during movie generation returned error code !"<<endl;
+	}
 
 
-void MovieCreator::manageWork()
-{
-}
-
-void MovieCreator::executeVideoConverter()
-{
 }
 

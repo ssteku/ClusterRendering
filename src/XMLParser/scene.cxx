@@ -36,7 +36,7 @@
 //
 // End prologue.
 
-#include <cxx/pre.hxx>
+#include <xsd/cxx/pre.hxx>
 
 #include "scene.hxx"
 
@@ -97,24 +97,6 @@ sphere (const sphere_sequence& s)
   this->sphere_ = s;
 }
 
-const sceneInterface::elipsoid_sequence& sceneInterface::
-elipsoid () const
-{
-  return this->elipsoid_;
-}
-
-sceneInterface::elipsoid_sequence& sceneInterface::
-elipsoid ()
-{
-  return this->elipsoid_;
-}
-
-void sceneInterface::
-elipsoid (const elipsoid_sequence& s)
-{
-  this->elipsoid_ = s;
-}
-
 const sceneInterface::plane_sequence& sceneInterface::
 plane () const
 {
@@ -131,6 +113,42 @@ void sceneInterface::
 plane (const plane_sequence& s)
 {
   this->plane_ = s;
+}
+
+const sceneInterface::box_sequence& sceneInterface::
+box () const
+{
+  return this->box_;
+}
+
+sceneInterface::box_sequence& sceneInterface::
+box ()
+{
+  return this->box_;
+}
+
+void sceneInterface::
+box (const box_sequence& s)
+{
+  this->box_ = s;
+}
+
+const sceneInterface::triangle_sequence& sceneInterface::
+triangle () const
+{
+  return this->triangle_;
+}
+
+sceneInterface::triangle_sequence& sceneInterface::
+triangle ()
+{
+  return this->triangle_;
+}
+
+void sceneInterface::
+triangle (const triangle_sequence& s)
+{
+  this->triangle_ = s;
 }
 
 const sceneInterface::frames_type& sceneInterface::
@@ -197,6 +215,30 @@ sceneInterface::height_type sceneInterface::
 height_default_value ()
 {
   return height_type (600LL);
+}
+
+const sceneInterface::fps_type& sceneInterface::
+fps () const
+{
+  return this->fps_.get ();
+}
+
+sceneInterface::fps_type& sceneInterface::
+fps ()
+{
+  return this->fps_.get ();
+}
+
+void sceneInterface::
+fps (const fps_type& x)
+{
+  this->fps_.set (x);
+}
+
+sceneInterface::fps_type sceneInterface::
+fps_default_value ()
+{
+  return fps_type (24LL);
 }
 
 const sceneInterface::w_type& sceneInterface::
@@ -395,6 +437,30 @@ sceneInterface::glblue_type sceneInterface::
 glblue_default_value ()
 {
   return glblue_type (.5F);
+}
+
+const sceneInterface::antyalias_type& sceneInterface::
+antyalias () const
+{
+  return this->antyalias_.get ();
+}
+
+sceneInterface::antyalias_type& sceneInterface::
+antyalias ()
+{
+  return this->antyalias_.get ();
+}
+
+void sceneInterface::
+antyalias (const antyalias_type& x)
+{
+  this->antyalias_.set (x);
+}
+
+sceneInterface::antyalias_type sceneInterface::
+antyalias_default_value ()
+{
+  return antyalias_type (2LL);
 }
 
 
@@ -1040,7 +1106,79 @@ n (const n_type& x)
 objectInterface::n_type objectInterface::
 n_default_value ()
 {
-  return n_type (200LL);
+  return n_type (.5F);
+}
+
+const objectInterface::phongN_type& objectInterface::
+phongN () const
+{
+  return this->phongN_.get ();
+}
+
+objectInterface::phongN_type& objectInterface::
+phongN ()
+{
+  return this->phongN_.get ();
+}
+
+void objectInterface::
+phongN (const phongN_type& x)
+{
+  this->phongN_.set (x);
+}
+
+objectInterface::phongN_type objectInterface::
+phongN_default_value ()
+{
+  return phongN_type (.9F);
+}
+
+const objectInterface::blinnN_type& objectInterface::
+blinnN () const
+{
+  return this->blinnN_.get ();
+}
+
+objectInterface::blinnN_type& objectInterface::
+blinnN ()
+{
+  return this->blinnN_.get ();
+}
+
+void objectInterface::
+blinnN (const blinnN_type& x)
+{
+  this->blinnN_.set (x);
+}
+
+objectInterface::blinnN_type objectInterface::
+blinnN_default_value ()
+{
+  return blinnN_type (1000.0F);
+}
+
+const objectInterface::uniqshapeid_type& objectInterface::
+uniqshapeid () const
+{
+  return this->uniqshapeid_.get ();
+}
+
+objectInterface::uniqshapeid_type& objectInterface::
+uniqshapeid ()
+{
+  return this->uniqshapeid_.get ();
+}
+
+void objectInterface::
+uniqshapeid (const uniqshapeid_type& x)
+{
+  this->uniqshapeid_.set (x);
+}
+
+objectInterface::uniqshapeid_type objectInterface::
+uniqshapeid_default_value ()
+{
+  return uniqshapeid_type (0LL);
 }
 
 
@@ -1066,209 +1204,267 @@ r (const r_type& x)
 }
 
 
-// elipsoidInterface
-// 
-
-const elipsoidInterface::a_type& elipsoidInterface::
-a () const
-{
-  return this->a_.get ();
-}
-
-elipsoidInterface::a_type& elipsoidInterface::
-a ()
-{
-  return this->a_.get ();
-}
-
-void elipsoidInterface::
-a (const a_type& x)
-{
-  this->a_.set (x);
-}
-
-const elipsoidInterface::b_type& elipsoidInterface::
-b () const
-{
-  return this->b_.get ();
-}
-
-elipsoidInterface::b_type& elipsoidInterface::
-b ()
-{
-  return this->b_.get ();
-}
-
-void elipsoidInterface::
-b (const b_type& x)
-{
-  this->b_.set (x);
-}
-
-const elipsoidInterface::c_type& elipsoidInterface::
-c () const
-{
-  return this->c_.get ();
-}
-
-elipsoidInterface::c_type& elipsoidInterface::
-c ()
-{
-  return this->c_.get ();
-}
-
-void elipsoidInterface::
-c (const c_type& x)
-{
-  this->c_.set (x);
-}
-
-const elipsoidInterface::vx_type& elipsoidInterface::
-vx () const
-{
-  return this->vx_.get ();
-}
-
-elipsoidInterface::vx_type& elipsoidInterface::
-vx ()
-{
-  return this->vx_.get ();
-}
-
-void elipsoidInterface::
-vx (const vx_type& x)
-{
-  this->vx_.set (x);
-}
-
-elipsoidInterface::vx_type elipsoidInterface::
-vx_default_value ()
-{
-  return vx_type (0.0F);
-}
-
-const elipsoidInterface::vy_type& elipsoidInterface::
-vy () const
-{
-  return this->vy_.get ();
-}
-
-elipsoidInterface::vy_type& elipsoidInterface::
-vy ()
-{
-  return this->vy_.get ();
-}
-
-void elipsoidInterface::
-vy (const vy_type& x)
-{
-  this->vy_.set (x);
-}
-
-elipsoidInterface::vy_type elipsoidInterface::
-vy_default_value ()
-{
-  return vy_type (0.0F);
-}
-
-const elipsoidInterface::vz_type& elipsoidInterface::
-vz () const
-{
-  return this->vz_.get ();
-}
-
-elipsoidInterface::vz_type& elipsoidInterface::
-vz ()
-{
-  return this->vz_.get ();
-}
-
-void elipsoidInterface::
-vz (const vz_type& x)
-{
-  this->vz_.set (x);
-}
-
-elipsoidInterface::vz_type elipsoidInterface::
-vz_default_value ()
-{
-  return vz_type (0.0F);
-}
-
-
 // planeInterface
 // 
 
-const planeInterface::vx_type& planeInterface::
-vx () const
+const planeInterface::d_type& planeInterface::
+d () const
 {
-  return this->vx_.get ();
+  return this->d_.get ();
 }
 
-planeInterface::vx_type& planeInterface::
-vx ()
+planeInterface::d_type& planeInterface::
+d ()
 {
-  return this->vx_.get ();
-}
-
-void planeInterface::
-vx (const vx_type& x)
-{
-  this->vx_.set (x);
-}
-
-planeInterface::vx_type planeInterface::
-vx_default_value ()
-{
-  return vx_type (0.0F);
-}
-
-const planeInterface::vy_type& planeInterface::
-vy () const
-{
-  return this->vy_.get ();
-}
-
-planeInterface::vy_type& planeInterface::
-vy ()
-{
-  return this->vy_.get ();
+  return this->d_.get ();
 }
 
 void planeInterface::
-vy (const vy_type& x)
+d (const d_type& x)
 {
-  this->vy_.set (x);
+  this->d_.set (x);
 }
 
-planeInterface::vy_type planeInterface::
-vy_default_value ()
+
+// boxInterface
+// 
+
+const boxInterface::maxx_type& boxInterface::
+maxx () const
 {
-  return vy_type (0.0F);
+  return this->maxx_.get ();
 }
 
-const planeInterface::vz_type& planeInterface::
-vz () const
+boxInterface::maxx_type& boxInterface::
+maxx ()
 {
-  return this->vz_.get ();
+  return this->maxx_.get ();
 }
 
-planeInterface::vz_type& planeInterface::
-vz ()
+void boxInterface::
+maxx (const maxx_type& x)
 {
-  return this->vz_.get ();
+  this->maxx_.set (x);
 }
 
-void planeInterface::
-vz (const vz_type& x)
+const boxInterface::maxy_type& boxInterface::
+maxy () const
 {
-  this->vz_.set (x);
+  return this->maxy_.get ();
 }
 
-planeInterface::vz_type planeInterface::
-vz_default_value ()
+boxInterface::maxy_type& boxInterface::
+maxy ()
 {
-  return vz_type (0.0F);
+  return this->maxy_.get ();
+}
+
+void boxInterface::
+maxy (const maxy_type& x)
+{
+  this->maxy_.set (x);
+}
+
+const boxInterface::maxz_type& boxInterface::
+maxz () const
+{
+  return this->maxz_.get ();
+}
+
+boxInterface::maxz_type& boxInterface::
+maxz ()
+{
+  return this->maxz_.get ();
+}
+
+void boxInterface::
+maxz (const maxz_type& x)
+{
+  this->maxz_.set (x);
+}
+
+
+// triangleInterface
+// 
+
+const triangleInterface::x1_type& triangleInterface::
+x1 () const
+{
+  return this->x1_.get ();
+}
+
+triangleInterface::x1_type& triangleInterface::
+x1 ()
+{
+  return this->x1_.get ();
+}
+
+void triangleInterface::
+x1 (const x1_type& x)
+{
+  this->x1_.set (x);
+}
+
+const triangleInterface::y1_type& triangleInterface::
+y1 () const
+{
+  return this->y1_.get ();
+}
+
+triangleInterface::y1_type& triangleInterface::
+y1 ()
+{
+  return this->y1_.get ();
+}
+
+void triangleInterface::
+y1 (const y1_type& x)
+{
+  this->y1_.set (x);
+}
+
+const triangleInterface::z1_type& triangleInterface::
+z1 () const
+{
+  return this->z1_.get ();
+}
+
+triangleInterface::z1_type& triangleInterface::
+z1 ()
+{
+  return this->z1_.get ();
+}
+
+void triangleInterface::
+z1 (const z1_type& x)
+{
+  this->z1_.set (x);
+}
+
+const triangleInterface::x2_type& triangleInterface::
+x2 () const
+{
+  return this->x2_.get ();
+}
+
+triangleInterface::x2_type& triangleInterface::
+x2 ()
+{
+  return this->x2_.get ();
+}
+
+void triangleInterface::
+x2 (const x2_type& x)
+{
+  this->x2_.set (x);
+}
+
+const triangleInterface::y2_type& triangleInterface::
+y2 () const
+{
+  return this->y2_.get ();
+}
+
+triangleInterface::y2_type& triangleInterface::
+y2 ()
+{
+  return this->y2_.get ();
+}
+
+void triangleInterface::
+y2 (const y2_type& x)
+{
+  this->y2_.set (x);
+}
+
+const triangleInterface::z2_type& triangleInterface::
+z2 () const
+{
+  return this->z2_.get ();
+}
+
+triangleInterface::z2_type& triangleInterface::
+z2 ()
+{
+  return this->z2_.get ();
+}
+
+void triangleInterface::
+z2 (const z2_type& x)
+{
+  this->z2_.set (x);
+}
+
+const triangleInterface::xn_type& triangleInterface::
+xn () const
+{
+  return this->xn_.get ();
+}
+
+triangleInterface::xn_type& triangleInterface::
+xn ()
+{
+  return this->xn_.get ();
+}
+
+void triangleInterface::
+xn (const xn_type& x)
+{
+  this->xn_.set (x);
+}
+
+triangleInterface::xn_type triangleInterface::
+xn_default_value ()
+{
+  return xn_type (0.0F);
+}
+
+const triangleInterface::yn_type& triangleInterface::
+yn () const
+{
+  return this->yn_.get ();
+}
+
+triangleInterface::yn_type& triangleInterface::
+yn ()
+{
+  return this->yn_.get ();
+}
+
+void triangleInterface::
+yn (const yn_type& x)
+{
+  this->yn_.set (x);
+}
+
+triangleInterface::yn_type triangleInterface::
+yn_default_value ()
+{
+  return yn_type (0.0F);
+}
+
+const triangleInterface::zn_type& triangleInterface::
+zn () const
+{
+  return this->zn_.get ();
+}
+
+triangleInterface::zn_type& triangleInterface::
+zn ()
+{
+  return this->zn_.get ();
+}
+
+void triangleInterface::
+zn (const zn_type& x)
+{
+  this->zn_.set (x);
+}
+
+triangleInterface::zn_type triangleInterface::
+zn_default_value ()
+{
+  return zn_type (0.0F);
 }
 
 
@@ -1600,11 +1796,13 @@ sceneInterface (const frames_type& frames,
   camera_ (::xml_schema::flags (), this),
   light_ (::xml_schema::flags (), this),
   sphere_ (::xml_schema::flags (), this),
-  elipsoid_ (::xml_schema::flags (), this),
   plane_ (::xml_schema::flags (), this),
+  box_ (::xml_schema::flags (), this),
+  triangle_ (::xml_schema::flags (), this),
   frames_ (frames, ::xml_schema::flags (), this),
   width_ (width_default_value (), ::xml_schema::flags (), this),
   height_ (height_default_value (), ::xml_schema::flags (), this),
+  fps_ (fps_default_value (), ::xml_schema::flags (), this),
   w_ (w, ::xml_schema::flags (), this),
   h_ (h, ::xml_schema::flags (), this),
   d_ (d, ::xml_schema::flags (), this),
@@ -1613,7 +1811,8 @@ sceneInterface (const frames_type& frames,
   bblue_ (bblue_default_value (), ::xml_schema::flags (), this),
   glred_ (glred_default_value (), ::xml_schema::flags (), this),
   glgreen_ (glgreen_default_value (), ::xml_schema::flags (), this),
-  glblue_ (glblue_default_value (), ::xml_schema::flags (), this)
+  glblue_ (glblue_default_value (), ::xml_schema::flags (), this),
+  antyalias_ (antyalias_default_value (), ::xml_schema::flags (), this)
 {
 }
 
@@ -1625,11 +1824,13 @@ sceneInterface (const sceneInterface& x,
   camera_ (x.camera_, f, this),
   light_ (x.light_, f, this),
   sphere_ (x.sphere_, f, this),
-  elipsoid_ (x.elipsoid_, f, this),
   plane_ (x.plane_, f, this),
+  box_ (x.box_, f, this),
+  triangle_ (x.triangle_, f, this),
   frames_ (x.frames_, f, this),
   width_ (x.width_, f, this),
   height_ (x.height_, f, this),
+  fps_ (x.fps_, f, this),
   w_ (x.w_, f, this),
   h_ (x.h_, f, this),
   d_ (x.d_, f, this),
@@ -1638,7 +1839,8 @@ sceneInterface (const sceneInterface& x,
   bblue_ (x.bblue_, f, this),
   glred_ (x.glred_, f, this),
   glgreen_ (x.glgreen_, f, this),
-  glblue_ (x.glblue_, f, this)
+  glblue_ (x.glblue_, f, this),
+  antyalias_ (x.antyalias_, f, this)
 {
 }
 
@@ -1650,11 +1852,13 @@ sceneInterface (const ::xercesc::DOMElement& e,
   camera_ (f, this),
   light_ (f, this),
   sphere_ (f, this),
-  elipsoid_ (f, this),
   plane_ (f, this),
+  box_ (f, this),
+  triangle_ (f, this),
   frames_ (f, this),
   width_ (f, this),
   height_ (f, this),
+  fps_ (f, this),
   w_ (f, this),
   h_ (f, this),
   d_ (f, this),
@@ -1663,7 +1867,8 @@ sceneInterface (const ::xercesc::DOMElement& e,
   bblue_ (f, this),
   glred_ (f, this),
   glgreen_ (f, this),
-  glblue_ (f, this)
+  glblue_ (f, this),
+  antyalias_ (f, this)
 {
   if ((f & ::xml_schema::flags::base) == 0)
   {
@@ -1715,17 +1920,6 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       continue;
     }
 
-    // elipsoid
-    //
-    if (n.name () == "elipsoid" && n.namespace_ ().empty ())
-    {
-      ::std::auto_ptr< elipsoid_type > r (
-        elipsoid_traits::create (i, f, this));
-
-      this->elipsoid_.push_back (r);
-      continue;
-    }
-
     // plane
     //
     if (n.name () == "plane" && n.namespace_ ().empty ())
@@ -1734,6 +1928,28 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
         plane_traits::create (i, f, this));
 
       this->plane_.push_back (r);
+      continue;
+    }
+
+    // box
+    //
+    if (n.name () == "box" && n.namespace_ ().empty ())
+    {
+      ::std::auto_ptr< box_type > r (
+        box_traits::create (i, f, this));
+
+      this->box_.push_back (r);
+      continue;
+    }
+
+    // triangle
+    //
+    if (n.name () == "triangle" && n.namespace_ ().empty ())
+    {
+      ::std::auto_ptr< triangle_type > r (
+        triangle_traits::create (i, f, this));
+
+      this->triangle_.push_back (r);
       continue;
     }
 
@@ -1761,6 +1977,12 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     if (n.name () == "height" && n.namespace_ ().empty ())
     {
       this->height_.set (height_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "fps" && n.namespace_ ().empty ())
+    {
+      this->fps_.set (fps_traits::create (i, f, this));
       continue;
     }
 
@@ -1817,6 +2039,12 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       this->glblue_.set (glblue_traits::create (i, f, this));
       continue;
     }
+
+    if (n.name () == "antyalias" && n.namespace_ ().empty ())
+    {
+      this->antyalias_.set (antyalias_traits::create (i, f, this));
+      continue;
+    }
   }
 
   if (!frames_.present ())
@@ -1834,6 +2062,11 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
   if (!height_.present ())
   {
     this->height_.set (height_default_value ());
+  }
+
+  if (!fps_.present ())
+  {
+    this->fps_.set (fps_default_value ());
   }
 
   if (!w_.present ())
@@ -1885,6 +2118,11 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
   if (!glblue_.present ())
   {
     this->glblue_.set (glblue_default_value ());
+  }
+
+  if (!antyalias_.present ())
+  {
+    this->antyalias_.set (antyalias_default_value ());
   }
 }
 
@@ -2417,7 +2655,10 @@ objectInterface (const id_type& id,
   x_ (x, ::xml_schema::flags (), this),
   y_ (y, ::xml_schema::flags (), this),
   z_ (z, ::xml_schema::flags (), this),
-  n_ (n_default_value (), ::xml_schema::flags (), this)
+  n_ (n_default_value (), ::xml_schema::flags (), this),
+  phongN_ (phongN_default_value (), ::xml_schema::flags (), this),
+  blinnN_ (blinnN_default_value (), ::xml_schema::flags (), this),
+  uniqshapeid_ (uniqshapeid_default_value (), ::xml_schema::flags (), this)
 {
 }
 
@@ -2430,7 +2671,10 @@ objectInterface (const objectInterface& x,
   x_ (x.x_, f, this),
   y_ (x.y_, f, this),
   z_ (x.z_, f, this),
-  n_ (x.n_, f, this)
+  n_ (x.n_, f, this),
+  phongN_ (x.phongN_, f, this),
+  blinnN_ (x.blinnN_, f, this),
+  uniqshapeid_ (x.uniqshapeid_, f, this)
 {
 }
 
@@ -2443,7 +2687,10 @@ objectInterface (const ::xercesc::DOMElement& e,
   x_ (f, this),
   y_ (f, this),
   z_ (f, this),
-  n_ (f, this)
+  n_ (f, this),
+  phongN_ (f, this),
+  blinnN_ (f, this),
+  uniqshapeid_ (f, this)
 {
   if ((f & ::xml_schema::flags::base) == 0)
   {
@@ -2498,6 +2745,24 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       this->n_.set (n_traits::create (i, f, this));
       continue;
     }
+
+    if (n.name () == "phongN" && n.namespace_ ().empty ())
+    {
+      this->phongN_.set (phongN_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "blinnN" && n.namespace_ ().empty ())
+    {
+      this->blinnN_.set (blinnN_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "uniqshapeid" && n.namespace_ ().empty ())
+    {
+      this->uniqshapeid_.set (uniqshapeid_traits::create (i, f, this));
+      continue;
+    }
   }
 
   if (!id_.present ())
@@ -2531,6 +2796,21 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
   if (!n_.present ())
   {
     this->n_.set (n_default_value ());
+  }
+
+  if (!phongN_.present ())
+  {
+    this->phongN_.set (phongN_default_value ());
+  }
+
+  if (!blinnN_.present ())
+  {
+    this->blinnN_.set (blinnN_default_value ());
+  }
+
+  if (!uniqshapeid_.present ())
+  {
+    this->uniqshapeid_.set (uniqshapeid_default_value ());
   }
 }
 
@@ -2627,163 +2907,6 @@ sphereInterface::
 {
 }
 
-// elipsoidInterface
-//
-
-elipsoidInterface::
-elipsoidInterface (const id_type& id,
-                   const x_type& x,
-                   const y_type& y,
-                   const z_type& z,
-                   const a_type& a,
-                   const b_type& b,
-                   const c_type& c)
-: ::objectInterface (id,
-                     x,
-                     y,
-                     z),
-  a_ (a, ::xml_schema::flags (), this),
-  b_ (b, ::xml_schema::flags (), this),
-  c_ (c, ::xml_schema::flags (), this),
-  vx_ (vx_default_value (), ::xml_schema::flags (), this),
-  vy_ (vy_default_value (), ::xml_schema::flags (), this),
-  vz_ (vz_default_value (), ::xml_schema::flags (), this)
-{
-}
-
-elipsoidInterface::
-elipsoidInterface (const elipsoidInterface& x,
-                   ::xml_schema::flags f,
-                   ::xml_schema::container* c)
-: ::objectInterface (x, f, c),
-  a_ (x.a_, f, this),
-  b_ (x.b_, f, this),
-  c_ (x.c_, f, this),
-  vx_ (x.vx_, f, this),
-  vy_ (x.vy_, f, this),
-  vz_ (x.vz_, f, this)
-{
-}
-
-elipsoidInterface::
-elipsoidInterface (const ::xercesc::DOMElement& e,
-                   ::xml_schema::flags f,
-                   ::xml_schema::container* c)
-: ::objectInterface (e, f | ::xml_schema::flags::base, c),
-  a_ (f, this),
-  b_ (f, this),
-  c_ (f, this),
-  vx_ (f, this),
-  vy_ (f, this),
-  vz_ (f, this)
-{
-  if ((f & ::xml_schema::flags::base) == 0)
-  {
-    ::xsd::cxx::xml::dom::parser< char > p (e, true, true);
-    this->parse (p, f);
-  }
-}
-
-void elipsoidInterface::
-parse (::xsd::cxx::xml::dom::parser< char >& p,
-       ::xml_schema::flags f)
-{
-  this->::objectInterface::parse (p, f);
-
-  p.reset_attributes ();
-
-  while (p.more_attributes ())
-  {
-    const ::xercesc::DOMAttr& i (p.next_attribute ());
-    const ::xsd::cxx::xml::qualified_name< char > n (
-      ::xsd::cxx::xml::dom::name< char > (i));
-
-    if (n.name () == "a" && n.namespace_ ().empty ())
-    {
-      this->a_.set (a_traits::create (i, f, this));
-      continue;
-    }
-
-    if (n.name () == "b" && n.namespace_ ().empty ())
-    {
-      this->b_.set (b_traits::create (i, f, this));
-      continue;
-    }
-
-    if (n.name () == "c" && n.namespace_ ().empty ())
-    {
-      this->c_.set (c_traits::create (i, f, this));
-      continue;
-    }
-
-    if (n.name () == "vx" && n.namespace_ ().empty ())
-    {
-      this->vx_.set (vx_traits::create (i, f, this));
-      continue;
-    }
-
-    if (n.name () == "vy" && n.namespace_ ().empty ())
-    {
-      this->vy_.set (vy_traits::create (i, f, this));
-      continue;
-    }
-
-    if (n.name () == "vz" && n.namespace_ ().empty ())
-    {
-      this->vz_.set (vz_traits::create (i, f, this));
-      continue;
-    }
-  }
-
-  if (!a_.present ())
-  {
-    throw ::xsd::cxx::tree::expected_attribute< char > (
-      "a",
-      "");
-  }
-
-  if (!b_.present ())
-  {
-    throw ::xsd::cxx::tree::expected_attribute< char > (
-      "b",
-      "");
-  }
-
-  if (!c_.present ())
-  {
-    throw ::xsd::cxx::tree::expected_attribute< char > (
-      "c",
-      "");
-  }
-
-  if (!vx_.present ())
-  {
-    this->vx_.set (vx_default_value ());
-  }
-
-  if (!vy_.present ())
-  {
-    this->vy_.set (vy_default_value ());
-  }
-
-  if (!vz_.present ())
-  {
-    this->vz_.set (vz_default_value ());
-  }
-}
-
-elipsoidInterface* elipsoidInterface::
-_clone (::xml_schema::flags f,
-        ::xml_schema::container* c) const
-{
-  return new class elipsoidInterface (*this, f, c);
-}
-
-elipsoidInterface::
-~elipsoidInterface ()
-{
-}
-
 // planeInterface
 //
 
@@ -2791,14 +2914,13 @@ planeInterface::
 planeInterface (const id_type& id,
                 const x_type& x,
                 const y_type& y,
-                const z_type& z)
+                const z_type& z,
+                const d_type& d)
 : ::objectInterface (id,
                      x,
                      y,
                      z),
-  vx_ (vx_default_value (), ::xml_schema::flags (), this),
-  vy_ (vy_default_value (), ::xml_schema::flags (), this),
-  vz_ (vz_default_value (), ::xml_schema::flags (), this)
+  d_ (d, ::xml_schema::flags (), this)
 {
 }
 
@@ -2807,9 +2929,7 @@ planeInterface (const planeInterface& x,
                 ::xml_schema::flags f,
                 ::xml_schema::container* c)
 : ::objectInterface (x, f, c),
-  vx_ (x.vx_, f, this),
-  vy_ (x.vy_, f, this),
-  vz_ (x.vz_, f, this)
+  d_ (x.d_, f, this)
 {
 }
 
@@ -2818,9 +2938,7 @@ planeInterface (const ::xercesc::DOMElement& e,
                 ::xml_schema::flags f,
                 ::xml_schema::container* c)
 : ::objectInterface (e, f | ::xml_schema::flags::base, c),
-  vx_ (f, this),
-  vy_ (f, this),
-  vz_ (f, this)
+  d_ (f, this)
 {
   if ((f & ::xml_schema::flags::base) == 0)
   {
@@ -2843,38 +2961,18 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     const ::xsd::cxx::xml::qualified_name< char > n (
       ::xsd::cxx::xml::dom::name< char > (i));
 
-    if (n.name () == "vx" && n.namespace_ ().empty ())
+    if (n.name () == "d" && n.namespace_ ().empty ())
     {
-      this->vx_.set (vx_traits::create (i, f, this));
-      continue;
-    }
-
-    if (n.name () == "vy" && n.namespace_ ().empty ())
-    {
-      this->vy_.set (vy_traits::create (i, f, this));
-      continue;
-    }
-
-    if (n.name () == "vz" && n.namespace_ ().empty ())
-    {
-      this->vz_.set (vz_traits::create (i, f, this));
+      this->d_.set (d_traits::create (i, f, this));
       continue;
     }
   }
 
-  if (!vx_.present ())
+  if (!d_.present ())
   {
-    this->vx_.set (vx_default_value ());
-  }
-
-  if (!vy_.present ())
-  {
-    this->vy_.set (vy_default_value ());
-  }
-
-  if (!vz_.present ())
-  {
-    this->vz_.set (vz_default_value ());
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "d",
+      "");
   }
 }
 
@@ -2887,6 +2985,329 @@ _clone (::xml_schema::flags f,
 
 planeInterface::
 ~planeInterface ()
+{
+}
+
+// boxInterface
+//
+
+boxInterface::
+boxInterface (const id_type& id,
+              const x_type& x,
+              const y_type& y,
+              const z_type& z,
+              const maxx_type& maxx,
+              const maxy_type& maxy,
+              const maxz_type& maxz)
+: ::objectInterface (id,
+                     x,
+                     y,
+                     z),
+  maxx_ (maxx, ::xml_schema::flags (), this),
+  maxy_ (maxy, ::xml_schema::flags (), this),
+  maxz_ (maxz, ::xml_schema::flags (), this)
+{
+}
+
+boxInterface::
+boxInterface (const boxInterface& x,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::objectInterface (x, f, c),
+  maxx_ (x.maxx_, f, this),
+  maxy_ (x.maxy_, f, this),
+  maxz_ (x.maxz_, f, this)
+{
+}
+
+boxInterface::
+boxInterface (const ::xercesc::DOMElement& e,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::objectInterface (e, f | ::xml_schema::flags::base, c),
+  maxx_ (f, this),
+  maxy_ (f, this),
+  maxz_ (f, this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, true);
+    this->parse (p, f);
+  }
+}
+
+void boxInterface::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  this->::objectInterface::parse (p, f);
+
+  p.reset_attributes ();
+
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "maxx" && n.namespace_ ().empty ())
+    {
+      this->maxx_.set (maxx_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "maxy" && n.namespace_ ().empty ())
+    {
+      this->maxy_.set (maxy_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "maxz" && n.namespace_ ().empty ())
+    {
+      this->maxz_.set (maxz_traits::create (i, f, this));
+      continue;
+    }
+  }
+
+  if (!maxx_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "maxx",
+      "");
+  }
+
+  if (!maxy_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "maxy",
+      "");
+  }
+
+  if (!maxz_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "maxz",
+      "");
+  }
+}
+
+boxInterface* boxInterface::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class boxInterface (*this, f, c);
+}
+
+boxInterface::
+~boxInterface ()
+{
+}
+
+// triangleInterface
+//
+
+triangleInterface::
+triangleInterface (const id_type& id,
+                   const x_type& x,
+                   const y_type& y,
+                   const z_type& z,
+                   const x1_type& x1,
+                   const y1_type& y1,
+                   const z1_type& z1,
+                   const x2_type& x2,
+                   const y2_type& y2,
+                   const z2_type& z2)
+: ::objectInterface (id,
+                     x,
+                     y,
+                     z),
+  x1_ (x1, ::xml_schema::flags (), this),
+  y1_ (y1, ::xml_schema::flags (), this),
+  z1_ (z1, ::xml_schema::flags (), this),
+  x2_ (x2, ::xml_schema::flags (), this),
+  y2_ (y2, ::xml_schema::flags (), this),
+  z2_ (z2, ::xml_schema::flags (), this),
+  xn_ (xn_default_value (), ::xml_schema::flags (), this),
+  yn_ (yn_default_value (), ::xml_schema::flags (), this),
+  zn_ (zn_default_value (), ::xml_schema::flags (), this)
+{
+}
+
+triangleInterface::
+triangleInterface (const triangleInterface& x,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::objectInterface (x, f, c),
+  x1_ (x.x1_, f, this),
+  y1_ (x.y1_, f, this),
+  z1_ (x.z1_, f, this),
+  x2_ (x.x2_, f, this),
+  y2_ (x.y2_, f, this),
+  z2_ (x.z2_, f, this),
+  xn_ (x.xn_, f, this),
+  yn_ (x.yn_, f, this),
+  zn_ (x.zn_, f, this)
+{
+}
+
+triangleInterface::
+triangleInterface (const ::xercesc::DOMElement& e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::objectInterface (e, f | ::xml_schema::flags::base, c),
+  x1_ (f, this),
+  y1_ (f, this),
+  z1_ (f, this),
+  x2_ (f, this),
+  y2_ (f, this),
+  z2_ (f, this),
+  xn_ (f, this),
+  yn_ (f, this),
+  zn_ (f, this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, true);
+    this->parse (p, f);
+  }
+}
+
+void triangleInterface::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  this->::objectInterface::parse (p, f);
+
+  p.reset_attributes ();
+
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "x1" && n.namespace_ ().empty ())
+    {
+      this->x1_.set (x1_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "y1" && n.namespace_ ().empty ())
+    {
+      this->y1_.set (y1_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "z1" && n.namespace_ ().empty ())
+    {
+      this->z1_.set (z1_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "x2" && n.namespace_ ().empty ())
+    {
+      this->x2_.set (x2_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "y2" && n.namespace_ ().empty ())
+    {
+      this->y2_.set (y2_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "z2" && n.namespace_ ().empty ())
+    {
+      this->z2_.set (z2_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "xn" && n.namespace_ ().empty ())
+    {
+      this->xn_.set (xn_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "yn" && n.namespace_ ().empty ())
+    {
+      this->yn_.set (yn_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "zn" && n.namespace_ ().empty ())
+    {
+      this->zn_.set (zn_traits::create (i, f, this));
+      continue;
+    }
+  }
+
+  if (!x1_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "x1",
+      "");
+  }
+
+  if (!y1_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "y1",
+      "");
+  }
+
+  if (!z1_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "z1",
+      "");
+  }
+
+  if (!x2_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "x2",
+      "");
+  }
+
+  if (!y2_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "y2",
+      "");
+  }
+
+  if (!z2_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "z2",
+      "");
+  }
+
+  if (!xn_.present ())
+  {
+    this->xn_.set (xn_default_value ());
+  }
+
+  if (!yn_.present ())
+  {
+    this->yn_.set (yn_default_value ());
+  }
+
+  if (!zn_.present ())
+  {
+    this->zn_.set (zn_default_value ());
+  }
+}
+
+triangleInterface* triangleInterface::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class triangleInterface (*this, f, c);
+}
+
+triangleInterface::
+~triangleInterface ()
 {
 }
 
@@ -3308,11 +3729,11 @@ _xsd_property_convert () const
   ::xsd::cxx::tree::enum_comparator< char > c (_xsd_property_literals_);
   const value* i (::std::lower_bound (
                     _xsd_property_indexes_,
-                    _xsd_property_indexes_ + 25,
+                    _xsd_property_indexes_ + 31,
                     *this,
                     c));
 
-  if (i == _xsd_property_indexes_ + 25 || _xsd_property_literals_[*i] != *this)
+  if (i == _xsd_property_indexes_ + 31 || _xsd_property_literals_[*i] != *this)
   {
     throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
   }
@@ -3321,11 +3742,17 @@ _xsd_property_convert () const
 }
 
 const char* const property::
-_xsd_property_literals_[25] =
+_xsd_property_literals_[31] =
 {
   "x",
   "y",
   "z",
+  "x1",
+  "y1",
+  "z1",
+  "x2",
+  "y2",
+  "z2",
   "vx",
   "vy",
   "vz",
@@ -3351,7 +3778,7 @@ _xsd_property_literals_[25] =
 };
 
 const property::value property::
-_xsd_property_indexes_[25] =
+_xsd_property_indexes_[31] =
 {
   ::property::ablue,
   ::property::agreen,
@@ -3376,8 +3803,14 @@ _xsd_property_indexes_[25] =
   ::property::vz2,
   ::property::vz3,
   ::property::x,
+  ::property::x1,
+  ::property::x2,
   ::property::y,
-  ::property::z
+  ::property::y1,
+  ::property::y2,
+  ::property::z,
+  ::property::z1,
+  ::property::z2
 };
 
 #include <istream>

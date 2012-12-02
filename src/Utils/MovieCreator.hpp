@@ -9,8 +9,6 @@ class MovieCreator
 {
 private:
 	std::string command;
-	virtual void manageWork();
-	virtual void executeVideoConverter();
 public:
 	MovieCreator();
 	~MovieCreator();

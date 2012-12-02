@@ -11,7 +11,7 @@ class Context;
 class Part 
 {
 	boost::shared_ptr<Context> context;
-	boost::function<bool (boost::shared_ptr<std::vector<float> > pixels,const int partNr)> save;
+	boost::function<long (boost::shared_ptr<std::vector<float> > pixels,const int partNr)> save;
 	const unsigned int taskId;
 	const unsigned int partNumber;
 	const unsigned int frameNr;
@@ -20,14 +20,14 @@ class Part
 
 public:
 
-	Part(boost::shared_ptr<Context> cont, boost::function<bool (boost::shared_ptr<std::vector<float> > pixels, 
+	Part(boost::shared_ptr<Context> cont, boost::function<long (boost::shared_ptr<std::vector<float> > pixels, 
 		const int partNr)> s, unsigned int tId,unsigned int partNr,const unsigned int fNr);
 
 	unsigned int getTaskId() const ;
 	unsigned int getPartNumber() const ;
 	unsigned int getFrameNr() const;
 	Context* getContext();	 
-	bool savePart(boost::shared_ptr<std::vector<float> > pixels, const int partNr);
+	long savePart(boost::shared_ptr<std::vector<float> > pixels, const int partNr);
 
 };
 

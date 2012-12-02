@@ -3,6 +3,7 @@
 #include "Slave.hpp"
 
 
+
 namespace mpi = boost::mpi;
 int main(int argc, char* argv[])
 {
@@ -17,6 +18,8 @@ int main(int argc, char* argv[])
 		slave.startBehavior();	
 		slave.join();
 	}
+
+
 	return 0;
 }
 

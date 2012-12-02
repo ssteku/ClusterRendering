@@ -30,14 +30,20 @@ public:
     
     int getFrames();
     
-    void initSceneData(Context &c);
-    void initCameraData(Context &c);
-    void initSphereData(Context &c);
-    void initLightData(Context &c);
+    void initSceneData(Context& c);
+    void initCameraData(Context& c);
+    void initSphereData(Context& c);
+    void initPlaneData(Context& c);
+    void initBoxData(Context& c);
+    void initTriangleData(Context& c);
+
+    void initLightData(Context& c);
     
     void passCameraData(Context &c, int frame);
     void passSphereData(Context &c, int frame);
     void passPlaneData(Context &c, int frame);
+    void passBoxData(Context& c, int frame);
+    void passTriangleData(Context& c, int frame);
     void passLightData(Context &c, int frame);
     
     Context getFrameContext(Context &c, int frame);

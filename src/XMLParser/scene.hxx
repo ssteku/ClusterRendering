@@ -39,7 +39,7 @@
 //
 // End prologue.
 
-#include <cxx/config.hxx>
+#include <xsd/cxx/config.hxx>
 
 #if (XSD_INT_VERSION != 3030000L)
 #error XSD runtime version mismatch
@@ -104,8 +104,8 @@ namespace xml_schema
 
   // 64-bit
   //
-  typedef long long_;
-  typedef unsigned long unsigned_long;
+  typedef long long long_;
+  typedef unsigned long long unsigned_long;
 
   // Supposed to be arbitrary-length integral types.
   //
@@ -227,8 +227,9 @@ class cameraInterface;
 class colorInterface;
 class objectInterface;
 class sphereInterface;
-class elipsoidInterface;
 class planeInterface;
+class boxInterface;
+class triangleInterface;
 class lightInterface;
 class tween;
 class type;
@@ -236,7 +237,7 @@ class property;
 
 #include <memory>    // std::auto_ptr
 #include <limits>    // std::numeric_limits
-#include <parallel/algorithm> // std::binary_search
+#include <algorithm> // std::binary_search
 
 #include <xsd/cxx/xml/char-utf8.hxx>
 
@@ -301,23 +302,6 @@ class sceneInterface: public ::xml_schema::type
   void
   sphere (const sphere_sequence& s);
 
-  // elipsoid
-  // 
-  typedef ::elipsoidInterface elipsoid_type;
-  typedef ::xsd::cxx::tree::sequence< elipsoid_type > elipsoid_sequence;
-  typedef elipsoid_sequence::iterator elipsoid_iterator;
-  typedef elipsoid_sequence::const_iterator elipsoid_const_iterator;
-  typedef ::xsd::cxx::tree::traits< elipsoid_type, char > elipsoid_traits;
-
-  const elipsoid_sequence&
-  elipsoid () const;
-
-  elipsoid_sequence&
-  elipsoid ();
-
-  void
-  elipsoid (const elipsoid_sequence& s);
-
   // plane
   // 
   typedef ::planeInterface plane_type;
@@ -334,6 +318,40 @@ class sceneInterface: public ::xml_schema::type
 
   void
   plane (const plane_sequence& s);
+
+  // box
+  // 
+  typedef ::boxInterface box_type;
+  typedef ::xsd::cxx::tree::sequence< box_type > box_sequence;
+  typedef box_sequence::iterator box_iterator;
+  typedef box_sequence::const_iterator box_const_iterator;
+  typedef ::xsd::cxx::tree::traits< box_type, char > box_traits;
+
+  const box_sequence&
+  box () const;
+
+  box_sequence&
+  box ();
+
+  void
+  box (const box_sequence& s);
+
+  // triangle
+  // 
+  typedef ::triangleInterface triangle_type;
+  typedef ::xsd::cxx::tree::sequence< triangle_type > triangle_sequence;
+  typedef triangle_sequence::iterator triangle_iterator;
+  typedef triangle_sequence::const_iterator triangle_const_iterator;
+  typedef ::xsd::cxx::tree::traits< triangle_type, char > triangle_traits;
+
+  const triangle_sequence&
+  triangle () const;
+
+  triangle_sequence&
+  triangle ();
+
+  void
+  triangle (const triangle_sequence& s);
 
   // frames
   // 
@@ -382,6 +400,23 @@ class sceneInterface: public ::xml_schema::type
 
   static height_type
   height_default_value ();
+
+  // fps
+  // 
+  typedef ::xml_schema::integer fps_type;
+  typedef ::xsd::cxx::tree::traits< fps_type, char > fps_traits;
+
+  const fps_type&
+  fps () const;
+
+  fps_type&
+  fps ();
+
+  void
+  fps (const fps_type& x);
+
+  static fps_type
+  fps_default_value ();
 
   // w
   // 
@@ -527,6 +562,23 @@ class sceneInterface: public ::xml_schema::type
   static glblue_type
   glblue_default_value ();
 
+  // antyalias
+  // 
+  typedef ::xml_schema::integer antyalias_type;
+  typedef ::xsd::cxx::tree::traits< antyalias_type, char > antyalias_traits;
+
+  const antyalias_type&
+  antyalias () const;
+
+  antyalias_type&
+  antyalias ();
+
+  void
+  antyalias (const antyalias_type& x);
+
+  static antyalias_type
+  antyalias_default_value ();
+
   // Constructors.
   //
   sceneInterface (const frames_type&,
@@ -560,11 +612,13 @@ class sceneInterface: public ::xml_schema::type
   camera_sequence camera_;
   light_sequence light_;
   sphere_sequence sphere_;
-  elipsoid_sequence elipsoid_;
   plane_sequence plane_;
+  box_sequence box_;
+  triangle_sequence triangle_;
   ::xsd::cxx::tree::one< frames_type > frames_;
   ::xsd::cxx::tree::one< width_type > width_;
   ::xsd::cxx::tree::one< height_type > height_;
+  ::xsd::cxx::tree::one< fps_type > fps_;
   ::xsd::cxx::tree::one< w_type > w_;
   ::xsd::cxx::tree::one< h_type > h_;
   ::xsd::cxx::tree::one< d_type > d_;
@@ -574,6 +628,7 @@ class sceneInterface: public ::xml_schema::type
   ::xsd::cxx::tree::one< glred_type > glred_;
   ::xsd::cxx::tree::one< glgreen_type > glgreen_;
   ::xsd::cxx::tree::one< glblue_type > glblue_;
+  ::xsd::cxx::tree::one< antyalias_type > antyalias_;
 };
 
 class tweenInterface: public ::xml_schema::type
@@ -1144,7 +1199,7 @@ class objectInterface: public ::colorInterface
 
   // n
   // 
-  typedef ::xml_schema::integer n_type;
+  typedef ::xml_schema::float_ n_type;
   typedef ::xsd::cxx::tree::traits< n_type, char > n_traits;
 
   const n_type&
@@ -1158,6 +1213,57 @@ class objectInterface: public ::colorInterface
 
   static n_type
   n_default_value ();
+
+  // phongN
+  // 
+  typedef ::xml_schema::float_ phongN_type;
+  typedef ::xsd::cxx::tree::traits< phongN_type, char > phongN_traits;
+
+  const phongN_type&
+  phongN () const;
+
+  phongN_type&
+  phongN ();
+
+  void
+  phongN (const phongN_type& x);
+
+  static phongN_type
+  phongN_default_value ();
+
+  // blinnN
+  // 
+  typedef ::xml_schema::float_ blinnN_type;
+  typedef ::xsd::cxx::tree::traits< blinnN_type, char > blinnN_traits;
+
+  const blinnN_type&
+  blinnN () const;
+
+  blinnN_type&
+  blinnN ();
+
+  void
+  blinnN (const blinnN_type& x);
+
+  static blinnN_type
+  blinnN_default_value ();
+
+  // uniqshapeid
+  // 
+  typedef ::xml_schema::integer uniqshapeid_type;
+  typedef ::xsd::cxx::tree::traits< uniqshapeid_type, char > uniqshapeid_traits;
+
+  const uniqshapeid_type&
+  uniqshapeid () const;
+
+  uniqshapeid_type&
+  uniqshapeid ();
+
+  void
+  uniqshapeid (const uniqshapeid_type& x);
+
+  static uniqshapeid_type
+  uniqshapeid_default_value ();
 
   // Constructors.
   //
@@ -1194,6 +1300,9 @@ class objectInterface: public ::colorInterface
   ::xsd::cxx::tree::one< y_type > y_;
   ::xsd::cxx::tree::one< z_type > z_;
   ::xsd::cxx::tree::one< n_type > n_;
+  ::xsd::cxx::tree::one< phongN_type > phongN_;
+  ::xsd::cxx::tree::one< blinnN_type > blinnN_;
+  ::xsd::cxx::tree::one< uniqshapeid_type > uniqshapeid_;
 };
 
 class sphereInterface: public ::objectInterface
@@ -1247,203 +1356,30 @@ class sphereInterface: public ::objectInterface
   ::xsd::cxx::tree::one< r_type > r_;
 };
 
-class elipsoidInterface: public ::objectInterface
-{
-  public:
-  // a
-  // 
-  typedef ::xml_schema::float_ a_type;
-  typedef ::xsd::cxx::tree::traits< a_type, char > a_traits;
-
-  const a_type&
-  a () const;
-
-  a_type&
-  a ();
-
-  void
-  a (const a_type& x);
-
-  // b
-  // 
-  typedef ::xml_schema::float_ b_type;
-  typedef ::xsd::cxx::tree::traits< b_type, char > b_traits;
-
-  const b_type&
-  b () const;
-
-  b_type&
-  b ();
-
-  void
-  b (const b_type& x);
-
-  // c
-  // 
-  typedef ::xml_schema::float_ c_type;
-  typedef ::xsd::cxx::tree::traits< c_type, char > c_traits;
-
-  const c_type&
-  c () const;
-
-  c_type&
-  c ();
-
-  void
-  c (const c_type& x);
-
-  // vx
-  // 
-  typedef ::xml_schema::float_ vx_type;
-  typedef ::xsd::cxx::tree::traits< vx_type, char > vx_traits;
-
-  const vx_type&
-  vx () const;
-
-  vx_type&
-  vx ();
-
-  void
-  vx (const vx_type& x);
-
-  static vx_type
-  vx_default_value ();
-
-  // vy
-  // 
-  typedef ::xml_schema::float_ vy_type;
-  typedef ::xsd::cxx::tree::traits< vy_type, char > vy_traits;
-
-  const vy_type&
-  vy () const;
-
-  vy_type&
-  vy ();
-
-  void
-  vy (const vy_type& x);
-
-  static vy_type
-  vy_default_value ();
-
-  // vz
-  // 
-  typedef ::xml_schema::float_ vz_type;
-  typedef ::xsd::cxx::tree::traits< vz_type, char > vz_traits;
-
-  const vz_type&
-  vz () const;
-
-  vz_type&
-  vz ();
-
-  void
-  vz (const vz_type& x);
-
-  static vz_type
-  vz_default_value ();
-
-  // Constructors.
-  //
-  elipsoidInterface (const id_type&,
-                     const x_type&,
-                     const y_type&,
-                     const z_type&,
-                     const a_type&,
-                     const b_type&,
-                     const c_type&);
-
-  elipsoidInterface (const ::xercesc::DOMElement& e,
-                     ::xml_schema::flags f = 0,
-                     ::xml_schema::container* c = 0);
-
-  elipsoidInterface (const elipsoidInterface& x,
-                     ::xml_schema::flags f = 0,
-                     ::xml_schema::container* c = 0);
-
-  virtual elipsoidInterface*
-  _clone (::xml_schema::flags f = 0,
-          ::xml_schema::container* c = 0) const;
-
-  virtual 
-  ~elipsoidInterface ();
-
-  // Implementation.
-  //
-  protected:
-  void
-  parse (::xsd::cxx::xml::dom::parser< char >&,
-         ::xml_schema::flags);
-
-  protected:
-  ::xsd::cxx::tree::one< a_type > a_;
-  ::xsd::cxx::tree::one< b_type > b_;
-  ::xsd::cxx::tree::one< c_type > c_;
-  ::xsd::cxx::tree::one< vx_type > vx_;
-  ::xsd::cxx::tree::one< vy_type > vy_;
-  ::xsd::cxx::tree::one< vz_type > vz_;
-};
-
 class planeInterface: public ::objectInterface
 {
   public:
-  // vx
+  // d
   // 
-  typedef ::xml_schema::float_ vx_type;
-  typedef ::xsd::cxx::tree::traits< vx_type, char > vx_traits;
+  typedef ::xml_schema::float_ d_type;
+  typedef ::xsd::cxx::tree::traits< d_type, char > d_traits;
 
-  const vx_type&
-  vx () const;
+  const d_type&
+  d () const;
 
-  vx_type&
-  vx ();
+  d_type&
+  d ();
 
   void
-  vx (const vx_type& x);
-
-  static vx_type
-  vx_default_value ();
-
-  // vy
-  // 
-  typedef ::xml_schema::float_ vy_type;
-  typedef ::xsd::cxx::tree::traits< vy_type, char > vy_traits;
-
-  const vy_type&
-  vy () const;
-
-  vy_type&
-  vy ();
-
-  void
-  vy (const vy_type& x);
-
-  static vy_type
-  vy_default_value ();
-
-  // vz
-  // 
-  typedef ::xml_schema::float_ vz_type;
-  typedef ::xsd::cxx::tree::traits< vz_type, char > vz_traits;
-
-  const vz_type&
-  vz () const;
-
-  vz_type&
-  vz ();
-
-  void
-  vz (const vz_type& x);
-
-  static vz_type
-  vz_default_value ();
+  d (const d_type& x);
 
   // Constructors.
   //
   planeInterface (const id_type&,
                   const x_type&,
                   const y_type&,
-                  const z_type&);
+                  const z_type&,
+                  const d_type&);
 
   planeInterface (const ::xercesc::DOMElement& e,
                   ::xml_schema::flags f = 0,
@@ -1468,9 +1404,275 @@ class planeInterface: public ::objectInterface
          ::xml_schema::flags);
 
   protected:
-  ::xsd::cxx::tree::one< vx_type > vx_;
-  ::xsd::cxx::tree::one< vy_type > vy_;
-  ::xsd::cxx::tree::one< vz_type > vz_;
+  ::xsd::cxx::tree::one< d_type > d_;
+};
+
+class boxInterface: public ::objectInterface
+{
+  public:
+  // maxx
+  // 
+  typedef ::xml_schema::float_ maxx_type;
+  typedef ::xsd::cxx::tree::traits< maxx_type, char > maxx_traits;
+
+  const maxx_type&
+  maxx () const;
+
+  maxx_type&
+  maxx ();
+
+  void
+  maxx (const maxx_type& x);
+
+  // maxy
+  // 
+  typedef ::xml_schema::float_ maxy_type;
+  typedef ::xsd::cxx::tree::traits< maxy_type, char > maxy_traits;
+
+  const maxy_type&
+  maxy () const;
+
+  maxy_type&
+  maxy ();
+
+  void
+  maxy (const maxy_type& x);
+
+  // maxz
+  // 
+  typedef ::xml_schema::float_ maxz_type;
+  typedef ::xsd::cxx::tree::traits< maxz_type, char > maxz_traits;
+
+  const maxz_type&
+  maxz () const;
+
+  maxz_type&
+  maxz ();
+
+  void
+  maxz (const maxz_type& x);
+
+  // Constructors.
+  //
+  boxInterface (const id_type&,
+                const x_type&,
+                const y_type&,
+                const z_type&,
+                const maxx_type&,
+                const maxy_type&,
+                const maxz_type&);
+
+  boxInterface (const ::xercesc::DOMElement& e,
+                ::xml_schema::flags f = 0,
+                ::xml_schema::container* c = 0);
+
+  boxInterface (const boxInterface& x,
+                ::xml_schema::flags f = 0,
+                ::xml_schema::container* c = 0);
+
+  virtual boxInterface*
+  _clone (::xml_schema::flags f = 0,
+          ::xml_schema::container* c = 0) const;
+
+  virtual 
+  ~boxInterface ();
+
+  // Implementation.
+  //
+  protected:
+  void
+  parse (::xsd::cxx::xml::dom::parser< char >&,
+         ::xml_schema::flags);
+
+  protected:
+  ::xsd::cxx::tree::one< maxx_type > maxx_;
+  ::xsd::cxx::tree::one< maxy_type > maxy_;
+  ::xsd::cxx::tree::one< maxz_type > maxz_;
+};
+
+class triangleInterface: public ::objectInterface
+{
+  public:
+  // x1
+  // 
+  typedef ::xml_schema::float_ x1_type;
+  typedef ::xsd::cxx::tree::traits< x1_type, char > x1_traits;
+
+  const x1_type&
+  x1 () const;
+
+  x1_type&
+  x1 ();
+
+  void
+  x1 (const x1_type& x);
+
+  // y1
+  // 
+  typedef ::xml_schema::float_ y1_type;
+  typedef ::xsd::cxx::tree::traits< y1_type, char > y1_traits;
+
+  const y1_type&
+  y1 () const;
+
+  y1_type&
+  y1 ();
+
+  void
+  y1 (const y1_type& x);
+
+  // z1
+  // 
+  typedef ::xml_schema::float_ z1_type;
+  typedef ::xsd::cxx::tree::traits< z1_type, char > z1_traits;
+
+  const z1_type&
+  z1 () const;
+
+  z1_type&
+  z1 ();
+
+  void
+  z1 (const z1_type& x);
+
+  // x2
+  // 
+  typedef ::xml_schema::float_ x2_type;
+  typedef ::xsd::cxx::tree::traits< x2_type, char > x2_traits;
+
+  const x2_type&
+  x2 () const;
+
+  x2_type&
+  x2 ();
+
+  void
+  x2 (const x2_type& x);
+
+  // y2
+  // 
+  typedef ::xml_schema::float_ y2_type;
+  typedef ::xsd::cxx::tree::traits< y2_type, char > y2_traits;
+
+  const y2_type&
+  y2 () const;
+
+  y2_type&
+  y2 ();
+
+  void
+  y2 (const y2_type& x);
+
+  // z2
+  // 
+  typedef ::xml_schema::float_ z2_type;
+  typedef ::xsd::cxx::tree::traits< z2_type, char > z2_traits;
+
+  const z2_type&
+  z2 () const;
+
+  z2_type&
+  z2 ();
+
+  void
+  z2 (const z2_type& x);
+
+  // xn
+  // 
+  typedef ::xml_schema::float_ xn_type;
+  typedef ::xsd::cxx::tree::traits< xn_type, char > xn_traits;
+
+  const xn_type&
+  xn () const;
+
+  xn_type&
+  xn ();
+
+  void
+  xn (const xn_type& x);
+
+  static xn_type
+  xn_default_value ();
+
+  // yn
+  // 
+  typedef ::xml_schema::float_ yn_type;
+  typedef ::xsd::cxx::tree::traits< yn_type, char > yn_traits;
+
+  const yn_type&
+  yn () const;
+
+  yn_type&
+  yn ();
+
+  void
+  yn (const yn_type& x);
+
+  static yn_type
+  yn_default_value ();
+
+  // zn
+  // 
+  typedef ::xml_schema::float_ zn_type;
+  typedef ::xsd::cxx::tree::traits< zn_type, char > zn_traits;
+
+  const zn_type&
+  zn () const;
+
+  zn_type&
+  zn ();
+
+  void
+  zn (const zn_type& x);
+
+  static zn_type
+  zn_default_value ();
+
+  // Constructors.
+  //
+  triangleInterface (const id_type&,
+                     const x_type&,
+                     const y_type&,
+                     const z_type&,
+                     const x1_type&,
+                     const y1_type&,
+                     const z1_type&,
+                     const x2_type&,
+                     const y2_type&,
+                     const z2_type&);
+
+  triangleInterface (const ::xercesc::DOMElement& e,
+                     ::xml_schema::flags f = 0,
+                     ::xml_schema::container* c = 0);
+
+  triangleInterface (const triangleInterface& x,
+                     ::xml_schema::flags f = 0,
+                     ::xml_schema::container* c = 0);
+
+  virtual triangleInterface*
+  _clone (::xml_schema::flags f = 0,
+          ::xml_schema::container* c = 0) const;
+
+  virtual 
+  ~triangleInterface ();
+
+  // Implementation.
+  //
+  protected:
+  void
+  parse (::xsd::cxx::xml::dom::parser< char >&,
+         ::xml_schema::flags);
+
+  protected:
+  ::xsd::cxx::tree::one< x1_type > x1_;
+  ::xsd::cxx::tree::one< y1_type > y1_;
+  ::xsd::cxx::tree::one< z1_type > z1_;
+  ::xsd::cxx::tree::one< x2_type > x2_;
+  ::xsd::cxx::tree::one< y2_type > y2_;
+  ::xsd::cxx::tree::one< z2_type > z2_;
+  ::xsd::cxx::tree::one< xn_type > xn_;
+  ::xsd::cxx::tree::one< yn_type > yn_;
+  ::xsd::cxx::tree::one< zn_type > zn_;
 };
 
 class lightInterface: public ::colorInterface
@@ -1783,6 +1985,12 @@ class property: public ::xml_schema::string
     x,
     y,
     z,
+    x1,
+    y1,
+    z1,
+    x2,
+    y2,
+    z2,
     vx,
     vy,
     vz,
@@ -1850,8 +2058,8 @@ class property: public ::xml_schema::string
   _xsd_property_convert () const;
 
   public:
-  static const char* const _xsd_property_literals_[25];
-  static const value _xsd_property_indexes_[25];
+  static const char* const _xsd_property_literals_[31];
+  static const value _xsd_property_indexes_[31];
 };
 
 #include <iosfwd>

@@ -7,9 +7,10 @@
 
 #include "Raytracer.h"
 #include <cmath>
-
+#include <iostream>
 Raytracer::Raytracer(Context *cont) : context(cont) {
 	calculateMLD();
+
 }
 
 Raytracer::~Raytracer() {}
@@ -76,6 +77,7 @@ void Raytracer::Phong(point q, myVector n, myVector V, unsigned int objectId, co
 		Normalization(R);
 		float RdotV = dotProduct(R, V);
 		if(RdotV >  0) {
+
 		  RdotV = pow(RdotV, float(context->spheres[objectId].n));
 		  tmpC[0] = context->spheres[objectId].specular[0]*context->lights[Li].specular[0]*RdotV;
 		  tmpC[1] = context->spheres[objectId].specular[1]*context->lights[Li].specular[1]*RdotV;
@@ -296,6 +298,15 @@ void Raytracer::Go(std::vector< float > *ret) {
 	float x_fbase, y_fbase; //
 	int im_size_x_2;       // po�owa rozmiaru obrazu w pikselach
 	int im_size_y_2;
+	
+	cout<<"total size: "<<3*(context->window[1][1]-context->window[0][1])*(context->window[1][0]-context->window[0][0])<<endl;
+
+	cout<<"dim0: "<<context->dimension[0]<<" dim1: "<<context->dimension[1]<<endl;
+    cout<<"win00: "<<context->window[0][0]<<endl;
+    cout<<"win01: "<<context->window[0][1]<<endl;
+    cout<<"win10: "<<context->window[1][0]<<endl;
+    cout<<"win11: "<<context->window[1][1]<<endl;
+
 	point starting_point;
 	point starting_direction = {
 			-context->cameraZ[0],
@@ -305,6 +316,7 @@ void Raytracer::Go(std::vector< float > *ret) {
     im_size_y_2 = context->dimension[1]/2;
     x_fbase = (context->dimension[0]/context->viewportSize[0]);
     y_fbase = (context->dimension[1]/context->viewportSize[1]);
+    ret->reserve(3*(context->window[1][1]-context->window[0][1])*(context->window[1][0]-context->window[0][0]));
     for(y = im_size_y_2 - (context->window[0][1]); y > im_size_y_2 - (context->window[1][1]); --y) {
     	for(x = -im_size_x_2 + (context->window[0][0]); x < -im_size_x_2 + (context->window[1][0]); ++x) {
             x_flTmp = (float)x/x_fbase;

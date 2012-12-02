@@ -8,7 +8,7 @@ using namespace std;
 enum message_tags {msg_data_packet, msg_broadcast_data, msg_finished};
 
 Client::Client(int clientNumber,mpi::communicator& comm,boost::mutex& mpiMutex) : 
-	clientNr(clientNumber), world(comm), hasTask(false),mpiServiceMutex(mpiMutex)
+	clientNr(clientNumber), world(comm),mpiServiceMutex(mpiMutex),hasTask(false)
 {
 	results.reset(new std::vector<float>());
 
@@ -25,7 +25,6 @@ void Client::manageWork()
 				taskAdded.wait(lock);
 			}
 		}
-
 	
 		{
 			boost::mutex::scoped_lock mpiLock(mpiServiceMutex);                
@@ -33,24 +32,23 @@ void Client::manageWork()
 	        boost::optional<mpi::status> l_status = world.iprobe(clientNr, clientNr) ;
 			if(l_status.is_initialized())
 			{
-				// cout<<"probe"<<endl;
 	            world.recv(  l_status->source(), clientNr, *(results.get()));
 				hasTask = false;
+				cout<<"Client: Nr: "<<clientNr<<" Received data from Slave: "<<l_status->source()<<endl;
 				mpiLock.unlock();
 		     
 	   	 	}
 	   	 	else
 	   	 	{	
-   	 			// cout<<"probe else"<<endl;
 	   	 		mpiLock.unlock();
 		       	boost::this_thread::yield();   
 	        	continue;	 		
 	   	 	}
 	   	 }
-   	 	
-		bool isFrameComplete = task->savePart(results,task->getPartNumber());
-		// cout<<"isFrameComplete: "<<isFrameComplete<<"on thread: "<<boost::this_thread::get_id()<<endl;
-		callback(isFrameComplete);
+		boost::mutex::scoped_lock lock(io_mutex);		   	 	
+		long frameRenderTime = task->savePart(results,task->getPartNumber());
+		callback(frameRenderTime);		
+		task.reset();
 			
 
 		
@@ -58,18 +56,16 @@ void Client::manageWork()
 	}
 }
 
-void Client::render(boost::shared_ptr<Part> task, boost::function<void (bool)> callback)
+void Client::render(boost::shared_ptr<Part> task, boost::function<void (long)> callback)
 {
 	boost::mutex::scoped_lock lock(io_mutex);
-	// cout<<"Render"<<endl;
 	this->task = task;
 	this->callback = callback;
 	hasTask = true;
 	taskAdded.notify_all();
 }
 
-int Client::getNumber()
+int Client::getNumber() const
 {
-	boost::mutex::scoped_lock lock(io_mutex);
 	return clientNr;
 }

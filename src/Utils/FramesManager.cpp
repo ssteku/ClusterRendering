@@ -10,13 +10,13 @@
 #include <iostream>
 #include "MovieCreator.hpp"
 
-using namespace std;
+using namespace std; 
 
 FramesManager::FramesManager(mpi::communicator& comm,SqlReader& reader) : sqlReader(reader), 
-	world(comm), hasFreeClient(false),hasPart(false),piecesPerSlave(1)
+	world(comm), hasFreeClient(false),needNewTask(true),piecesPerSlave(3)
 {
+	cout<<"Pieces per slave: "<<piecesPerSlave<<endl;
 	boost::mutex::scoped_lock lock2(clientMutex);
-	// cout<<"Frame manager Client"<<endl;
 	for(int i=1; i<world.size(); ++i)
 	{
 		clients[i] = boost::shared_ptr<Client>(new Client(i,world,mpiServiceMutex));
@@ -25,10 +25,10 @@ FramesManager::FramesManager(mpi::communicator& comm,SqlReader& reader) : sqlRea
 	}
 	hasFreeClient = true;
 	clientReleased.notify_all();
-	// cout<<"world : "<<world.size()<<endl;
-	// cout<<"Frame manager after Client"<<endl;
-
+	avTime = 0;
+	framesDone = 0;
 }
+
 FramesManager::~FramesManager()
 {
 
@@ -39,33 +39,32 @@ void FramesManager::manageWork(){
 	sqlReader.startBehavior();
 
 	taskService = boost::thread(&FramesManager::serveTasks, this);
-	while(1){
+	while(1)
+	{
+			{
+				boost::mutex::scoped_lock lock(taskMutex);
+				while(!needNewTask)		
+					needTaskCondition.wait(lock);
+			}		
+			boost::optional<Task> task = sqlReader.getTask();
+			if(task.is_initialized())
+			{
+				// cout<<"Got task"<<endl;
+				addPartsToQueue(task.get());
+				sqlReader.changeStatus(task->id,2);
+
+				needNewTask = false;
 				
-		boost::optional<Task> task = sqlReader.getTask();
-		if(task.is_initialized())
-		{
-			// cout<<"Got task"<<endl;
-			// sqlReader.changeStatus(task->id,2);
-			addPartsToQueue(task.get());
-			// sqlReader.saveVideoToDb(task.id,path);							
-			// sqlReader.changeStatus(task->id,3);
-		}	
-		else
-		{
-			executedThread.yield();
-			
+			}	
+			else
+			{
+				executedThread.yield();
+				
+			}
 		}
-		
-		
 		boost::posix_time::seconds workTime(1);  
 		boost::this_thread::sleep(workTime);		
-	}
-
-
-
-	// cout<<"serveTasks 00"<<endl;
 	
-
 }
 
 void FramesManager::serveTasks()
@@ -79,7 +78,7 @@ void FramesManager::serveTasks()
 		while(!hasFreeClient)
 			clientReleased.wait(lock2);
 		// cout<<"freeClients.size() : "<<freeClients.size()<<endl;
-		for(int i=0;i<freeClients.size();++i)
+		for(unsigned int i=0;i<freeClients.size();++i)
 		{
 			
 			
@@ -97,7 +96,7 @@ void FramesManager::serveTasks()
 
 				boost::mutex::scoped_lock mpiL(mpiServiceMutex);
 
-				boost::function<void (bool)> callback = boost::bind(&FramesManager::releaseClient,this,client->getNumber(),
+				boost::function<void (long)> callback = boost::bind(&FramesManager::releaseClient,this,client->getNumber(),
 					task.get()->getTaskId(),task.get()->getFrameNr(),_1);
 				// cout<<"Taking partNr: "<<task.get()->getPartNumber()<<endl;
 				{
@@ -116,28 +115,23 @@ void FramesManager::serveTasks()
 	}
 }
 
-void FramesManager::waitForFreeClient()
-{
-	// boost::mutex::scoped_lock lock(clientMutex);
-	// cout<<"waitForFreeClient"<<endl;
-	
-}
 
-void FramesManager::releaseClient(const int clientNumber, const int taskId, const int frameId, bool removeFrame)
+
+void FramesManager::releaseClient(const int clientNumber, const int taskId, const int frameId, long renderTime)
 {
 	// cout<<"Client released with removeFrame: "<<removeFrame<<" on thread: "<<boost::this_thread::get_id()<<endl;
 
 	{
 		boost::mutex::scoped_lock lock(clientMutex);
-		// cout<<"After mutex"<<endl;
 		freeClients.push(clients[clientNumber].get());
 		hasFreeClient = true;	
 		clientReleased.notify_all();
-		// lock.unlock();
 	}
 
-	if(removeFrame)
+	if(renderTime > 0)
 	{
+			
+			cout<<"Frames manager, frame rendering time : "<<renderTime<<endl;
 			boost::mutex::scoped_lock lock(io_mutex);
 		 	// cout<<"Removing, tasks[taskId].size() : "<<tasks[taskId].size()<<endl;
 			map<int,boost::shared_ptr<Frame> >::iterator it;
@@ -148,11 +142,20 @@ void FramesManager::releaseClient(const int clientNumber, const int taskId, cons
 	  		if(tasks[taskId].size()==0)
 	  		{
 	  			// cout<<"Removing task"<<endl;
+	  			boost::posix_time::ptime mst2 = boost::posix_time::microsec_clock::universal_time();
+				boost::posix_time::time_duration diff = mst2 - mst1;
+				long int timeRender = diff.total_milliseconds();
+		  		// cout<<"Time : "<<timeRender<<endl;
+
+		  		
+
 	  			std::map<int,map<int,boost::shared_ptr<Frame> > >::iterator fIt;
 	  			fIt = tasks.find(taskId);
 				MovieCreator movieCreator;	
 
 				movieCreator.createMovie(taskId);
+				sqlReader.saveVideoToDb(taskId,createMoviePathName(taskId));							
+				sqlReader.changeStatus(taskId,3);
 	  			tasks.erase(fIt);
 	  		}
 	  		
@@ -163,11 +166,10 @@ void FramesManager::releaseClient(const int clientNumber, const int taskId, cons
 
 void FramesManager::addPartsToQueue(Task& task)
 {
+	// unsigned int numberOfParts = piecesPerSlave;
 	unsigned int numberOfParts = (world.size()-1)*piecesPerSlave;
-	// unsigned int numberOfParts = (1);
-
 	unsigned int partLength = static_cast<unsigned int>(floor(task.contexts[0].dimension[1]/(numberOfParts)));
-
+	// cout<<"Adding task with id: "<<task.id<<endl;
 	tasks[task.id] = map<int,boost::shared_ptr<Frame> >();
 	
 
@@ -175,8 +177,8 @@ void FramesManager::addPartsToQueue(Task& task)
 	for(unsigned int c=0; c<task.contexts.size();++c)
 	{
 		tasks[task.id][c] = boost::shared_ptr<Frame>(new Frame(c,numberOfParts,task.contexts[c].dimension[0],task.contexts[c].dimension[1],floatsPerPart));
-		boost::function<bool (boost::shared_ptr<std::vector<float> > pixels, const int partNr)> saver = 
-			boost::bind(&Frame::saveToImage, tasks[task.id][c].get(),_1,_2);
+		boost::function<long (boost::shared_ptr<std::vector<float> > pixels, const int partNr)> saver = 
+			boost::bind(&Frame::saveToImage, tasks[task.id][c].get(),_1,_2,task.id);
 		for(unsigned int i=0;i<numberOfParts;++i){
 
 			boost::shared_ptr<Part> currentContext(new Part(boost::shared_ptr<Context>(new Context(task.contexts[c])),saver, task.id, i,c));
@@ -187,22 +189,15 @@ void FramesManager::addPartsToQueue(Task& task)
 			currentContext->getContext()->window[0][1]= (i)*partLength;				
 			if(i==numberOfParts-1){
 				currentContext->getContext()->window[1][1]=currentContext->getContext()->dimension[1];			
-				// cout<<"IF"<<endl;
 			}
 			else{
 				currentContext->getContext()->window[1][1]= (i+1)*partLength;
-				// cout<<"Else"<<endl;
 			}	
-			// cout<<"getContext()->window[0][0] : "<<currentContext->getContext()->window[0][0]<<endl;
-			// cout<<"getContext()->window[0][1] : "<<currentContext->getContext()->window[0][1]<<endl;	
-			// cout<<"getContext()->window[1][0] : "<<currentContext->getContext()->window[1][0]<<endl;
-			// cout<<"getContext()->window[1][1] : "<<currentContext->getContext()->window[1][1]<<endl;
 			boost::mutex::scoped_lock lock(io_mutex);			
-			
 			partQueue.push(currentContext);
-			// hasPart = true;
 		}
 	}
+	mst1 = boost::posix_time::microsec_clock::universal_time();
 	addedPart.notify_one();
 
 
@@ -210,12 +205,32 @@ void FramesManager::addPartsToQueue(Task& task)
 
 boost::optional<boost::shared_ptr<Part> > FramesManager::getPart()
 {
-	boost::mutex::scoped_lock lock(io_mutex);
 	boost::optional<boost::shared_ptr<Part> > retObj;
-	if(partQueue.size()>0)
+	
 	{
-		retObj.reset(partQueue.front());
-		partQueue.pop();
-	}	
+		boost::mutex::scoped_lock lock(io_mutex);			
+		if(partQueue.size()>0)
+		{
+			retObj.reset(partQueue.front());
+			partQueue.pop();
+		}	
+	
+	}
+	if(partQueue.size()==0)
+	{
+		boost::mutex::scoped_lock lock(taskMutex);
+		needNewTask = true;
+		needTaskCondition.notify_all();
+
+	}
 	return retObj;
+}
+
+std::string FramesManager::createMoviePathName(int taskId)
+{
+	std::stringstream stream;
+	std::string path;	
+	stream<<"movies/"<<taskId<<".avi";
+	stream>>path;
+	return path;
 }

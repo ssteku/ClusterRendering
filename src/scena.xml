@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="scene.xsd" frames="1" width="400" height="400" w="19.2" h="19.2" d="17.0" bred="0.0" bgreen="0.0" bblue="0.0" glred="0.1" glgreen="0.1" glblue="0.1">
+    <camera id="camera1" x="0" y="2" z="15.0" vx1="1.0" vx2="0.0" vx3="0.0" vy1="0.0" vy2="1.0" vy3="0.0" vz1="0.0" vz2="0.0" vz3="1.0" />
+    <light id="light1" x="3.0" y="14.0" z="3.0" r="3.0" ared="0.5" agreen="0.5" ablue="0.5" dred="0.4" dgreen="0.4" dblue="0.4" sred="0.4" sgreen="0.4" sblue="0.4" />
+ 
+
+<sphere id="sphere2" r="2.0" x="6.5" y="1.0" z="0.0" ablue="0.8" agreen="0.1" ared="0.1" dblue="0.7" dgreen="0.1" dred="0.1" sblue="0.7" sgreen="0.1" sred="0.1" n="0.4" phongN="5.0" blinnN="500.0">
+    </sphere>
+</scene>
+
+DAta : 2013-08-22 21:14:02
+Frame #0
+Camera		0	2	15
+Sphere #sphere2	6.5	1	0	0.2	0.2	0.8	0.4	0.1	0.2	0.7	0.5	0.7
+Light #light1	3	14	3	0.1	0.1	0.1	0.1	0.2	0.1	0.1	0.1	0.1
+
+Frame #0
+Camera		0	2	15
+Sphere #sphere2	6.5	1	0	0.2	0.2	0.8	0.4	0.1	0.2	0.7	0.5	0.7
+Light #light1	3	14	3	0.1	0.1	0.1	0.1	0.2	0.1	0.1	0.1	0.1
+
+Frame #0
+Camera		0	2	15
+Sphere #sphere2	6.5	1	0	0.1	0.1	0.8	0.1	0.1	0.7	0.1	0.1	0.7
+Light #light1	3	14	3	0.5	0.5	0.5	0.4	0.4	0.4	0.4	0.4	0.4
+
+Frame #0
+Camera		0	2	15
+Sphere #sphere2	6.5	1	0	0.1	0.1	0.8	0.1	0.1	0.7	0.1	0.1	0.7
+Light #light1	3	14	3	0.5	0.5	0.5	0.4	0.4	0.4	0.4	0.4	0.4
+
+CameraSample: 0.5 sqrt: 2
+		0	2	15
+Sphere #sphere2	6.5	1	0	0.1	0.1	0.8	0.1	0.1	0.7	0.1	0.1	0.7
+Light #light1	3	14	3	0.5	0.5	0.5	0.4	0.4	0.4	0.4	0.4	0.4
+
+Sphere #sphere2	6.5	1	0	0.1	0.1	0.8	0.1	0.1	0.7	0.1	0.1	0.7	 n:0.4	 phong: 	 blinn:5500	
+Light #light1	3	14	3	0.5	0.5	0.5	0.4	0.4	0.4	0.4	0.4	0.4
+
+
+phong: 5 , blinn: 500
+phong: 5 , blinn: 500
+phong: 5 , blinn: 500
+phong: 5 , blinn: 500
+6.5	1	0	6.5	1	0	0.1	0.1	0.8	0.1	0.1	0.7	6.5	1	0	0.1	0.1	0.8	0.1	0.10.10.1	0.8	0.1	0.1	0.7	0.1	0.1	0.1	0.7	 n:0.4	 phong: 	 blinn:5500	
+Sample: 0.5 sqrt: 2
+0.1	0.7	 n:0.4	 phong: 	 blinn:5500	
+Sample: 0.5 sqrt: 2
+	0.7	0.1	0.1	0.7	 n:0.4	 phong: 	 blinn:5500	
+Sample: 0.5 sqrt: 2
+phong: 5 , blinn: 500
+6.5	1	0	0.1	phong: 5 , blinn: 500
+6.5	1	0	0.1	0.1	0.8	0.1	0.1	0.7	0.1	0.1	0.7	 n:0.4	 phong: 	 blinn:5500	
+Sample: 0.5 sqrt: 2
+0.1	0.8	0.1	0.1	0.7	0.1	0.1	0.7	 n:0.4	 phong: 	 blinn:5500	
+Sample: 0.5 sqrt: 2
+6.5phong: 5 , blinn: 500
+	6.5	1	0	0.1	0.1	1	0	0.1	0.1	0.8	0.1	0.1	0.7	0.1	0.1	0.70.8	 n:0.4	 phong: 	 blinn:5500	
+Sample: 0.5 sqrt: 2
+	0.1	0.1	0.7	0.1	0.1	0.7	 n:0.4	 phong: 	 blinn:5500	
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<scene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="scene.xsd" frames="1" width="1920" height="1920" w="19.2" h="19.2" d="17.0" bred="0.0" bgreen="0.0" bblue="0.0" glred="0.1" glgreen="0.1" glblue="0.1">
+    <camera id="camera1" x="0" y="2" z="15.0" vx1="1.0" vx2="0.0" vx3="0.0" vy1="0.0" vy2="1.0" vy3="0.0" vz1="0.0" vz2="0.0" vz3="1.0" />
+    <light id="light1" x="3.0" y="14.0" z="3.0" r="0.02" ared="0.1" agreen="0.7" ablue="0.3" dred="0.1" dgreen="0.2" dblue="0.1" sred="0.7" sgreen="0.7" sblue="0.1" />
+	
+    <light id="light2" x="0.0" y="1.0" z="0.0" r="0.02" ared="1.0" agreen="0.9" ablue="1.0" dred="1.0" dgreen="0.9" dblue="1.0" sred="1.0" sgreen="1.0" sblue="1.0" />  
+
+    <light id="light3" x="15.0" y="12.0" z="-10.0" r="0.01" ared="0.5" agreen="0.8" ablue="0.4" dred="0.4" dgreen="0.4" dblue="1.0" sred="1.0" sgreen="1.0" sblue="1.0" />    
+    <light id="light4" x="1.0" y="1.0" z="22.0" r="0.11" ared="0.5" agreen="0.4" ablue="0.1" dred="0.0" dgreen="0.0" dblue="1.0" sred="1.0" sgreen="1.0" sblue="1.0" /> 
+
+<sphere id="sphere1" r="100.0" x="4.0" y="-102.0" z="0.0" ablue="0.1" agreen="0.1" ared="0.1" dblue="0.1" dgreen="0.1" dred="0.1" sblue="0.1" sgreen="0.1" sred="0.1" n="0.5" >
+</sphere>
+
+<sphere id="sphere2" r="1.0" x="6.5" y="1.0" z="0.0" ablue="0.8" agreen="0.8" ared="0.8" dblue="0.8" dgreen="0.8" dred="0.8" sblue="0.8" sgreen="0.8" sred="0.4" n="0.5" >
+
+    </sphere>
+<sphere id="sphere3" r="1.0" x="-9.5" y="1.0" z="0.0" ablue="0.8" agreen="0.9" ared="0.2" dblue="0.7" dgreen="0.5" dred="0.7" sblue="0.2" sgreen="0.1" sred="0.4" n="0.5" />
+<sphere id="sphere4" r="2.0" x="-6.0" y="0.0" z="0.0" ablue="0.1" agreen="0.2" ared="0.0" dblue="0.7" dgreen="0.1" dred="0.0" sblue="0.2" sgreen="0.1" sred="0.2" n="0.5" />
+<sphere id="sphere6" r="0.7" x="3.5" y="3.0" z="0.0" ablue="0.9" agreen="0.9" ared="0.1" dblue="0.7" dgreen="0.5" dred="0.4" sblue="0.2" sgreen="0.1" sred="0.2" n="0.5"/>
+
+<sphere id="smalls0" r="0.4" x="-9.0" y="-1.0" z="4.0" ablue="0.5" agreen="0.2" ared="0.0" dblue="0.7" dgreen="0.5" dred="0.1" sblue="0.2" sgreen="0.1" sred="0.25" n="0.50"/>
+<sphere id="smalls1" r="0.41" x="-6.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.05" dblue="0.7" dgreen="0.5" dred="0.15" sblue="0.2" sgreen="0.1" sred="0.30" n="0.50"/>
+<sphere id="smalls2" r="0.42" x="-4.0" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.1" dblue="0.7" dgreen="0.5" dred="0.20" sblue="0.2" sgreen="0.1" sred="0.3" n="0.50"/>
+<sphere id="smalls3" r="0.43" x="-1.5" y="-1.0" z="4.0" ablue="0.1" agreen="0.2" ared="0.15" dblue="0.7" dgreen="0.5" dred="0.25" sblue="0.2" sgreen="0.1" sred="0.4" n="0.50"/>
+<sphere id="smalls4" r="0.44" x="1.0" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.20" dblue="0.7" dgreen="0.5" dred="0.30" sblue="0.2" sgreen="0.1" sred="0.45" n="0.50"/>
+<sphere id="smalls5" r="0.45" x="3.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.25" dblue="0.7" dgreen="0.5" dred="0.35" sblue="0.2" sgreen="0.1" sred="0.50" n="0.50"/>
+<sphere id="smalls6" r="0.46" x="6.0" y="-1.0" z="4.0" ablue="0.1" agreen="0.2" ared="0.30" dblue="0.7" dgreen="0.5" dred="0.40" sblue="0.2" sgreen="0.1" sred="0.55" n="0.50"/>
+<sphere id="smalls7" r="0.47" x="8.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.35" dblue="0.7" dgreen="0.5" dred="0.45" sblue="0.2" sgreen="0.1" sred="0.60" n="0.50"/>
+<sphere id="smalls8" r="0.48" x="11.0" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.40" dblue="0.7" dgreen="0.5" dred="0.50" sblue="0.2" sgreen="0.1" sred="0.65" n="0.50"/>
+
+
+<sphere id="smalls0" r="0.7" x="-9.0" y="0.2" z="-4.0" ablue="0.8" agreen="0.2" ared="0.0" dblue="0.7" dgreen="0.5" dred="0.1" sblue="0.2" sgreen="0.1" sred="0.25" n="0.50"/>
+<sphere id="smalls1" r="0.41" x="-6.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.05" dblue="0.7" dgreen="0.5" dred="0.15" sblue="0.2" sgreen="0.1" sred="0.30" n="0.50"/>
+<sphere id="smalls2" r="0.42" x="-4.0" y="-1.0" z="4.0" ablue="0.1" agreen="0.2" ared="0.1" dblue="0.7" dgreen="0.5" dred="0.20" sblue="0.2" sgreen="0.1" sred="0.3" n="0.50"/>
+<sphere id="smalls3" r="0.43" x="-1.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.15" dblue="0.7" dgreen="0.5" dred="0.25" sblue="0.2" sgreen="0.1" sred="0.4" n="0.50"/>
+<sphere id="smalls4" r="0.44" x="1.0" y="-1.0" z="4.0" ablue="0.1" agreen="0.2" ared="0.20" dblue="0.7" dgreen="0.5" dred="0.30" sblue="0.2" sgreen="0.1" sred="0.45" n="0.50"/>
+<sphere id="smalls5" r="0.45" x="3.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.25" dblue="0.7" dgreen="0.5" dred="0.35" sblue="0.2" sgreen="0.1" sred="0.50" n="0.50"/>
+<sphere id="smalls6" r="0.46" x="6.0" y="-1.0" z="4.0" ablue="0.1" agreen="0.2" ared="0.30" dblue="0.7" dgreen="0.5" dred="0.40" sblue="0.2" sgreen="0.1" sred="0.55" n="0.50"/>
+<sphere id="smalls7" r="0.47" x="8.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.35" dblue="0.7" dgreen="0.5" dred="0.45" sblue="0.2" sgreen="0.1" sred="0.60" n="0.50"/>
+<sphere id="smalls8" r="0.48" x="11.0" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.40" dblue="0.7" dgreen="0.5" dred="0.50" sblue="0.2" sgreen="0.1" sred="0.65" n="0.50"/>
+</scene>
+
+
+
+...........................................................................
+<?xml version="1.0" encoding="UTF-8"?>
+<scene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="scene.xsd" frames="1" width="1920" height="1080" w="19.2" h="10.8" d="17.0" bred="0.0" bgreen="0.0" bblue="0.0" glred="0.1" glgreen="0.1" glblue="0.1">
+    <camera id="camera1" x="0" y="2" z="15.0" vx1="1.0" vx2="0.0" vx3="0.0" vy1="0.0" vy2="1.0" vy3="0.0" vz1="0.0" vz2="0.0" vz3="1.0" />
+    <light id="light1" x="3.0" y="14.0" z="-25.0" r="0.02" ared="0.1" agreen="0.7" ablue="0.3" dred="0.1" dgreen="0.2" dblue="0.1" sred="0.7" sgreen="0.7" sblue="0.1" />
+    
+    <light id="light2" x="0.0" y="20.0" z="-20.0" r="0.02" ared="1.0" agreen="0.9" ablue="1.0" dred="1.0" dgreen="0.9" dblue="1.0" sred="1.0" sgreen="1.0" sblue="1.0" />  
+
+
+
+<plane id="plane" x="0.0" y="2.0" z="1.0" d="5.0" ablue="0.1" agreen="0.1" ared="0.1" dblue="0.9" dgreen="0.9" dred="0.9" sblue="0.9" sgreen="0.9" sred="0.9" n="0.09" phongN="2.0" blinnN="4.0" >
+</plane>
+
+<sphere id="sphere2" r="1.0" x="6.5" y="1.0" z="0.0"  ablue="0.8" agreen="0.3" ared="0.3" dblue="0.8" dgreen="0.8" dred="0.3" sblue="0.8" sgreen="0.8" sred="0.4" n="0.1" >
+
+    </sphere>
+<sphere id="sphere3" r="1.0" x="-9.5" y="1.0" z="0.0" ablue="0.8" agreen="0.9" ared="0.2" dblue="0.7" dgreen="0.5" dred="0.7" sblue="0.2" sgreen="0.1" sred="0.4" n="0.5" />
+<sphere id="sphere4" r="2.0" x="-6.0" y="0.0" z="0.0" ablue="0.1" agreen="0.2" ared="0.0" dblue="0.7" dgreen="0.1" dred="0.0" sblue="0.2" sgreen="0.1" sred="0.2" n="0.5" />
+<sphere id="sphere6" r="0.7" x="3.5" y="3.0" z="0.0" ablue="0.9" agreen="0.9" ared="0.1" dblue="0.7" dgreen="0.5" dred="0.4" sblue="0.2" sgreen="0.1" sred="0.2" n="0.5"/>
+
+<sphere id="smalls0" r="0.4" x="-9.0" y="-1.0" z="4.0" ablue="0.5" agreen="0.2" ared="0.0" dblue="0.7" dgreen="0.5" dred="0.1" sblue="0.2" sgreen="0.1" sred="0.25" n="0.50"/>
+<sphere id="smalls1" r="0.41" x="-6.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.05" dblue="0.7" dgreen="0.5" dred="0.15" sblue="0.2" sgreen="0.1" sred="0.30" n="0.50"/>
+<sphere id="smalls2" r="0.42" x="-4.0" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.1" dblue="0.7" dgreen="0.5" dred="0.20" sblue="0.2" sgreen="0.1" sred="0.3" n="0.50"/>
+<sphere id="smalls3" r="0.43" x="-1.5" y="-1.0" z="4.0" ablue="0.1" agreen="0.2" ared="0.15" dblue="0.7" dgreen="0.5" dred="0.25" sblue="0.2" sgreen="0.1" sred="0.4" n="0.50"/>
+<sphere id="smalls4" r="0.44" x="1.0" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.20" dblue="0.7" dgreen="0.5" dred="0.30" sblue="0.2" sgreen="0.1" sred="0.45" n="0.50"/>
+<sphere id="smalls5" r="0.45" x="3.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.25" dblue="0.7" dgreen="0.5" dred="0.35" sblue="0.2" sgreen="0.1" sred="0.50" n="0.50"/>
+<sphere id="smalls6" r="0.46" x="6.0" y="-1.0" z="4.0" ablue="0.1" agreen="0.2" ared="0.30" dblue="0.7" dgreen="0.5" dred="0.40" sblue="0.2" sgreen="0.1" sred="0.55" n="0.50"/>
+<sphere id="smalls7" r="0.47" x="8.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.35" dblue="0.7" dgreen="0.5" dred="0.45" sblue="0.2" sgreen="0.1" sred="0.60" n="0.50"/>
+<sphere id="smalls8" r="0.48" x="11.0" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.40" dblue="0.7" dgreen="0.5" dred="0.50" sblue="0.2" sgreen="0.1" sred="0.65" n="0.50"/>
+
+
+<sphere id="smalls0" r="0.7" x="-9.0" y="0.2" z="-4.0" ablue="0.8" agreen="0.2" ared="0.0" dblue="0.7" dgreen="0.5" dred="0.1" sblue="0.2" sgreen="0.1" sred="0.25" n="0.50"/>
+<sphere id="smalls1" r="0.41" x="-6.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.05" dblue="0.7" dgreen="0.5" dred="0.15" sblue="0.2" sgreen="0.1" sred="0.30" n="0.50"/>
+<sphere id="smalls2" r="0.42" x="-4.0" y="-1.0" z="4.0" ablue="0.1" agreen="0.2" ared="0.1" dblue="0.7" dgreen="0.5" dred="0.20" sblue="0.2" sgreen="0.1" sred="0.3" n="0.50"/>
+<sphere id="smalls3" r="0.43" x="-1.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.15" dblue="0.7" dgreen="0.5" dred="0.25" sblue="0.2" sgreen="0.1" sred="0.4" n="0.50"/>
+<sphere id="smalls4" r="0.44" x="1.0" y="-1.0" z="4.0" ablue="0.1" agreen="0.2" ared="0.20" dblue="0.7" dgreen="0.5" dred="0.30" sblue="0.2" sgreen="0.1" sred="0.45" n="0.50"/>
+<sphere id="smalls5" r="0.45" x="3.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.25" dblue="0.7" dgreen="0.5" dred="0.35" sblue="0.2" sgreen="0.1" sred="0.50" n="0.50"/>
+<sphere id="smalls6" r="0.46" x="6.0" y="-1.0" z="4.0" ablue="0.1" agreen="0.2" ared="0.30" dblue="0.7" dgreen="0.5" dred="0.40" sblue="0.2" sgreen="0.1" sred="0.55" n="0.50"/>
+<sphere id="smalls7" r="0.47" x="8.5" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.35" dblue="0.7" dgreen="0.5" dred="0.45" sblue="0.2" sgreen="0.1" sred="0.60" n="0.50"/>
+<sphere id="smalls8" r="0.48" x="11.0" y="-1.0" z="4.0" ablue="0.8" agreen="0.2" ared="0.40" dblue="0.7" dgreen="0.5" dred="0.50" sblue="0.2" sgreen="0.1" sred="0.65" n="0.50"/>
+</scene>

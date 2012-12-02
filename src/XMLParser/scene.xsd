@@ -7,13 +7,15 @@
 		<xs:choice maxOccurs="unbounded" minOccurs="0">
 			<xs:element name="camera" type="cameraInterface" maxOccurs="1" minOccurs="1" />
 			<xs:element name="light" type="lightInterface"/>
-			<xs:element name="sphere" type="sphereInterface"/>
-			<xs:element name="elipsoid" type="elipsoidInterface"/>
+			<xs:element name="sphere" type="sphereInterface"/>			
 			<xs:element name="plane" type="planeInterface"/>
+			<xs:element name="box" type="boxInterface"/>
+			<xs:element name="triangle" type="triangleInterface"/>
 		</xs:choice>
 		<xs:attribute name="frames" type="xs:integer" use="required"/>
 		<xs:attribute default="800" name="width" type="xs:integer"/>
 		<xs:attribute default="600" name="height" type="xs:integer"/>
+		<xs:attribute name="fps" default="24" type="xs:integer"/>
 		<xs:attribute name="w" type="xs:float" use="required"/>
 		<xs:attribute name="h" type="xs:float" use="required"/>
 		<xs:attribute name="d" type="xs:float" use="required"/>
@@ -23,6 +25,7 @@
 		<xs:attribute name="glred" type="xs:float" default="0.5" />
 		<xs:attribute name="glgreen" type="xs:float" default="0.5" />
 		<xs:attribute name="glblue" type="xs:float" default="0.5" />
+		<xs:attribute name="antyalias" type="xs:integer" default="2" />
 	</xs:complexType>
 
 	<xs:complexType name="cameraInterface">
@@ -53,25 +56,36 @@
 		</xs:complexContent>
 	</xs:complexType>
 	
-	<xs:complexType name="elipsoidInterface">
-		<xs:complexContent>
-			<xs:extension base="objectInterface">
-				<xs:attribute name="a" type="xs:float" use="required"/>
-				<xs:attribute name="b" type="xs:float" use="required"/>
-				<xs:attribute name="c" type="xs:float" use="required"/>
-				<xs:attribute default="0" name="vx" type="xs:float"/>
-				<xs:attribute default="0" name="vy" type="xs:float"/>
-				<xs:attribute default="0" name="vz" type="xs:float"/>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	
 	<xs:complexType name="planeInterface">
 		<xs:complexContent>
 			<xs:extension base="objectInterface">
-				<xs:attribute default="0" name="vx" type="xs:float"/>
-				<xs:attribute default="0" name="vy" type="xs:float"/>
-				<xs:attribute default="0" name="vz" type="xs:float"/>
+				<xs:attribute name="d" type="xs:float" use="required"/>				
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="boxInterface">
+		<xs:complexContent>
+			<xs:extension base="objectInterface">
+				<xs:attribute name="maxx" type="xs:float" use="required" />
+				<xs:attribute name="maxy" type="xs:float" use="required" />
+				<xs:attribute name="maxz" type="xs:float" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="triangleInterface">
+		<xs:complexContent>
+			<xs:extension base="objectInterface">
+				<xs:attribute name="x1" type="xs:float" use="required" />
+				<xs:attribute name="y1" type="xs:float" use="required" />
+				<xs:attribute name="z1" type="xs:float" use="required" />
+				<xs:attribute name="x2" type="xs:float" use="required" />
+				<xs:attribute name="y2" type="xs:float" use="required" />
+				<xs:attribute name="z2" type="xs:float" use="required" />
+				<xs:attribute name="xn" type="xs:float" default="0" />
+				<xs:attribute name="yn" type="xs:float" default="0" />
+				<xs:attribute name="zn" type="xs:float" default="0" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -83,7 +97,10 @@
 				<xs:attribute name="x" type="xs:float" use="required"/>
 				<xs:attribute name="y" type="xs:float" use="required"/>
 				<xs:attribute name="z" type="xs:float" use="required"/>
-				<xs:attribute name="n" type="xs:integer" default="200" />
+				<xs:attribute name="n" type="xs:float" default="0.5" />
+				<xs:attribute name="phongN" type="xs:float" default="0.9" />
+				<xs:attribute name="blinnN" type="xs:float" default="1000.0" />
+				<xs:attribute name="uniqshapeid" type="xs:integer" default="0" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -136,6 +153,14 @@
 								<xs:enumeration value="x"/>
 								<xs:enumeration value="y"/>
 								<xs:enumeration value="z"/>
+
+								<xs:enumeration value="x1"/>
+								<xs:enumeration value="y1"/>
+								<xs:enumeration value="z1"/>
+
+								<xs:enumeration value="x2"/>
+								<xs:enumeration value="y2"/>
+								<xs:enumeration value="z2"/>
 								
 								<xs:enumeration value="vx" />
 								<xs:enumeration value="vy" />

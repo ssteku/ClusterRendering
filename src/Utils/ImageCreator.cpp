@@ -31,9 +31,9 @@ string ImageCreator::saveToImage(vector<float>& pixels, const int dimX,const int
 		// cout<<"y:"<<y<<endl;
 		for(int x = 0; x < myDimX; ++x) {
 			// cout<<"x:"<<x<<endl;
-			unsigned char r = round((pixels[cI] > 1.0 ? 1.0 : pixels[cI])*255);
-			unsigned char g = round((pixels[cI+1] > 1.0 ? 1.0 : pixels[cI+1])*255);
-			unsigned char b = round((pixels[cI+2] > 1.0 ? 1.0 : pixels[cI+2])*255);
+			unsigned char r = static_cast<unsigned char>(round((pixels[cI] > 1.0 ? 1.0 : pixels[cI])*255));
+			unsigned char g = static_cast<unsigned char>(round((pixels[cI+1] > 1.0 ? 1.0 : pixels[cI+1])*255));
+			unsigned char b = static_cast<unsigned char>(round((pixels[cI+2] > 1.0 ? 1.0 : pixels[cI+2])*255));
 			image[y][x] =  png::rgb_pixel(r, g, b);
 			cI += 3;
 			// cout<<cI<<endl;
