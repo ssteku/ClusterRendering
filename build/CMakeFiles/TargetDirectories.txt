@@ -1,1 +1,1 @@
-/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles/ClusterRenderingExe.dir
+/home/ssteku/ClusterBuild/CMakeFiles/ClusterRenderingExe.dir

@@ -31,11 +31,14 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build
+CMAKE_BINARY_DIR = /home/ssteku/ClusterBuild
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ClusterRenderingExe.dir/depend.make
@@ -47,8 +50,8 @@ include CMakeFiles/ClusterRenderingExe.dir/progress.make
 include CMakeFiles/ClusterRenderingExe.dir/flags.make
 
 CMakeFiles/ClusterRenderingExe.dir/src/Cluster/WorkerObject.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/Cluster/WorkerObject.cpp.o: ../src/Cluster/WorkerObject.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_1)
+CMakeFiles/ClusterRenderingExe.dir/src/Cluster/WorkerObject.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/WorkerObject.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Cluster/WorkerObject.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Cluster/WorkerObject.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/WorkerObject.cpp
 
@@ -70,8 +73,8 @@ CMakeFiles/ClusterRenderingExe.dir/src/Cluster/WorkerObject.cpp.o.provides: CMak
 CMakeFiles/ClusterRenderingExe.dir/src/Cluster/WorkerObject.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Cluster/WorkerObject.cpp.o
 
 CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Master.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Master.cpp.o: ../src/Cluster/Master.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_2)
+CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Master.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/Master.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Master.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Master.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/Master.cpp
 
@@ -93,8 +96,8 @@ CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Master.cpp.o.provides: CMakeFiles
 CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Master.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Master.cpp.o
 
 CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Slave.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Slave.cpp.o: ../src/Cluster/Slave.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_3)
+CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Slave.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/Slave.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Slave.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Slave.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster/Slave.cpp
 
@@ -116,8 +119,8 @@ CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Slave.cpp.o.provides: CMakeFiles/
 CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Slave.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Slave.cpp.o
 
 CMakeFiles/ClusterRenderingExe.dir/src/SqlModule/SqlReader.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/SqlModule/SqlReader.cpp.o: ../src/SqlModule/SqlReader.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_4)
+CMakeFiles/ClusterRenderingExe.dir/src/SqlModule/SqlReader.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/SqlModule/SqlReader.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/SqlModule/SqlReader.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/SqlModule/SqlReader.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/SqlModule/SqlReader.cpp
 
@@ -138,9 +141,32 @@ CMakeFiles/ClusterRenderingExe.dir/src/SqlModule/SqlReader.cpp.o.provides: CMake
 
 CMakeFiles/ClusterRenderingExe.dir/src/SqlModule/SqlReader.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/SqlModule/SqlReader.cpp.o
 
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Box.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o"
+	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Box.cpp
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.i"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Box.cpp > CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.i
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.s"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Box.cpp -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.s
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o.requires:
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o.requires
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o.provides: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o.provides.build
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o.provides
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o
+
 CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.o: ../src/Rendering/Raytracer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_5)
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Raytracer.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Raytracer.cpp
 
@@ -161,9 +187,216 @@ CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.o.provides: CMake
 
 CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.o
 
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/RayRenderer.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_7)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o"
+	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/RayRenderer.cpp
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.i"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/RayRenderer.cpp > CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.i
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.s"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/RayRenderer.cpp -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.s
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o.requires:
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o.requires
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o.provides: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o.provides.build
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o.provides
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Plane.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_8)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o"
+	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Plane.cpp
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.i"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Plane.cpp > CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.i
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.s"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Plane.cpp -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.s
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o.requires:
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o.requires
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o.provides: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o.provides.build
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o.provides
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/SceneFactory.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_9)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o"
+	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/SceneFactory.cpp
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.i"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/SceneFactory.cpp > CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.i
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.s"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/SceneFactory.cpp -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.s
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o.requires:
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o.requires
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o.provides: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o.provides.build
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o.provides
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Triangle.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_10)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o"
+	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Triangle.cpp
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.i"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Triangle.cpp > CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.i
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.s"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Triangle.cpp -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.s
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o.requires:
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o.requires
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o.provides: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o.provides.build
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o.provides
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Object.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_11)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o"
+	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Object.cpp
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.i"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Object.cpp > CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.i
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.s"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Object.cpp -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.s
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o.requires:
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o.requires
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o.provides: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o.provides.build
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o.provides
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Sphere.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_12)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o"
+	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Sphere.cpp
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.i"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Sphere.cpp > CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.i
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.s"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Sphere.cpp -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.s
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o.requires:
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o.requires
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o.provides: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o.provides.build
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o.provides
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/MaterialObject.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_13)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o"
+	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/MaterialObject.cpp
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.i"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/MaterialObject.cpp > CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.i
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.s"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/MaterialObject.cpp -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.s
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o.requires:
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o.requires
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o.provides: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o.provides.build
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o.provides
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Light.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_14)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o"
+	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Light.cpp
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.i"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Light.cpp > CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.i
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.s"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Light.cpp -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.s
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o.requires:
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o.requires
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o.provides: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o.provides.build
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o.provides
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Scene.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_15)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o"
+	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Scene.cpp
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.i"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Scene.cpp > CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.i
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.s"
+	mpicxx  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering/Scene.cpp -o CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.s
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o.requires:
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o.requires
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o.provides: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o.provides.build
+.PHONY : CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o.provides
+
+CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o
+
 CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/SceneReader.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/SceneReader.cpp.o: ../src/XMLParser/SceneReader.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_6)
+CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/SceneReader.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/XMLParser/SceneReader.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_16)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/SceneReader.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/SceneReader.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/XMLParser/SceneReader.cpp
 
@@ -185,8 +418,8 @@ CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/SceneReader.cpp.o.provides: CMa
 CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/SceneReader.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/SceneReader.cpp.o
 
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/Client.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/Utils/Client.cpp.o: ../src/Utils/Client.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_7)
+CMakeFiles/ClusterRenderingExe.dir/src/Utils/Client.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Client.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_17)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Utils/Client.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Utils/Client.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Client.cpp
 
@@ -208,8 +441,8 @@ CMakeFiles/ClusterRenderingExe.dir/src/Utils/Client.cpp.o.provides: CMakeFiles/C
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/Client.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Utils/Client.cpp.o
 
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/Part.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/Utils/Part.cpp.o: ../src/Utils/Part.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_8)
+CMakeFiles/ClusterRenderingExe.dir/src/Utils/Part.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Part.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_18)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Utils/Part.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Utils/Part.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Part.cpp
 
@@ -231,8 +464,8 @@ CMakeFiles/ClusterRenderingExe.dir/src/Utils/Part.cpp.o.provides: CMakeFiles/Clu
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/Part.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Utils/Part.cpp.o
 
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/Frame.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/Utils/Frame.cpp.o: ../src/Utils/Frame.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_9)
+CMakeFiles/ClusterRenderingExe.dir/src/Utils/Frame.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Frame.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_19)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Utils/Frame.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Utils/Frame.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/Frame.cpp
 
@@ -254,8 +487,8 @@ CMakeFiles/ClusterRenderingExe.dir/src/Utils/Frame.cpp.o.provides: CMakeFiles/Cl
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/Frame.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Utils/Frame.cpp.o
 
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/MovieCreator.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/Utils/MovieCreator.cpp.o: ../src/Utils/MovieCreator.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_10)
+CMakeFiles/ClusterRenderingExe.dir/src/Utils/MovieCreator.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/MovieCreator.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_20)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Utils/MovieCreator.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Utils/MovieCreator.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/MovieCreator.cpp
 
@@ -277,8 +510,8 @@ CMakeFiles/ClusterRenderingExe.dir/src/Utils/MovieCreator.cpp.o.provides: CMakeF
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/MovieCreator.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Utils/MovieCreator.cpp.o
 
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/ImageCreator.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/Utils/ImageCreator.cpp.o: ../src/Utils/ImageCreator.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_11)
+CMakeFiles/ClusterRenderingExe.dir/src/Utils/ImageCreator.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/ImageCreator.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_21)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Utils/ImageCreator.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Utils/ImageCreator.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/ImageCreator.cpp
 
@@ -300,8 +533,8 @@ CMakeFiles/ClusterRenderingExe.dir/src/Utils/ImageCreator.cpp.o.provides: CMakeF
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/ImageCreator.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Utils/ImageCreator.cpp.o
 
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/FramesManager.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/Utils/FramesManager.cpp.o: ../src/Utils/FramesManager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_12)
+CMakeFiles/ClusterRenderingExe.dir/src/Utils/FramesManager.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/FramesManager.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_22)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/Utils/FramesManager.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/Utils/FramesManager.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils/FramesManager.cpp
 
@@ -323,8 +556,8 @@ CMakeFiles/ClusterRenderingExe.dir/src/Utils/FramesManager.cpp.o.provides: CMake
 CMakeFiles/ClusterRenderingExe.dir/src/Utils/FramesManager.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/Utils/FramesManager.cpp.o
 
 CMakeFiles/ClusterRenderingExe.dir/src/main.cpp.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/main.cpp.o: ../src/main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_13)
+CMakeFiles/ClusterRenderingExe.dir/src/main.cpp.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/main.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_23)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/main.cpp.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/main.cpp.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/main.cpp
 
@@ -346,8 +579,8 @@ CMakeFiles/ClusterRenderingExe.dir/src/main.cpp.o.provides: CMakeFiles/ClusterRe
 CMakeFiles/ClusterRenderingExe.dir/src/main.cpp.o.provides.build: CMakeFiles/ClusterRenderingExe.dir/src/main.cpp.o
 
 CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/scene.cxx.o: CMakeFiles/ClusterRenderingExe.dir/flags.make
-CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/scene.cxx.o: ../src/XMLParser/scene.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles $(CMAKE_PROGRESS_14)
+CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/scene.cxx.o: /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/XMLParser/scene.cxx
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssteku/ClusterBuild/CMakeFiles $(CMAKE_PROGRESS_24)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/scene.cxx.o"
 	mpicxx   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/scene.cxx.o -c /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/XMLParser/scene.cxx
 
@@ -374,7 +607,17 @@ ClusterRenderingExe_OBJECTS = \
 "CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Master.cpp.o" \
 "CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Slave.cpp.o" \
 "CMakeFiles/ClusterRenderingExe.dir/src/SqlModule/SqlReader.cpp.o" \
+"CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o" \
 "CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.o" \
+"CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o" \
+"CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o" \
+"CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o" \
+"CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o" \
+"CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o" \
+"CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o" \
+"CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o" \
+"CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o" \
+"CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o" \
 "CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/SceneReader.cpp.o" \
 "CMakeFiles/ClusterRenderingExe.dir/src/Utils/Client.cpp.o" \
 "CMakeFiles/ClusterRenderingExe.dir/src/Utils/Part.cpp.o" \
@@ -392,7 +635,17 @@ ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Cluster/WorkerObject
 ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Master.cpp.o
 ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Slave.cpp.o
 ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/SqlModule/SqlReader.cpp.o
+ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o
 ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.o
+ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o
+ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o
+ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o
+ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o
+ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o
+ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o
+ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o
+ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o
+ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o
 ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/SceneReader.cpp.o
 ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Utils/Client.cpp.o
 ClusterRenderingExe: CMakeFiles/ClusterRenderingExe.dir/src/Utils/Part.cpp.o
@@ -415,7 +668,17 @@ CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/
 CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Master.cpp.o.requires
 CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Cluster/Slave.cpp.o.requires
 CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/SqlModule/SqlReader.cpp.o.requires
+CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o.requires
 CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.o.requires
+CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o.requires
+CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o.requires
+CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o.requires
+CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o.requires
+CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o.requires
+CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o.requires
+CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o.requires
+CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o.requires
+CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o.requires
 CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/XMLParser/SceneReader.cpp.o.requires
 CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Utils/Client.cpp.o.requires
 CMakeFiles/ClusterRenderingExe.dir/requires: CMakeFiles/ClusterRenderingExe.dir/src/Utils/Part.cpp.o.requires
@@ -432,6 +695,6 @@ CMakeFiles/ClusterRenderingExe.dir/clean:
 .PHONY : CMakeFiles/ClusterRenderingExe.dir/clean
 
 CMakeFiles/ClusterRenderingExe.dir/depend:
-	cd /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles/ClusterRenderingExe.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ssteku/ClusterBuild && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering /home/ssteku/ClusterBuild /home/ssteku/ClusterBuild /home/ssteku/ClusterBuild/CMakeFiles/ClusterRenderingExe.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ClusterRenderingExe.dir/depend
 

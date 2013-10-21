@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 SET(CMAKE_RELATIVE_PATH_TOP_SOURCE "/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering")
-SET(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build")
+SET(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/ssteku/ClusterBuild")
 
 # Force unix paths in dependencies.
 SET(CMAKE_FORCE_UNIX_PATHS 1)
@@ -11,15 +11,14 @@ SET(CMAKE_FORCE_UNIX_PATHS 1)
 # The C and CXX include file search paths:
 SET(CMAKE_C_INCLUDE_PATH
   "/usr/include/mysql"
-  ".././xsd/xsd/libxsd"
+  "/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/./xsd/xsd/libxsd"
   "/etc/alternatives/mpi"
   "/usr/include/xsd"
-  "../src/Rendering"
-  "../src/Utils"
-  "../src/Cluster"
-  "../src/SqlModule"
-  "../src/XMLParser"
-  "../src/Interface"
+  "/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Rendering"
+  "/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Utils"
+  "/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/Cluster"
+  "/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/SqlModule"
+  "/home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/src/XMLParser"
   )
 SET(CMAKE_CXX_INCLUDE_PATH ${CMAKE_C_INCLUDE_PATH})
 SET(CMAKE_Fortran_INCLUDE_PATH ${CMAKE_C_INCLUDE_PATH})

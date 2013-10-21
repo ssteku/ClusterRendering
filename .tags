@@ -4,6 +4,7 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ANTYALIASING_FACTOR	src/Rendering/RayRenderer.hpp	/^	const float ANTYALIASING_FACTOR;$/;"	m	class:rendering::RayRenderer
 ARCHITECTURE_ID	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	193;"	d	file:
 ARCHITECTURE_ID	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	196;"	d	file:
 ARCHITECTURE_ID	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	199;"	d	file:
@@ -15,8 +16,12 @@ ARCHITECTURE_ID	build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp	187;"	d	fi
 ARCHITECTURE_ID	build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp	190;"	d	file:
 ARCHITECTURE_ID	build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp	194;"	d	file:
 B	src/Rendering/Raytracer.h	/^	struct myColor { float R; float G; float B; };$/;"	m	struct:Raytracer::myColor
+Box	src/Rendering/Box.cpp	/^	Box::Box(const float a[],const float d[], const float s[],float miVec[],float maxVec[], float n,float phongN, float blinnN)$/;"	f	class:rendering::Box
+Box	src/Rendering/Box.hpp	/^class Box : public MaterialObject$/;"	c	namespace:rendering
+Box	src/Utils/Context.h	/^	class Box {$/;"	c	class:Context
 CMAKE_BINARY_DIR	build/Makefile	/^CMAKE_BINARY_DIR = \/home\/ssteku\/Dokumenty\/PracaInzynierska\/Projekt\/ClusterRendering\/build$/;"	m
 CMAKE_COMMAND	build/Makefile	/^CMAKE_COMMAND = \/usr\/bin\/cmake$/;"	m
+CMAKE_EDIT_COMMAND	build/Makefile	/^CMAKE_EDIT_COMMAND = \/usr\/bin\/ccmake$/;"	m
 CMAKE_SOURCE_DIR	build/Makefile	/^CMAKE_SOURCE_DIR = \/home\/ssteku\/Dokumenty\/PracaInzynierska\/Projekt\/ClusterRendering$/;"	m
 COMPILER_ID	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	10;"	d	file:
 COMPILER_ID	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	13;"	d	file:
@@ -79,7 +84,6 @@ Go	src/Rendering/Raytracer.cpp	/^void Raytracer::Go(std::vector< float > *ret) {
 ID_VOID_MAIN	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	6;"	d	file:
 INTERSECTION	src/Rendering/Raytracer.h	/^	  LIGHT_SOURCE, NO_INTERSECTION, INTERSECTION$/;"	e	enum:Raytracer::INTERSECT_STATUS
 INTERSECT_STATUS	src/Rendering/Raytracer.h	/^	enum INTERSECT_STATUS {$/;"	g	class:Raytracer
-IObserver	src/Interface/IObserver.hpp	/^class IObserver{$/;"	c
 ImageCreator	src/Utils/ImageCreator.cpp	/^ImageCreator::ImageCreator()$/;"	f	class:ImageCreator
 ImageCreator	src/Utils/ImageCreator.hpp	/^class ImageCreator {$/;"	c
 Intersect	src/Rendering/Raytracer.cpp	/^void Raytracer::Intersect(point p, myVector d, INTERSECT_STATUS *status,$/;"	f	class:Raytracer
@@ -89,17 +93,29 @@ LIGHT_DISTANCE_PARAM_A	src/Rendering/Raytracer.h	/^	const static float LIGHT_DIS
 LIGHT_DISTANCE_PARAM_B	src/Rendering/Raytracer.h	/^	const static float LIGHT_DISTANCE_PARAM_B = 0.01;$/;"	m	class:Raytracer
 LIGHT_DISTANCE_PARAM_C	src/Rendering/Raytracer.h	/^	const static float LIGHT_DISTANCE_PARAM_C = 1.0;$/;"	m	class:Raytracer
 LIGHT_SOURCE	src/Rendering/Raytracer.h	/^	  LIGHT_SOURCE, NO_INTERSECTION, INTERSECTION$/;"	e	enum:Raytracer::INTERSECT_STATUS
+Light	src/Rendering/Light.cpp	/^Light::Light(const float a[],const float d[], const float s[],float r,float pos[])$/;"	f	class:rendering::Light
+Light	src/Rendering/Light.hpp	/^class Light : public Object$/;"	c	namespace:rendering
 Light	src/Utils/Context.h	/^	class Light {$/;"	c	class:Context
+MAX_DISTANCE	src/Rendering/RayRenderer.hpp	/^	const float MAX_DISTANCE;$/;"	m	class:rendering::RayRenderer
 MAX_LIGHT_DISTANCE	src/Rendering/Raytracer.h	/^	float MAX_LIGHT_DISTANCE;$/;"	m	class:Raytracer
 MINIMAL_LIGHT_VISIBILITY	src/Rendering/Raytracer.h	/^	const static float MINIMAL_LIGHT_VISIBILITY = 0.01;$/;"	m	class:Raytracer
 MOVIECREATOR	src/Utils/MovieCreator.hpp	2;"	d
 Master	src/Cluster/Master.cpp	/^Master::Master(mpi::communicator& comm) : world(comm){$/;"	f	class:Master
 Master	src/Cluster/Master.hpp	/^class Master: public WorkerObject{$/;"	c
+MaterialObject	src/Rendering/MaterialObject.cpp	/^MaterialObject::MaterialObject(const float a[],const float d[], const float s[], float n,float phongN, float blinnN, ObjectTypes type )$/;"	f	class:rendering::MaterialObject
+MaterialObject	src/Rendering/MaterialObject.hpp	/^class MaterialObject : public Object$/;"	c	namespace:rendering
 MovieCreator	src/Utils/MovieCreator.cpp	/^MovieCreator::MovieCreator()$/;"	f	class:MovieCreator
 MovieCreator	src/Utils/MovieCreator.hpp	/^class MovieCreator $/;"	c
+NO_COLOR	src/Rendering/RayRenderer.hpp	/^	const Ogre::ColourValue NO_COLOR;$/;"	m	class:rendering::RayRenderer
 NO_INTERSECTION	src/Rendering/Raytracer.h	/^	  LIGHT_SOURCE, NO_INTERSECTION, INTERSECTION$/;"	e	enum:Raytracer::INTERSECT_STATUS
+NO_OBJECT	src/Rendering/RayRenderer.hpp	/^	const int NO_OBJECT;$/;"	m	class:rendering::RayRenderer
 Normal	src/Rendering/Raytracer.cpp	/^void Raytracer::Normal(point p, point c, myVector ret) {$/;"	f	class:Raytracer
 Normalization	src/Rendering/Raytracer.cpp	/^void Raytracer::Normalization(point p) {$/;"	f	class:Raytracer
+Object	src/Rendering/Object.cpp	/^Object::Object(const float a[],const float d[], const float s[])$/;"	f	class:rendering::Object
+Object	src/Rendering/Object.hpp	/^class Object$/;"	c	namespace:rendering
+ObjectTypes	src/Rendering/MaterialObject.hpp	/^	enum ObjectTypes {tBox,tPlane,tSphere,tTriangle};$/;"	g	class:rendering::MaterialObject
+Ogre	src/Rendering/MaterialObject.hpp	/^namespace Ogre$/;"	n
+Ogre	src/Rendering/RayRenderer.hpp	/^namespace Ogre$/;"	n
 PLATFORM_ID	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	104;"	d	file:
 PLATFORM_ID	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	107;"	d	file:
 PLATFORM_ID	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	110;"	d	file:
@@ -152,53 +168,77 @@ PLATFORM_ID	build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp	170;"	d	file:
 PLATFORM_ID	build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp	92;"	d	file:
 PLATFORM_ID	build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp	95;"	d	file:
 PLATFORM_ID	build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp	98;"	d	file:
-Part	src/Utils/Part.cpp	/^Part::Part(boost::shared_ptr<Context> cont, boost::function<bool (boost::shared_ptr<std::vector<float> > pixels, $/;"	f	class:Part
+Part	src/Utils/Part.cpp	/^Part::Part(boost::shared_ptr<Context> cont, boost::function<long (boost::shared_ptr<std::vector<float> > pixels, $/;"	f	class:Part
 Part	src/Utils/Part.hpp	/^class Part $/;"	c
 Phong	src/Rendering/Raytracer.cpp	/^void Raytracer::Phong(point q, myVector n, myVector V, unsigned int objectId, color ret) {$/;"	f	class:Raytracer
+Plane	src/Rendering/Plane.cpp	/^Plane::Plane(const float a[],const float d[], const float s[],float normalVec[],float dist, float n,float phongN, float blinnN)$/;"	f	class:rendering::Plane
+Plane	src/Rendering/Plane.hpp	/^class Plane : public MaterialObject$/;"	c	namespace:rendering
+Plane	src/Utils/Context.h	/^	class Plane {$/;"	c	class:Context
 R	src/Rendering/Raytracer.h	/^	struct myColor { float R; float G; float B; };$/;"	m	struct:Raytracer::myColor
 RAYTRACER_H_	src/Rendering/Raytracer.h	11;"	d
 RM	build/Makefile	/^RM = \/usr\/bin\/cmake -E remove -f$/;"	m
+RayRenderer	src/Rendering/RayRenderer.cpp	/^RayRenderer::RayRenderer(boost::shared_ptr<Scene> scene) : scene(scene), MAX_DISTANCE(999999.0f), $/;"	f	class:rendering::RayRenderer
+RayRenderer	src/Rendering/RayRenderer.hpp	/^class RayRenderer$/;"	c	namespace:rendering
 Raytracer	src/Rendering/Raytracer.cpp	/^Raytracer::Raytracer(Context *cont) : context(cont) {$/;"	f	class:Raytracer
 Raytracer	src/Rendering/Raytracer.h	/^class Raytracer {$/;"	c
 Reflect	src/Rendering/Raytracer.cpp	/^void Raytracer::Reflect(point p, point q, myVector n, myVector ret) {$/;"	f	class:Raytracer
 SCENE_HXX	src/XMLParser/scene.hxx	35;"	d
 SHELL	build/Makefile	/^SHELL = \/bin\/sh$/;"	m
+START_COEF	src/Rendering/RayRenderer.hpp	/^	const float START_COEF;$/;"	m	class:rendering::RayRenderer
+START_LEVEL	src/Rendering/RayRenderer.hpp	/^	const int START_LEVEL;$/;"	m	class:rendering::RayRenderer
 SUFFIXES	build/Makefile	/^SUFFIXES =$/;"	m
+Scene	src/Rendering/Scene.hpp	/^class Scene $/;"	c	namespace:rendering
+SceneFactory	src/Rendering/SceneFactory.hpp	/^class SceneFactory$/;"	c	namespace:rendering
 SceneReader	src/XMLParser/SceneReader.cpp	/^SceneReader::SceneReader(istream &is):xmlStream(is) {$/;"	f	class:SceneReader
 SceneReader	src/XMLParser/SceneReader.hpp	/^class SceneReader {$/;"	c
 Slave	src/Cluster/Slave.cpp	/^Slave::Slave(mpi::communicator& comm) : world(comm){$/;"	f	class:Slave
 Slave	src/Cluster/Slave.hpp	/^class Slave : public WorkerObject{$/;"	c
+Sphere	src/Rendering/Sphere.cpp	/^Sphere::Sphere(const float a[],const float d[], const float s[],float r,float pos[], float n, float phongN, float blinnN)$/;"	f	class:rendering::Sphere
+Sphere	src/Rendering/Sphere.hpp	/^class Sphere : public MaterialObject$/;"	c	namespace:rendering
 Sphere	src/Utils/Context.h	/^	class Sphere {$/;"	c	class:Context
-SqlReader	src/SqlModule/SqlReader.cpp	/^SqlReader::SqlReader():  db("raytracing"),server("127.0.0.1:3306"),user("root"),pass("stek11"),conn(false) {$/;"	f	class:SqlReader
+SqlReader	src/SqlModule/SqlReader.cpp	/^SqlReader::SqlReader():  db("raytracing"),server("127.0.0.1:3306"),user("root1"),pass("aqg2sgpn"),conn(false) {$/;"	f	class:SqlReader
 SqlReader	src/SqlModule/SqlReader.hpp	/^class SqlReader : public WorkerObject{$/;"	c
 Task	src/Utils/Task.hpp	/^class Task{$/;"	c
 Trace	src/Rendering/Raytracer.cpp	/^void Raytracer::Trace(point p, myVector d, int step, color ret) {$/;"	f	class:Raytracer
+Triangle	src/Rendering/Triangle.cpp	/^Triangle::Triangle(const float a[],const float d[], const float s[],float point1[],float point2[],float point3[], float nVec[], float n,float phongN, float blinnN)$/;"	f	class:rendering::Triangle
+Triangle	src/Rendering/Triangle.hpp	/^class Triangle : public MaterialObject$/;"	c	namespace:rendering
+Triangle	src/Utils/Context.h	/^	class Triangle {$/;"	c	class:Context
 WorkerObject	src/Cluster/WorkerObject.hpp	/^class WorkerObject{$/;"	c
 XSD_CXX_TREE_TREE_NODE_KEY__XML_SCHEMA	src/XMLParser/scene.hxx	214;"	d
 XSD_CXX_TREE_USE_CHAR	src/XMLParser/scene.hxx	55;"	d
 XSD_USE_CHAR	src/XMLParser/scene.hxx	51;"	d
+_BOX_HPP_	src/Rendering/Box.hpp	2;"	d
 _CLIENT_H_	src/Utils/Client.hpp	2;"	d
 _CONTEXT_H_	src/Utils/Context.h	2;"	d
 _FRAMESMANAGER_H_	src/Utils/FramesManager.hpp	2;"	d
 _FRAME_H_	src/Utils/Frame.hpp	2;"	d
 _IMAGECREATOR_H_	src/Utils/ImageCreator.hpp	2;"	d
-_IOBSERVER_H_	src/Interface/IObserver.hpp	2;"	d
+_LIGHT_HPP_	src/Rendering/Light.hpp	2;"	d
 _MASTER_H_	src/Cluster/Master.hpp	2;"	d
+_MATERIALOBJECT__HPP_	src/Rendering/MaterialObject.hpp	2;"	d
+_OBJECT_HPP_	src/Rendering/Object.hpp	2;"	d
 _PART_H_	src/Utils/Part.hpp	2;"	d
+_PLANE_HPP_	src/Rendering/Plane.hpp	2;"	d
+_RAYRENDERER_HPP_	src/Rendering/RayRenderer.hpp	2;"	d
+_SCENEFACTORY_HPP_	src/Rendering/SceneFactory.hpp	2;"	d
+_SCENE_HPP_	src/Rendering/Scene.hpp	2;"	d
 _SLAVE_H_	src/Cluster/Slave.hpp	2;"	d
+_SPHERE_HPP_	src/Rendering/Sphere.hpp	2;"	d
 _SQLREADER_H_	src/SqlModule/SqlReader.hpp	2;"	d
 _SceneReader_hpp	src/XMLParser/SceneReader.hpp	9;"	d
 _TASK_H_	src/Utils/Task.hpp	2;"	d
+_TRIANGLE_HPP_	src/Rendering/Triangle.hpp	2;"	d
 _WORKEROBJECT_H_	src/Cluster/WorkerObject.hpp	2;"	d
+_clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:boxInterface
 _clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:cameraInterface
 _clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:colorInterface
-_clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:elipsoidInterface
 _clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:lightInterface
 _clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:objectInterface
 _clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:planeInterface
 _clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:property
 _clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:sceneInterface
 _clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:sphereInterface
+_clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:triangleInterface
 _clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:tween
 _clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:tweenInterface
 _clone	src/XMLParser/scene.cxx	/^_clone (::xml_schema::flags f,$/;"	f	class:type
@@ -212,12 +252,6 @@ _xsd_type_indexes_	src/XMLParser/scene.cxx	/^_xsd_type_indexes_[1] =$/;"	m	class
 _xsd_type_indexes_	src/XMLParser/scene.hxx	/^  static const value _xsd_type_indexes_[1];$/;"	m	class:type
 _xsd_type_literals_	src/XMLParser/scene.cxx	/^_xsd_type_literals_[1] =$/;"	m	class:type	file:
 _xsd_type_literals_	src/XMLParser/scene.hxx	/^  static const char* const _xsd_type_literals_[1];$/;"	m	class:type
-a	src/XMLParser/scene.cxx	/^a () const$/;"	f	class:elipsoidInterface
-a	src/XMLParser/scene.cxx	/^a ()$/;"	f	class:elipsoidInterface
-a	src/XMLParser/scene.cxx	/^a (const a_type& x)$/;"	f	class:elipsoidInterface
-a_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< a_type > a_;$/;"	m	class:elipsoidInterface
-a_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< a_type, char > a_traits;$/;"	t	class:elipsoidInterface
-a_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ a_type;$/;"	t	class:elipsoidInterface
 ablue	src/XMLParser/scene.cxx	/^ablue () const$/;"	f	class:colorInterface
 ablue	src/XMLParser/scene.cxx	/^ablue ()$/;"	f	class:colorInterface
 ablue	src/XMLParser/scene.cxx	/^ablue (const ablue_type& x)$/;"	f	class:colorInterface
@@ -227,7 +261,7 @@ ablue_default_value	src/XMLParser/scene.cxx	/^ablue_default_value ()$/;"	f	class
 ablue_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< ablue_type, char > ablue_traits;$/;"	t	class:colorInterface
 ablue_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ ablue_type;$/;"	t	class:colorInterface
 addPartsToQueue	src/Utils/FramesManager.cpp	/^void FramesManager::addPartsToQueue(Task& task)$/;"	f	class:FramesManager
-addedPart	src/Utils/FramesManager.hpp	/^	boost::condition_variable addedPart;$/;"	m	class:FramesManager
+addedPart	src/Utils/FramesManager.hpp	/^	boost::condition_variable addedPart; \/** Condition variable informing that there is at least one part to be rendered *\/$/;"	m	class:FramesManager
 agreen	src/XMLParser/scene.cxx	/^agreen () const$/;"	f	class:colorInterface
 agreen	src/XMLParser/scene.cxx	/^agreen ()$/;"	f	class:colorInterface
 agreen	src/XMLParser/scene.cxx	/^agreen (const agreen_type& x)$/;"	f	class:colorInterface
@@ -236,8 +270,12 @@ agreen_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< agreen_type > agreen_
 agreen_default_value	src/XMLParser/scene.cxx	/^agreen_default_value ()$/;"	f	class:colorInterface
 agreen_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< agreen_type, char > agreen_traits;$/;"	t	class:colorInterface
 agreen_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ agreen_type;$/;"	t	class:colorInterface
-ambient	src/Utils/Context.h	/^		float ambient[3]; \/\/kolory oswietrelniea wg modelu Phonga$/;"	m	class:Context::Light
-ambient	src/Utils/Context.h	/^		float ambient[3];$/;"	m	class:Context::Sphere
+ambient	src/Rendering/Object.hpp	/^	Ogre::ColourValue ambient;$/;"	m	class:rendering::Object
+ambient	src/Utils/Context.h	/^		float ambient[3]; \/** Ambient rgb colours in phong light description system *\/ $/;"	m	class:Context::Box
+ambient	src/Utils/Context.h	/^		float ambient[3]; \/** Ambient rgb colours in phong light description system *\/ $/;"	m	class:Context::Light
+ambient	src/Utils/Context.h	/^		float ambient[3]; \/** Ambient rgb colours in phong light description system *\/ $/;"	m	class:Context::Plane
+ambient	src/Utils/Context.h	/^		float ambient[3]; \/** Ambient rgb colours in phong light description system *\/ $/;"	m	class:Context::Sphere
+ambient	src/Utils/Context.h	/^		float ambient[3]; \/** Ambient rgb colours in phong light description system *\/ $/;"	m	class:Context::Triangle
 ared	src/XMLParser/scene.cxx	/^ared () const$/;"	f	class:colorInterface
 ared	src/XMLParser/scene.cxx	/^ared ()$/;"	f	class:colorInterface
 ared	src/XMLParser/scene.cxx	/^ared (const ared_type& x)$/;"	f	class:colorInterface
@@ -246,13 +284,9 @@ ared_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< ared_type > ared_;$/;"	
 ared_default_value	src/XMLParser/scene.cxx	/^ared_default_value ()$/;"	f	class:colorInterface
 ared_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< ared_type, char > ared_traits;$/;"	t	class:colorInterface
 ared_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ ared_type;$/;"	t	class:colorInterface
-b	src/XMLParser/scene.cxx	/^b () const$/;"	f	class:elipsoidInterface
-b	src/XMLParser/scene.cxx	/^b ()$/;"	f	class:elipsoidInterface
-b	src/XMLParser/scene.cxx	/^b (const b_type& x)$/;"	f	class:elipsoidInterface
-b_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< b_type > b_;$/;"	m	class:elipsoidInterface
-b_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< b_type, char > b_traits;$/;"	t	class:elipsoidInterface
-b_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ b_type;$/;"	t	class:elipsoidInterface
-background	src/Utils/Context.h	/^  float background[3]; \/\/kolor tla$/;"	m	class:Context
+avTime	src/Utils/FramesManager.hpp	/^	unsigned long avTime;$/;"	m	class:FramesManager
+background	src/Rendering/Scene.hpp	/^	Ogre::ColourValue background; \/** Background rgb colour *\/ $/;"	m	class:rendering::Scene
+background	src/Utils/Context.h	/^  float background[3]; \/** Background rgb colour *\/ $/;"	m	class:Context
 base64_binary	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::base64_binary< char, simple_type > base64_binary;$/;"	t	namespace:xml_schema
 bblue	src/XMLParser/scene.cxx	/^bblue () const$/;"	f	class:sceneInterface
 bblue	src/XMLParser/scene.cxx	/^bblue ()$/;"	f	class:sceneInterface
@@ -268,8 +302,35 @@ bgreen_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< bgreen_type > bgreen_
 bgreen_default_value	src/XMLParser/scene.cxx	/^bgreen_default_value ()$/;"	f	class:sceneInterface
 bgreen_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< bgreen_type, char > bgreen_traits;$/;"	t	class:sceneInterface
 bgreen_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ bgreen_type;$/;"	t	class:sceneInterface
+blinnN	src/Rendering/MaterialObject.hpp	/^	float blinnN;$/;"	m	class:rendering::MaterialObject
+blinnN	src/Utils/Context.h	/^		float blinnN; \/* Blinn factor *\/$/;"	m	class:Context::Box
+blinnN	src/Utils/Context.h	/^		float blinnN; \/* Blinn factor *\/$/;"	m	class:Context::Plane
+blinnN	src/Utils/Context.h	/^		float blinnN; \/* Blinn factor *\/$/;"	m	class:Context::Sphere
+blinnN	src/Utils/Context.h	/^		float blinnN; \/* Blinn factor *\/$/;"	m	class:Context::Triangle
+blinnN	src/XMLParser/scene.cxx	/^blinnN () const$/;"	f	class:objectInterface
+blinnN	src/XMLParser/scene.cxx	/^blinnN ()$/;"	f	class:objectInterface
+blinnN	src/XMLParser/scene.cxx	/^blinnN (const blinnN_type& x)$/;"	f	class:objectInterface
+blinnN_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< blinnN_type > blinnN_;$/;"	m	class:objectInterface
+blinnN_default_value	src/XMLParser/scene.cxx	/^blinnN_default_value ()$/;"	f	class:objectInterface
+blinnN_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< blinnN_type, char > blinnN_traits;$/;"	t	class:objectInterface
+blinnN_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ blinnN_type;$/;"	t	class:objectInterface
 boolean	src/XMLParser/scene.hxx	/^  typedef bool boolean;$/;"	t	namespace:xml_schema
 bounds	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::bounds< char > bounds;$/;"	t	namespace:xml_schema
+box	src/Rendering/Box.hpp	/^	Ogre::AxisAlignedBox box;$/;"	m	class:rendering::Box
+box	src/XMLParser/scene.cxx	/^box () const$/;"	f	class:sceneInterface
+box	src/XMLParser/scene.cxx	/^box ()$/;"	f	class:sceneInterface
+box	src/XMLParser/scene.cxx	/^box (const box_sequence& s)$/;"	f	class:sceneInterface
+boxInterface	src/XMLParser/scene.cxx	/^boxInterface (const ::xercesc::DOMElement& e,$/;"	f	class:boxInterface
+boxInterface	src/XMLParser/scene.cxx	/^boxInterface (const boxInterface& x,$/;"	f	class:boxInterface
+boxInterface	src/XMLParser/scene.cxx	/^boxInterface (const id_type& id,$/;"	f	class:boxInterface
+boxInterface	src/XMLParser/scene.hxx	/^class boxInterface: public ::objectInterface$/;"	c
+box_	src/XMLParser/scene.hxx	/^  box_sequence box_;$/;"	m	class:sceneInterface
+box_const_iterator	src/XMLParser/scene.hxx	/^  typedef box_sequence::const_iterator box_const_iterator;$/;"	t	class:sceneInterface
+box_iterator	src/XMLParser/scene.hxx	/^  typedef box_sequence::iterator box_iterator;$/;"	t	class:sceneInterface
+box_sequence	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::sequence< box_type > box_sequence;$/;"	t	class:sceneInterface
+box_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< box_type, char > box_traits;$/;"	t	class:sceneInterface
+box_type	src/XMLParser/scene.hxx	/^  typedef ::boxInterface box_type;$/;"	t	class:sceneInterface
+boxes	src/Utils/Context.h	/^  std::vector < Box > boxes; \/** Vector of the boxes on the scene *\/$/;"	m	class:Context
 bred	src/XMLParser/scene.cxx	/^bred () const$/;"	f	class:sceneInterface
 bred	src/XMLParser/scene.cxx	/^bred ()$/;"	f	class:sceneInterface
 bred	src/XMLParser/scene.cxx	/^bred (const bred_type& x)$/;"	f	class:sceneInterface
@@ -279,26 +340,25 @@ bred_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< bred_t
 bred_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ bred_type;$/;"	t	class:sceneInterface
 buffer	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::buffer< char > buffer;$/;"	t	namespace:xml_schema
 byte	src/XMLParser/scene.hxx	/^  typedef signed char byte;$/;"	t	namespace:xml_schema
-c	src/XMLParser/scene.cxx	/^c () const$/;"	f	class:elipsoidInterface
-c	src/XMLParser/scene.cxx	/^c ()$/;"	f	class:elipsoidInterface
-c	src/XMLParser/scene.cxx	/^c (const c_type& x)$/;"	f	class:elipsoidInterface
-c_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< c_type > c_;$/;"	m	class:elipsoidInterface
-c_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< c_type, char > c_traits;$/;"	t	class:elipsoidInterface
-c_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ c_type;$/;"	t	class:elipsoidInterface
 calculateMLD	src/Rendering/Raytracer.cpp	/^void Raytracer::calculateMLD() {$/;"	f	class:Raytracer
-callback	src/Utils/Client.hpp	/^	boost::function<void (bool)> callback;$/;"	m	class:Client
+callback	src/Utils/Client.hpp	/^	boost::function<void (long)> callback;\/** Callback function which should be called when part was rendered with frame-finish status*\/$/;"	m	class:Client
 camera	src/XMLParser/scene.cxx	/^camera () const$/;"	f	class:sceneInterface
 camera	src/XMLParser/scene.cxx	/^camera ()$/;"	f	class:sceneInterface
 camera	src/XMLParser/scene.cxx	/^camera (const camera_sequence& s)$/;"	f	class:sceneInterface
-cameraId	src/Utils/Context.h	/^  string cameraId;$/;"	m	class:Context
+cameraId	src/Rendering/Scene.hpp	/^	string cameraId; \/** Unique camera id *\/$/;"	m	class:rendering::Scene
+cameraId	src/Utils/Context.h	/^  string cameraId; \/** Unique camera id *\/$/;"	m	class:Context
 cameraInterface	src/XMLParser/scene.cxx	/^cameraInterface (const ::xercesc::DOMElement& e,$/;"	f	class:cameraInterface
 cameraInterface	src/XMLParser/scene.cxx	/^cameraInterface (const cameraInterface& x,$/;"	f	class:cameraInterface
 cameraInterface	src/XMLParser/scene.cxx	/^cameraInterface (const id_type& id,$/;"	f	class:cameraInterface
 cameraInterface	src/XMLParser/scene.hxx	/^class cameraInterface: public ::tweenInterface$/;"	c
-cameraPosition	src/Utils/Context.h	/^  float cameraPosition[3]; \/\/punkt kamery$/;"	m	class:Context
-cameraX	src/Utils/Context.h	/^  float cameraX[3]; \/\/ wektory ukladu kamery$/;"	m	class:Context
-cameraY	src/Utils/Context.h	/^  float cameraY[3];$/;"	m	class:Context
-cameraZ	src/Utils/Context.h	/^  float cameraZ[3]; \/\/ wektory musza byc ortonormalne$/;"	m	class:Context
+cameraPosition	src/Rendering/Scene.hpp	/^	Ogre::Vector3 cameraPosition; \/** Position of the camera [x][y][z] *\/ $/;"	m	class:rendering::Scene
+cameraPosition	src/Utils/Context.h	/^  float cameraPosition[3]; \/** Position of the camera [x][y][z] *\/ $/;"	m	class:Context
+cameraX	src/Rendering/Scene.hpp	/^	Ogre::Vector3 cameraX; \/** Vector x of camera system, all vectors of camera system have to be ortonormal *\/$/;"	m	class:rendering::Scene
+cameraX	src/Utils/Context.h	/^  float cameraX[3]; \/** Vector x of camera system, all vectors of camera system have to be ortonormal *\/$/;"	m	class:Context
+cameraY	src/Rendering/Scene.hpp	/^	Ogre::Vector3 cameraY; \/** Vector y of camera system, all vectors of camera system have to be ortonormal *\/$/;"	m	class:rendering::Scene
+cameraY	src/Utils/Context.h	/^  float cameraY[3]; \/** Vector y of camera system, all vectors of camera system have to be ortonormal *\/$/;"	m	class:Context
+cameraZ	src/Rendering/Scene.hpp	/^	Ogre::Vector3 cameraZ; \/** Vector z of camera system, all vectors of camera system have to be ortonormal *\/   $/;"	m	class:rendering::Scene
+cameraZ	src/Utils/Context.h	/^  float cameraZ[3]; \/** Vector z of camera system, all vectors of camera system have to be ortonormal *\/   $/;"	m	class:Context
 camera_	src/XMLParser/scene.hxx	/^  camera_sequence camera_;$/;"	m	class:sceneInterface
 camera_const_iterator	src/XMLParser/scene.hxx	/^  typedef camera_sequence::const_iterator camera_const_iterator;$/;"	t	class:sceneInterface
 camera_iterator	src/XMLParser/scene.hxx	/^  typedef camera_sequence::iterator camera_iterator;$/;"	t	class:sceneInterface
@@ -307,9 +367,9 @@ camera_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< came
 camera_type	src/XMLParser/scene.hxx	/^  typedef ::cameraInterface camera_type;$/;"	t	class:sceneInterface
 changeStatus	src/SqlModule/SqlReader.cpp	/^void SqlReader::changeStatus(int id,int status){$/;"	f	class:SqlReader
 checkForTasks	src/SqlModule/SqlReader.cpp	/^boost::optional<mysqlpp::StoreQueryResult> SqlReader::checkForTasks(){$/;"	f	class:SqlReader
-clientMutex	src/Utils/FramesManager.hpp	/^	boost::mutex clientMutex;$/;"	m	class:FramesManager
-clientNr	src/Utils/Client.hpp	/^	const int clientNr;$/;"	m	class:Client
-clientReleased	src/Utils/FramesManager.hpp	/^	boost::condition_variable clientReleased;$/;"	m	class:FramesManager
+clientMutex	src/Utils/FramesManager.hpp	/^	boost::mutex clientMutex; \/** clientMutex is used to prevent multi read\/write on freeClients *\/$/;"	m	class:FramesManager
+clientNr	src/Utils/Client.hpp	/^	const int clientNr; \/** Number representing unique client id *\/$/;"	m	class:Client
+clientReleased	src/Utils/FramesManager.hpp	/^	boost::condition_variable clientReleased; \/** Condition variable informing that there is at least one free client *\/$/;"	m	class:FramesManager
 clients	src/Utils/FramesManager.hpp	/^	std::map<int, boost::shared_ptr<Client> > clients;$/;"	m	class:FramesManager
 color	src/Rendering/Raytracer.h	/^	typedef float color[3];$/;"	t	class:Raytracer
 colorInterface	src/XMLParser/scene.cxx	/^colorInterface ()$/;"	f	class:colorInterface
@@ -322,15 +382,24 @@ container	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::type container;$
 context	src/Rendering/Raytracer.h	/^	Context *context;$/;"	m	class:Raytracer
 context	src/Utils/Part.hpp	/^	boost::shared_ptr<Context> context;$/;"	m	class:Part
 contexts	src/Utils/Task.hpp	/^	std::vector<Context> contexts;$/;"	m	class:Task
+countBlinn	src/Rendering/RayRenderer.cpp	/^void RayRenderer::countBlinn(Ogre::ColourValue& pixel, const Ogre::Ray& lightRay, $/;"	f	class:rendering::RayRenderer
+countPhong	src/Rendering/RayRenderer.cpp	/^void RayRenderer::countPhong(Ogre::ColourValue& pixel, const Ogre::Ray& lightRay, $/;"	f	class:rendering::RayRenderer
 createDirectoriesTree	src/Cluster/Master.cpp	/^void Master::createDirectoriesTree(){$/;"	f	class:Master
 createMovie	src/Utils/MovieCreator.cpp	/^void MovieCreator::createMovie(int taskId)$/;"	f	class:MovieCreator
+createScene	src/Rendering/SceneFactory.cpp	/^boost::shared_ptr<Scene> SceneFactory::createScene(Context* context)$/;"	f	class:rendering::SceneFactory
 createdAt	src/Utils/Task.hpp	/^	std::string name,createdAt,modifiedAt;$/;"	m	class:Task
 currentTaskDate	src/SqlModule/SqlReader.hpp	/^	mysqlpp::DateTime currentTaskDate;$/;"	m	class:SqlReader
+d	src/XMLParser/scene.cxx	/^d () const$/;"	f	class:planeInterface
 d	src/XMLParser/scene.cxx	/^d () const$/;"	f	class:sceneInterface
+d	src/XMLParser/scene.cxx	/^d ()$/;"	f	class:planeInterface
 d	src/XMLParser/scene.cxx	/^d ()$/;"	f	class:sceneInterface
+d	src/XMLParser/scene.cxx	/^d (const d_type& x)$/;"	f	class:planeInterface
 d	src/XMLParser/scene.cxx	/^d (const d_type& x)$/;"	f	class:sceneInterface
+d_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< d_type > d_;$/;"	m	class:planeInterface
 d_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< d_type > d_;$/;"	m	class:sceneInterface
+d_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< d_type, char > d_traits;$/;"	t	class:planeInterface
 d_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< d_type, char > d_traits;$/;"	t	class:sceneInterface
+d_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ d_type;$/;"	t	class:planeInterface
 d_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ d_type;$/;"	t	class:sceneInterface
 date	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::date< char, simple_type > date;$/;"	t	namespace:xml_schema
 date_time	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::date_time< char, simple_type > date_time;$/;"	t	namespace:xml_schema
@@ -353,11 +422,17 @@ dgreen_default_value	src/XMLParser/scene.cxx	/^dgreen_default_value ()$/;"	f	cla
 dgreen_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< dgreen_type, char > dgreen_traits;$/;"	t	class:colorInterface
 dgreen_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ dgreen_type;$/;"	t	class:colorInterface
 diagnostics	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::diagnostics< char > diagnostics;$/;"	t	namespace:xml_schema
-diffuse	src/Utils/Context.h	/^		float diffuse[3];$/;"	m	class:Context::Light
-diffuse	src/Utils/Context.h	/^		float diffuse[3];$/;"	m	class:Context::Sphere
-dimX	src/Utils/Frame.hpp	/^	const int dimX;$/;"	m	class:Frame
-dimY	src/Utils/Frame.hpp	/^	const int dimY;$/;"	m	class:Frame
-dimension	src/Utils/Context.h	/^  int dimension[2]; \/\/px$/;"	m	class:Context
+diffuse	src/Rendering/Object.hpp	/^	Ogre::ColourValue diffuse;$/;"	m	class:rendering::Object
+diffuse	src/Utils/Context.h	/^		float diffuse[3]; \/** Diffuse rgb colours in phong light description system*\/$/;"	m	class:Context::Box
+diffuse	src/Utils/Context.h	/^		float diffuse[3]; \/** Diffuse rgb colours in phong light description system*\/$/;"	m	class:Context::Light
+diffuse	src/Utils/Context.h	/^		float diffuse[3]; \/** Diffuse rgb colours in phong light description system*\/$/;"	m	class:Context::Plane
+diffuse	src/Utils/Context.h	/^		float diffuse[3]; \/** Diffuse rgb colours in phong light description system*\/$/;"	m	class:Context::Sphere
+diffuse	src/Utils/Context.h	/^		float diffuse[3]; \/** Diffuse rgb colours in phong light description system*\/$/;"	m	class:Context::Triangle
+dimX	src/Utils/Frame.hpp	/^	const int dimX; \/** Width of the frame *\/$/;"	m	class:Frame
+dimY	src/Utils/Frame.hpp	/^	const int dimY; \/** Height of the frame *\/$/;"	m	class:Frame
+dimension	src/Rendering/Scene.hpp	/^	int dimension[2]; \/** Dimension of the result image(scene) *\/ $/;"	m	class:rendering::Scene
+dimension	src/Utils/Context.h	/^  int dimension[2]; \/** Dimension of the result image(scene) *\/ $/;"	m	class:Context
+distance	src/Utils/Context.h	/^		float distance; \/** Distance from center (0,0,0) *\/$/;"	m	class:Context::Plane
 dom	src/XMLParser/scene.hxx	/^  namespace dom$/;"	n	namespace:xml_schema
 doneFrames	src/Utils/Task.hpp	/^	unsigned int doneFrames,subtaskWidth,subtaskHeight,status,totalFrames;$/;"	m	class:Task
 dotProduct	src/Rendering/Raytracer.cpp	/^float Raytracer::dotProduct(point p1, point p2) {$/;"	f	class:Raytracer
@@ -372,19 +447,6 @@ dred_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< dred_t
 dred_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ dred_type;$/;"	t	class:colorInterface
 duplicate_id	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::duplicate_id< char > duplicate_id;$/;"	t	namespace:xml_schema
 duration	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::duration< char, simple_type > duration;$/;"	t	namespace:xml_schema
-elipsoid	src/XMLParser/scene.cxx	/^elipsoid () const$/;"	f	class:sceneInterface
-elipsoid	src/XMLParser/scene.cxx	/^elipsoid ()$/;"	f	class:sceneInterface
-elipsoid	src/XMLParser/scene.cxx	/^elipsoid (const elipsoid_sequence& s)$/;"	f	class:sceneInterface
-elipsoidInterface	src/XMLParser/scene.cxx	/^elipsoidInterface (const ::xercesc::DOMElement& e,$/;"	f	class:elipsoidInterface
-elipsoidInterface	src/XMLParser/scene.cxx	/^elipsoidInterface (const elipsoidInterface& x,$/;"	f	class:elipsoidInterface
-elipsoidInterface	src/XMLParser/scene.cxx	/^elipsoidInterface (const id_type& id,$/;"	f	class:elipsoidInterface
-elipsoidInterface	src/XMLParser/scene.hxx	/^class elipsoidInterface: public ::objectInterface$/;"	c
-elipsoid_	src/XMLParser/scene.hxx	/^  elipsoid_sequence elipsoid_;$/;"	m	class:sceneInterface
-elipsoid_const_iterator	src/XMLParser/scene.hxx	/^  typedef elipsoid_sequence::const_iterator elipsoid_const_iterator;$/;"	t	class:sceneInterface
-elipsoid_iterator	src/XMLParser/scene.hxx	/^  typedef elipsoid_sequence::iterator elipsoid_iterator;$/;"	t	class:sceneInterface
-elipsoid_sequence	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::sequence< elipsoid_type > elipsoid_sequence;$/;"	t	class:sceneInterface
-elipsoid_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< elipsoid_type, char > elipsoid_traits;$/;"	t	class:sceneInterface
-elipsoid_type	src/XMLParser/scene.hxx	/^  typedef ::elipsoidInterface elipsoid_type;$/;"	t	class:sceneInterface
 end	src/XMLParser/scene.cxx	/^end () const$/;"	f	class:tween
 end	src/XMLParser/scene.cxx	/^end ()$/;"	f	class:tween
 end	src/XMLParser/scene.cxx	/^end (const end_type& x)$/;"	f	class:tween
@@ -396,8 +458,7 @@ entity	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::entity< char, ncnam
 error	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::error< char > error;$/;"	t	namespace:xml_schema
 error_handler	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::xml::error_handler< char > error_handler;$/;"	t	namespace:xml_schema
 exception	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::exception< char > exception;$/;"	t	namespace:xml_schema
-executeVideoConverter	src/Utils/MovieCreator.cpp	/^void MovieCreator::executeVideoConverter()$/;"	f	class:MovieCreator
-executedThread	src/Cluster/WorkerObject.hpp	/^	boost::thread executedThread;$/;"	m	class:WorkerObject
+executedThread	src/Cluster/WorkerObject.hpp	/^	boost::thread executedThread; \/** Thread object *\/$/;"	m	class:WorkerObject
 expected_attribute	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::expected_attribute< char > expected_attribute;$/;"	t	namespace:xml_schema
 expected_element	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::expected_element< char > expected_element;$/;"	t	namespace:xml_schema
 expected_text_content	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::expected_text_content< char > expected_text_content;$/;"	t	namespace:xml_schema
@@ -408,6 +469,7 @@ frameNr	src/Utils/Part.hpp	/^	const unsigned int frameNr;$/;"	m	class:Part
 frames	src/XMLParser/scene.cxx	/^frames () const$/;"	f	class:sceneInterface
 frames	src/XMLParser/scene.cxx	/^frames ()$/;"	f	class:sceneInterface
 frames	src/XMLParser/scene.cxx	/^frames (const frames_type& x)$/;"	f	class:sceneInterface
+framesDone	src/Utils/FramesManager.hpp	/^	unsigned long framesDone;$/;"	m	class:FramesManager
 frames_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< frames_type > frames_;$/;"	m	class:sceneInterface
 frames_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< frames_type, char > frames_traits;$/;"	t	class:sceneInterface
 frames_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::integer frames_type;$/;"	t	class:sceneInterface
@@ -419,16 +481,35 @@ from_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< from_type > from_;$/;"	
 from_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< from_type, char > from_traits;$/;"	t	class:tween
 from_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ from_type;$/;"	t	class:tween
 gday	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::gday< char, simple_type > gday;$/;"	t	namespace:xml_schema
+getAmbient	src/Rendering/Object.cpp	/^ColourValue& Object::getAmbient()$/;"	f	class:rendering::Object
+getBlinnN	src/Rendering/MaterialObject.hpp	/^	virtual inline float getBlinnN()$/;"	f	class:rendering::MaterialObject
+getBox	src/Rendering/Box.cpp	/^	const Ogre::AxisAlignedBox& Box::getBox()$/;"	f	class:rendering::Box
 getContext	src/Utils/Part.cpp	/^Context* Part::getContext()$/;"	f	class:Part
+getDiffuse	src/Rendering/Object.cpp	/^ColourValue& Object::getDiffuse()$/;"	f	class:rendering::Object
 getFrameContext	src/XMLParser/SceneReader.cpp	/^Context SceneReader::getFrameContext(Context &c, int frame) {$/;"	f	class:SceneReader
 getFrameNr	src/Utils/Part.cpp	/^unsigned int Part::getFrameNr() const$/;"	f	class:Part
 getFrames	src/XMLParser/SceneReader.cpp	/^int SceneReader::getFrames() {$/;"	f	class:SceneReader
-getNumber	src/Utils/Client.cpp	/^int Client::getNumber()$/;"	f	class:Client
+getN	src/Rendering/MaterialObject.hpp	/^	virtual inline float getN()$/;"	f	class:rendering::MaterialObject
+getNormalVec	src/Rendering/Triangle.cpp	/^const Ogre::Vector3& Triangle::getNormalVec()$/;"	f	class:rendering::Triangle
+getNormalVector	src/Rendering/Box.cpp	/^	Ogre::Vector3 Box::getNormalVector(const Ogre::Vector3& intersecPoint)$/;"	f	class:rendering::Box
+getNormalVector	src/Rendering/Plane.cpp	/^Ogre::Vector3 Plane::getNormalVector(const Ogre::Vector3& intersecPoint)$/;"	f	class:rendering::Plane
+getNormalVector	src/Rendering/Sphere.cpp	/^Ogre::Vector3 Sphere::getNormalVector(const Ogre::Vector3& intersecPoint)$/;"	f	class:rendering::Sphere
+getNormalVector	src/Rendering/Triangle.cpp	/^Ogre::Vector3 Triangle::getNormalVector(const Ogre::Vector3& intersecPoint)$/;"	f	class:rendering::Triangle
+getNumber	src/Utils/Client.cpp	/^int Client::getNumber() const$/;"	f	class:Client
+getP1	src/Rendering/Triangle.cpp	/^const Ogre::Vector3& Triangle::getP1()$/;"	f	class:rendering::Triangle
+getP2	src/Rendering/Triangle.cpp	/^const Ogre::Vector3& Triangle::getP2()$/;"	f	class:rendering::Triangle
+getP3	src/Rendering/Triangle.cpp	/^const Ogre::Vector3& Triangle::getP3()$/;"	f	class:rendering::Triangle
 getPart	src/Utils/FramesManager.cpp	/^boost::optional<boost::shared_ptr<Part> > FramesManager::getPart()$/;"	f	class:FramesManager
 getPartNumber	src/Utils/Part.cpp	/^unsigned int Part::getPartNumber() const$/;"	f	class:Part
+getPhongN	src/Rendering/MaterialObject.hpp	/^	virtual inline float getPhongN()$/;"	f	class:rendering::MaterialObject
+getPlane	src/Rendering/Plane.cpp	/^const Ogre::Plane& Plane::getPlane()$/;"	f	class:rendering::Plane
+getSpecular	src/Rendering/Object.cpp	/^ColourValue& Object::getSpecular()$/;"	f	class:rendering::Object
+getSphere	src/Rendering/Light.cpp	/^const Ogre::Sphere& Light::getSphere()$/;"	f	class:rendering::Light
+getSphere	src/Rendering/Sphere.cpp	/^const Ogre::Sphere& Sphere::getSphere()$/;"	f	class:rendering::Sphere
 getTask	src/SqlModule/SqlReader.cpp	/^boost::optional<Task> SqlReader::getTask(){$/;"	f	class:SqlReader
 getTaskDataFromDb	src/SqlModule/SqlReader.cpp	/^bool  SqlReader::getTaskDataFromDb(mysqlpp::StoreQueryResult& res){$/;"	f	class:SqlReader
 getTaskId	src/Utils/Part.cpp	/^unsigned int Part::getTaskId() const$/;"	f	class:Part
+getType	src/Rendering/MaterialObject.hpp	/^	ObjectTypes getType()$/;"	f	class:rendering::MaterialObject
 glblue	src/XMLParser/scene.cxx	/^glblue () const$/;"	f	class:sceneInterface
 glblue	src/XMLParser/scene.cxx	/^glblue ()$/;"	f	class:sceneInterface
 glblue	src/XMLParser/scene.cxx	/^glblue (const glblue_type& x)$/;"	f	class:sceneInterface
@@ -443,7 +524,8 @@ glgreen_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< glgreen_type > glgre
 glgreen_default_value	src/XMLParser/scene.cxx	/^glgreen_default_value ()$/;"	f	class:sceneInterface
 glgreen_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< glgreen_type, char > glgreen_traits;$/;"	t	class:sceneInterface
 glgreen_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ glgreen_type;$/;"	t	class:sceneInterface
-globalLight	src/Utils/Context.h	/^  float globalLight[3]; \/\/oswietlenie globalne ambient$/;"	m	class:Context
+globalLight	src/Rendering/Scene.hpp	/^	Ogre::ColourValue globalLight; \/** Ambient global rgb light colour *\/ $/;"	m	class:rendering::Scene
+globalLight	src/Utils/Context.h	/^  float globalLight[3]; \/** Ambient global rgb light colour *\/ $/;"	m	class:Context
 glred	src/XMLParser/scene.cxx	/^glred () const$/;"	f	class:sceneInterface
 glred	src/XMLParser/scene.cxx	/^glred ()$/;"	f	class:sceneInterface
 glred	src/XMLParser/scene.cxx	/^glred (const glred_type& x)$/;"	f	class:sceneInterface
@@ -461,9 +543,8 @@ h	src/XMLParser/scene.cxx	/^h (const h_type& x)$/;"	f	class:sceneInterface
 h_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< h_type > h_;$/;"	m	class:sceneInterface
 h_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< h_type, char > h_traits;$/;"	t	class:sceneInterface
 h_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ h_type;$/;"	t	class:sceneInterface
-hasFreeClient	src/Utils/FramesManager.hpp	/^	bool hasFreeClient;$/;"	m	class:FramesManager
-hasPart	src/Utils/FramesManager.hpp	/^	bool hasPart;$/;"	m	class:FramesManager
-hasTask	src/Utils/Client.hpp	/^	bool hasTask;$/;"	m	class:Client
+hasFreeClient	src/Utils/FramesManager.hpp	/^	bool hasFreeClient; \/** Variable containing information if there are free clients *\/$/;"	m	class:FramesManager
+hasTask	src/Utils/Client.hpp	/^	bool hasTask;\/** Variable informing about availability of task*\/$/;"	m	class:Client
 height	src/XMLParser/scene.cxx	/^height () const$/;"	f	class:sceneInterface
 height	src/XMLParser/scene.cxx	/^height ()$/;"	f	class:sceneInterface
 height	src/XMLParser/scene.cxx	/^height (const height_type& x)$/;"	f	class:sceneInterface
@@ -472,8 +553,11 @@ height_default_value	src/XMLParser/scene.cxx	/^height_default_value ()$/;"	f	cla
 height_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< height_type, char > height_traits;$/;"	t	class:sceneInterface
 height_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::integer height_type;$/;"	t	class:sceneInterface
 hex_binary	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::hex_binary< char, simple_type > hex_binary;$/;"	t	namespace:xml_schema
-id	src/Utils/Context.h	/^        string id;$/;"	m	class:Context::Light
-id	src/Utils/Context.h	/^        string id;$/;"	m	class:Context::Sphere
+id	src/Utils/Context.h	/^        string id; \/** Unique box id *\/$/;"	m	class:Context::Box
+id	src/Utils/Context.h	/^        string id; \/** Unique id of the light *\/$/;"	m	class:Context::Light
+id	src/Utils/Context.h	/^        string id; \/** Unique plane id *\/$/;"	m	class:Context::Plane
+id	src/Utils/Context.h	/^        string id; \/** Unique sphere id *\/$/;"	m	class:Context::Sphere
+id	src/Utils/Context.h	/^        string id; \/** Unique sphere id *\/$/;"	m	class:Context::Triangle
 id	src/Utils/Task.hpp	/^	unsigned int id;$/;"	m	class:Task
 id	src/XMLParser/scene.cxx	/^id () const$/;"	f	class:cameraInterface
 id	src/XMLParser/scene.cxx	/^id () const$/;"	f	class:lightInterface
@@ -506,21 +590,29 @@ info_compiler	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	/^char const* info
 info_compiler	build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_compiler = "INFO" ":" "compiler[" COMPILER_ID "]";$/;"	v
 info_platform	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	/^char const* info_platform = "INFO" ":" "platform[" PLATFORM_ID "]";$/;"	v
 info_platform	build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_platform = "INFO" ":" "platform[" PLATFORM_ID "]";$/;"	v
+initBoxData	src/XMLParser/SceneReader.cpp	/^void SceneReader::initBoxData(Context& c)$/;"	f	class:SceneReader
 initCameraData	src/XMLParser/SceneReader.cpp	/^void SceneReader::initCameraData(Context &c) {$/;"	f	class:SceneReader
 initContext	src/XMLParser/SceneReader.cpp	/^void SceneReader::initContext(Context &c) {$/;"	f	class:SceneReader
 initLightData	src/XMLParser/SceneReader.cpp	/^void SceneReader::initLightData(Context &c) {$/;"	f	class:SceneReader
+initPlaneData	src/XMLParser/SceneReader.cpp	/^void SceneReader::initPlaneData(Context& c)$/;"	f	class:SceneReader
 initSceneData	src/XMLParser/SceneReader.cpp	/^void SceneReader::initSceneData(Context &c) {$/;"	f	class:SceneReader
 initSphereData	src/XMLParser/SceneReader.cpp	/^void SceneReader::initSphereData(Context &c) {$/;"	f	class:SceneReader
+initTriangleData	src/XMLParser/SceneReader.cpp	/^void SceneReader::initTriangleData(Context& c) {$/;"	f	class:SceneReader
 int_	src/XMLParser/scene.hxx	/^  typedef int int_;$/;"	t	namespace:xml_schema
 integer	src/XMLParser/scene.hxx	/^  typedef long long integer;$/;"	t	namespace:xml_schema
+intersects	src/Rendering/Box.cpp	/^	std::pair< bool, float > Box::intersects(const Ogre::Ray &ray)$/;"	f	class:rendering::Box
+intersects	src/Rendering/Light.cpp	/^std::pair< bool, float > Light::intersects(const Ogre::Ray &ray)$/;"	f	class:rendering::Light
+intersects	src/Rendering/Plane.cpp	/^std::pair< bool, float > Plane::intersects(const Ogre::Ray &ray)$/;"	f	class:rendering::Plane
+intersects	src/Rendering/Sphere.cpp	/^std::pair< bool, float > Sphere::intersects(const Ogre::Ray &ray)$/;"	f	class:rendering::Sphere
+intersects	src/Rendering/Triangle.cpp	/^std::pair< bool, float > Triangle::intersects(const Ogre::Ray &ray)$/;"	f	class:rendering::Triangle
 io_mutex	src/SqlModule/SqlReader.hpp	/^	boost::mutex io_mutex;$/;"	m	class:SqlReader
-io_mutex	src/Utils/Client.hpp	/^	boost::mutex io_mutex;$/;"	m	class:Client
-io_mutex	src/Utils/Frame.hpp	/^	boost::mutex io_mutex;$/;"	m	class:Frame
-io_mutex	src/Utils/FramesManager.hpp	/^	boost::mutex io_mutex;$/;"	m	class:FramesManager
+io_mutex	src/Utils/Client.hpp	/^	boost::mutex io_mutex;\/** Mutex which prevents multi use of render function *\/$/;"	m	class:Client
+io_mutex	src/Utils/Frame.hpp	/^	boost::mutex io_mutex; \/** Mutex which prevents saving to image by many threads *\/$/;"	m	class:Frame
+io_mutex	src/Utils/FramesManager.hpp	/^	boost::mutex io_mutex; \/** io_mutex is used to prevent multi read\/write on partQueue *\/$/;"	m	class:FramesManager
 io_mutex	src/Utils/Part.hpp	/^	boost::mutex io_mutex;$/;"	m	class:Part
 join	src/Cluster/WorkerObject.cpp	/^void WorkerObject::join(){$/;"	f	class:WorkerObject
 language	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::language< char, token > language;$/;"	t	namespace:xml_schema
-leftParts	src/Utils/Frame.hpp	/^	int leftParts;$/;"	m	class:Frame
+leftParts	src/Utils/Frame.hpp	/^	int leftParts; \/** Number of parts which still hase to be rendered *\/$/;"	m	class:Frame
 light	src/XMLParser/scene.cxx	/^light () const$/;"	f	class:sceneInterface
 light	src/XMLParser/scene.cxx	/^light ()$/;"	f	class:sceneInterface
 light	src/XMLParser/scene.cxx	/^light (const light_sequence& s)$/;"	f	class:sceneInterface
@@ -534,9 +626,10 @@ light_iterator	src/XMLParser/scene.hxx	/^  typedef light_sequence::iterator ligh
 light_sequence	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::sequence< light_type > light_sequence;$/;"	t	class:sceneInterface
 light_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< light_type, char > light_traits;$/;"	t	class:sceneInterface
 light_type	src/XMLParser/scene.hxx	/^  typedef ::lightInterface light_type;$/;"	t	class:sceneInterface
-lights	src/Utils/Context.h	/^  std::vector < Light > lights;$/;"	m	class:Context
+lights	src/Rendering/Scene.hpp	/^	vector<boost::shared_ptr<Light> > lights;$/;"	m	class:rendering::Scene
+lights	src/Utils/Context.h	/^  std::vector < Light > lights; \/** Vector of lights on the scene *\/$/;"	m	class:Context
 linear	src/XMLParser/scene.hxx	/^    linear$/;"	e	enum:type::value
-long_	src/XMLParser/scene.hxx	/^  typedef long long_;$/;"	t	namespace:xml_schema
+long_	src/XMLParser/scene.hxx	/^  typedef long long long_;$/;"	t	namespace:xml_schema
 main	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	/^int main(int argc, char* argv[])$/;"	f
 main	build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c	/^void main() {}$/;"	f
 main	build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^int main(int argc, char* argv[])$/;"	f
@@ -546,19 +639,44 @@ manageWork	src/Cluster/Slave.cpp	/^void Slave::manageWork(){$/;"	f	class:Slave
 manageWork	src/SqlModule/SqlReader.cpp	/^void SqlReader::manageWork(){$/;"	f	class:SqlReader
 manageWork	src/Utils/Client.cpp	/^void Client::manageWork()$/;"	f	class:Client
 manageWork	src/Utils/FramesManager.cpp	/^void FramesManager::manageWork(){$/;"	f	class:FramesManager
-manageWork	src/Utils/MovieCreator.cpp	/^void MovieCreator::manageWork()$/;"	f	class:MovieCreator
-maxRayBounce	src/Utils/Context.h	/^  int maxRayBounce; \/\/glebia sledzenia promieni (ok 3 najlepiej)$/;"	m	class:Context
+maxRayBounce	src/Rendering/Scene.hpp	/^	int maxRayBounce; \/** Maximum ray trace value *\/ $/;"	m	class:rendering::Scene
+maxRayBounce	src/Utils/Context.h	/^  int maxRayBounce; \/** Maximum ray trace value *\/ $/;"	m	class:Context
+maxVector	src/Utils/Context.h	/^		float maxVector[3]; \/** Maximum vector for box*\/$/;"	m	class:Context::Box
+maxx	src/XMLParser/scene.cxx	/^maxx () const$/;"	f	class:boxInterface
+maxx	src/XMLParser/scene.cxx	/^maxx ()$/;"	f	class:boxInterface
+maxx	src/XMLParser/scene.cxx	/^maxx (const maxx_type& x)$/;"	f	class:boxInterface
+maxx_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< maxx_type > maxx_;$/;"	m	class:boxInterface
+maxx_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< maxx_type, char > maxx_traits;$/;"	t	class:boxInterface
+maxx_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ maxx_type;$/;"	t	class:boxInterface
+maxy	src/XMLParser/scene.cxx	/^maxy () const$/;"	f	class:boxInterface
+maxy	src/XMLParser/scene.cxx	/^maxy ()$/;"	f	class:boxInterface
+maxy	src/XMLParser/scene.cxx	/^maxy (const maxy_type& x)$/;"	f	class:boxInterface
+maxy_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< maxy_type > maxy_;$/;"	m	class:boxInterface
+maxy_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< maxy_type, char > maxy_traits;$/;"	t	class:boxInterface
+maxy_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ maxy_type;$/;"	t	class:boxInterface
+maxz	src/XMLParser/scene.cxx	/^maxz () const$/;"	f	class:boxInterface
+maxz	src/XMLParser/scene.cxx	/^maxz ()$/;"	f	class:boxInterface
+maxz	src/XMLParser/scene.cxx	/^maxz (const maxz_type& x)$/;"	f	class:boxInterface
+maxz_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< maxz_type > maxz_;$/;"	m	class:boxInterface
+maxz_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< maxz_type, char > maxz_traits;$/;"	t	class:boxInterface
+maxz_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ maxz_type;$/;"	t	class:boxInterface
 message_tags	src/Utils/Client.cpp	/^enum message_tags {msg_data_packet, msg_broadcast_data, msg_finished};$/;"	g	file:
+minVector	src/Utils/Context.h	/^		float minVector[3]; \/** Minimum vector for box*\/$/;"	m	class:Context::Box
 modifiedAt	src/Utils/Task.hpp	/^	std::string name,createdAt,modifiedAt;$/;"	m	class:Task
-mpiServiceMutex	src/Utils/Client.hpp	/^	boost::mutex& mpiServiceMutex;$/;"	m	class:Client
+mpiServiceMutex	src/Utils/Client.hpp	/^	boost::mutex& mpiServiceMutex;\/** Mutex which prevents multi send to mpi client *\/$/;"	m	class:Client
 mpiServiceMutex	src/Utils/FramesManager.hpp	/^	boost::mutex mpiServiceMutex;$/;"	m	class:FramesManager
 msg_broadcast_data	src/Utils/Client.cpp	/^enum message_tags {msg_data_packet, msg_broadcast_data, msg_finished};$/;"	e	enum:message_tags	file:
 msg_data_packet	src/Utils/Client.cpp	/^enum message_tags {msg_data_packet, msg_broadcast_data, msg_finished};$/;"	e	enum:message_tags	file:
 msg_finished	src/Utils/Client.cpp	/^enum message_tags {msg_data_packet, msg_broadcast_data, msg_finished};$/;"	e	enum:message_tags	file:
-mst1	src/Utils/Frame.hpp	/^	boost::posix_time::ptime mst1;$/;"	m	class:Frame
+mst1	src/Utils/Frame.hpp	/^	boost::posix_time::ptime mst1; \/** Time of frame life, show how much time it took to render frame after it's creation *\/$/;"	m	class:Frame
+mst1	src/Utils/FramesManager.hpp	/^	boost::posix_time::ptime mst1; \/** Time of frame life, show how much time it took to render frame after it's creation *\/$/;"	m	class:FramesManager
 myColor	src/Rendering/Raytracer.h	/^	struct myColor { float R; float G; float B; };$/;"	s	class:Raytracer
 myVector	src/Rendering/Raytracer.h	/^	typedef float myVector[3];$/;"	t	class:Raytracer
-n	src/Utils/Context.h	/^		int n; \/\/wsp zwierciadlowosci$/;"	m	class:Context::Sphere
+n	src/Rendering/MaterialObject.hpp	/^	float n;$/;"	m	class:rendering::MaterialObject
+n	src/Utils/Context.h	/^		float n; \/** Mirror factor of the box *\/ $/;"	m	class:Context::Box
+n	src/Utils/Context.h	/^		float n; \/** Mirror factor of the plane *\/ $/;"	m	class:Context::Plane
+n	src/Utils/Context.h	/^		float n; \/** Mirror factor of the sphere *\/ $/;"	m	class:Context::Sphere
+n	src/Utils/Context.h	/^		float n; \/** Mirror factor of the sphere *\/ $/;"	m	class:Context::Triangle
 n	src/XMLParser/scene.cxx	/^n () const$/;"	f	class:objectInterface
 n	src/XMLParser/scene.cxx	/^n ()$/;"	f	class:objectInterface
 n	src/XMLParser/scene.cxx	/^n (const n_type& x)$/;"	f	class:objectInterface
@@ -566,47 +684,73 @@ n	src/XMLParser/scene.hxx	/^    n$/;"	e	enum:property::value
 n_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< n_type > n_;$/;"	m	class:objectInterface
 n_default_value	src/XMLParser/scene.cxx	/^n_default_value ()$/;"	f	class:objectInterface
 n_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< n_type, char > n_traits;$/;"	t	class:objectInterface
-n_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::integer n_type;$/;"	t	class:objectInterface
+n_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ n_type;$/;"	t	class:objectInterface
 name	src/Utils/Task.hpp	/^	std::string name,createdAt,modifiedAt;$/;"	m	class:Task
 name	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::name< char, token > name;$/;"	t	namespace:xml_schema
 ncname	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::ncname< char, name > ncname;$/;"	t	namespace:xml_schema
+needNewTask	src/Utils/FramesManager.hpp	/^	bool needNewTask; \/** Variable which has information if new task should be taken from database *\/$/;"	m	class:FramesManager
+needTaskCondition	src/Utils/FramesManager.hpp	/^	boost::condition_variable needTaskCondition; \/** Condition variable informing that there is ano task rendered right now *\/$/;"	m	class:FramesManager
 negative_integer	src/XMLParser/scene.hxx	/^  typedef long long negative_integer;$/;"	t	namespace:xml_schema
 nmtoken	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::nmtoken< char, token > nmtoken;$/;"	t	namespace:xml_schema
 nmtokens	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::nmtokens< char, simple_type, nmtoken > nmtokens;$/;"	t	namespace:xml_schema
 no_prefix_mapping	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::no_prefix_mapping< char > no_prefix_mapping;$/;"	t	namespace:xml_schema
 non_negative_integer	src/XMLParser/scene.hxx	/^  typedef unsigned long long non_negative_integer;$/;"	t	namespace:xml_schema
 non_positive_integer	src/XMLParser/scene.hxx	/^  typedef long long non_positive_integer;$/;"	t	namespace:xml_schema
+normalVec	src/Rendering/Triangle.hpp	/^	Ogre::Vector3 p1,p2,p3,normalVec;$/;"	m	class:rendering::Triangle
+normalVec	src/Utils/Context.h	/^		float normalVec[3]; \/** Normal vector of triangle *\/$/;"	m	class:Context::Triangle
+normalVector	src/Utils/Context.h	/^		float normalVector[3]; \/** Position of plane [x][y][z] normal vector *\/$/;"	m	class:Context::Plane
 normalized_string	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::normalized_string< char, string > normalized_string;$/;"	t	namespace:xml_schema
 notify	src/SqlModule/SqlReader.cpp	/^void SqlReader::notify(Task task){$/;"	f	class:SqlReader
-nr	src/Utils/Frame.hpp	/^	const int nr;$/;"	m	class:Frame
-numberOfParts	src/Utils/Frame.hpp	/^	const int numberOfParts;$/;"	m	class:Frame
+nr	src/Utils/Frame.hpp	/^	const int nr; \/** Unique frame id *\/$/;"	m	class:Frame
+numberOfParts	src/Utils/Frame.hpp	/^	const int numberOfParts; \/** Number of parts which frame has to compute *\/$/;"	m	class:Frame
 objectInterface	src/XMLParser/scene.cxx	/^objectInterface (const ::xercesc::DOMElement& e,$/;"	f	class:objectInterface
 objectInterface	src/XMLParser/scene.cxx	/^objectInterface (const id_type& id,$/;"	f	class:objectInterface
 objectInterface	src/XMLParser/scene.cxx	/^objectInterface (const objectInterface& x,$/;"	f	class:objectInterface
 objectInterface	src/XMLParser/scene.hxx	/^class objectInterface: public ::colorInterface$/;"	c
+objects	src/Rendering/Scene.hpp	/^	vector<boost::shared_ptr<MaterialObject> > objects;$/;"	m	class:rendering::Scene
 operator =	src/XMLParser/scene.cxx	/^operator= (value v)$/;"	f	class:property
 operator =	src/XMLParser/scene.cxx	/^operator= (value v)$/;"	f	class:type
 operator value	src/XMLParser/scene.hxx	/^  operator value () const$/;"	f	class:property
 operator value	src/XMLParser/scene.hxx	/^  operator value () const$/;"	f	class:type
+p1	src/Rendering/Triangle.hpp	/^	Ogre::Vector3 p1,p2,p3,normalVec;$/;"	m	class:rendering::Triangle
+p2	src/Rendering/Triangle.hpp	/^	Ogre::Vector3 p1,p2,p3,normalVec;$/;"	m	class:rendering::Triangle
+p3	src/Rendering/Triangle.hpp	/^	Ogre::Vector3 p1,p2,p3,normalVec;$/;"	m	class:rendering::Triangle
+parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:boxInterface
 parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:cameraInterface
 parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:colorInterface
-parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:elipsoidInterface
 parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:lightInterface
 parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:objectInterface
 parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:planeInterface
 parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:sceneInterface
 parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:sphereInterface
+parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:triangleInterface
 parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:tween
 parse	src/XMLParser/scene.cxx	/^parse (::xsd::cxx::xml::dom::parser< char >& p,$/;"	f	class:tweenInterface
 parsing	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::parsing< char > parsing;$/;"	t	namespace:xml_schema
-partLength	src/Utils/Frame.hpp	/^	unsigned int partLength;$/;"	m	class:Frame
+partLength	src/Utils/Frame.hpp	/^	unsigned int partLength; \/** Length of result pixel vector (except the last part), used to check if everything was received properly*\/$/;"	m	class:Frame
 partNumber	src/Utils/Part.hpp	/^	const unsigned int partNumber;$/;"	m	class:Part
 partQueue	src/Utils/FramesManager.hpp	/^	std::queue<boost::shared_ptr<Part> > partQueue;$/;"	m	class:FramesManager
 pass	src/SqlModule/SqlReader.hpp	/^	const std::string pass;$/;"	m	class:SqlReader
+passBoxData	src/XMLParser/SceneReader.cpp	/^void SceneReader::passBoxData(Context& c, int frame) {$/;"	f	class:SceneReader
 passCameraData	src/XMLParser/SceneReader.cpp	/^void SceneReader::passCameraData(Context &c, int frame) {    $/;"	f	class:SceneReader
 passLightData	src/XMLParser/SceneReader.cpp	/^void SceneReader::passLightData(Context &c, int frame) {$/;"	f	class:SceneReader
+passPlaneData	src/XMLParser/SceneReader.cpp	/^void SceneReader::passPlaneData(Context &c, int frame) {$/;"	f	class:SceneReader
 passSphereData	src/XMLParser/SceneReader.cpp	/^void SceneReader::passSphereData(Context &c, int frame) {$/;"	f	class:SceneReader
-piecesPerSlave	src/Utils/FramesManager.hpp	/^	const unsigned short piecesPerSlave;$/;"	m	class:FramesManager
+passTriangleData	src/XMLParser/SceneReader.cpp	/^void SceneReader::passTriangleData(Context& c, int frame)$/;"	f	class:SceneReader
+phongN	src/Rendering/MaterialObject.hpp	/^	float phongN;$/;"	m	class:rendering::MaterialObject
+phongN	src/Utils/Context.h	/^		float phongN; \/* Phong factor *\/$/;"	m	class:Context::Box
+phongN	src/Utils/Context.h	/^		float phongN; \/* Phong factor *\/$/;"	m	class:Context::Plane
+phongN	src/Utils/Context.h	/^		float phongN; \/* Phong factor *\/$/;"	m	class:Context::Sphere
+phongN	src/Utils/Context.h	/^		float phongN; \/* Phong factor *\/$/;"	m	class:Context::Triangle
+phongN	src/XMLParser/scene.cxx	/^phongN () const$/;"	f	class:objectInterface
+phongN	src/XMLParser/scene.cxx	/^phongN ()$/;"	f	class:objectInterface
+phongN	src/XMLParser/scene.cxx	/^phongN (const phongN_type& x)$/;"	f	class:objectInterface
+phongN_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< phongN_type > phongN_;$/;"	m	class:objectInterface
+phongN_default_value	src/XMLParser/scene.cxx	/^phongN_default_value ()$/;"	f	class:objectInterface
+phongN_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< phongN_type, char > phongN_traits;$/;"	t	class:objectInterface
+phongN_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ phongN_type;$/;"	t	class:objectInterface
+piecesPerSlave	src/Utils/FramesManager.hpp	/^	const unsigned short piecesPerSlave; \/** Variable informing how many pieces of frame is for one client *\/$/;"	m	class:FramesManager
+plane	src/Rendering/Plane.hpp	/^	Ogre::Plane plane;$/;"	m	class:rendering::Plane
 plane	src/XMLParser/scene.cxx	/^plane () const$/;"	f	class:sceneInterface
 plane	src/XMLParser/scene.cxx	/^plane ()$/;"	f	class:sceneInterface
 plane	src/XMLParser/scene.cxx	/^plane (const plane_sequence& s)$/;"	f	class:sceneInterface
@@ -620,9 +764,13 @@ plane_iterator	src/XMLParser/scene.hxx	/^  typedef plane_sequence::iterator plan
 plane_sequence	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::sequence< plane_type > plane_sequence;$/;"	t	class:sceneInterface
 plane_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< plane_type, char > plane_traits;$/;"	t	class:sceneInterface
 plane_type	src/XMLParser/scene.hxx	/^  typedef ::planeInterface plane_type;$/;"	t	class:sceneInterface
+planes	src/Utils/Context.h	/^  std::vector < Plane > planes; \/** Vector of the planes on the scene *\/$/;"	m	class:Context
 point	src/Rendering/Raytracer.h	/^	typedef float point[3];$/;"	t	class:Raytracer
-position	src/Utils/Context.h	/^		float position[3];$/;"	m	class:Context::Light
-position	src/Utils/Context.h	/^		float position[3];$/;"	m	class:Context::Sphere
+point1	src/Utils/Context.h	/^		float point1[3],point2[3],point3[3]; \/** Points defining triangle  *\/$/;"	m	class:Context::Triangle
+point2	src/Utils/Context.h	/^		float point1[3],point2[3],point3[3]; \/** Points defining triangle  *\/$/;"	m	class:Context::Triangle
+point3	src/Utils/Context.h	/^		float point1[3],point2[3],point3[3]; \/** Points defining triangle  *\/$/;"	m	class:Context::Triangle
+position	src/Utils/Context.h	/^		float position[3]; \/** Position of light [x][y][z] *\/$/;"	m	class:Context::Light
+position	src/Utils/Context.h	/^		float position[3]; \/** Position of sphere [x][y][z] *\/$/;"	m	class:Context::Sphere
 positive_integer	src/XMLParser/scene.hxx	/^  typedef unsigned long long positive_integer;$/;"	t	namespace:xml_schema
 properties	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::properties< char > properties;$/;"	t	namespace:xml_schema
 property	src/XMLParser/scene.cxx	/^property () const$/;"	f	class:tween
@@ -642,8 +790,8 @@ property_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< property_type > pro
 property_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< property_type, char > property_traits;$/;"	t	class:tween
 property_type	src/XMLParser/scene.hxx	/^  typedef ::property property_type;$/;"	t	class:tween
 qname	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::qname< char, simple_type, uri, ncname > qname;$/;"	t	namespace:xml_schema
-r	src/Utils/Context.h	/^		float r; \/\/ jak duze swiatlo jest, potrzebne zeby dalo sie w nie trafic$/;"	m	class:Context::Light
-r	src/Utils/Context.h	/^		float r;$/;"	m	class:Context::Sphere
+r	src/Utils/Context.h	/^		float r; \/** Ray of the light *\/ $/;"	m	class:Context::Light
+r	src/Utils/Context.h	/^		float r; \/** Ray size of the sphere *\/$/;"	m	class:Context::Sphere
 r	src/XMLParser/scene.cxx	/^r () const$/;"	f	class:lightInterface
 r	src/XMLParser/scene.cxx	/^r () const$/;"	f	class:sphereInterface
 r	src/XMLParser/scene.cxx	/^r ()$/;"	f	class:lightInterface
@@ -657,14 +805,34 @@ r_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< r_type, c
 r_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ r_type;$/;"	t	class:lightInterface
 r_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ r_type;$/;"	t	class:sphereInterface
 reader	src/Cluster/Master.hpp	/^	SqlReader reader; \/** SQL reader which enable task reading from DB *\/$/;"	m	class:Master
-releaseClient	src/Utils/FramesManager.cpp	/^void FramesManager::releaseClient(const int clientNumber, const int taskId, const int frameId, bool removeFrame)$/;"	f	class:FramesManager
-render	src/Utils/Client.cpp	/^void Client::render(boost::shared_ptr<Part> task, boost::function<void (bool)> callback)$/;"	f	class:Client
-results	src/Utils/Client.hpp	/^	boost::shared_ptr<std::vector<float> > results;$/;"	m	class:Client
-results	src/Utils/Frame.hpp	/^	std::vector<float> results;$/;"	m	class:Frame
-save	src/Utils/Part.hpp	/^	boost::function<bool (boost::shared_ptr<std::vector<float> > pixels,const int partNr)> save;$/;"	m	class:Part
+releaseClient	src/Utils/FramesManager.cpp	/^void FramesManager::releaseClient(const int clientNumber, const int taskId, const int frameId, long renderTime)$/;"	f	class:FramesManager
+render	src/Rendering/RayRenderer.cpp	/^void RayRenderer::render(std::vector < float > *pixels)$/;"	f	class:rendering::RayRenderer
+render	src/Utils/Client.cpp	/^void Client::render(boost::shared_ptr<Part> task, boost::function<void (long)> callback)$/;"	f	class:Client
+rendering	src/Rendering/Box.cpp	/^namespace rendering$/;"	n	file:
+rendering	src/Rendering/Box.hpp	/^namespace rendering$/;"	n
+rendering	src/Rendering/Light.cpp	/^namespace rendering$/;"	n	file:
+rendering	src/Rendering/Light.hpp	/^namespace rendering$/;"	n
+rendering	src/Rendering/MaterialObject.cpp	/^namespace rendering$/;"	n	file:
+rendering	src/Rendering/MaterialObject.hpp	/^namespace rendering$/;"	n
+rendering	src/Rendering/Object.cpp	/^namespace rendering$/;"	n	file:
+rendering	src/Rendering/Object.hpp	/^namespace rendering$/;"	n
+rendering	src/Rendering/Plane.cpp	/^namespace rendering$/;"	n	file:
+rendering	src/Rendering/Plane.hpp	/^namespace rendering$/;"	n
+rendering	src/Rendering/RayRenderer.cpp	/^namespace rendering$/;"	n	file:
+rendering	src/Rendering/RayRenderer.hpp	/^namespace rendering$/;"	n
+rendering	src/Rendering/Scene.hpp	/^namespace rendering$/;"	n
+rendering	src/Rendering/SceneFactory.cpp	/^namespace rendering$/;"	n	file:
+rendering	src/Rendering/SceneFactory.hpp	/^namespace rendering$/;"	n
+rendering	src/Rendering/Sphere.cpp	/^namespace rendering$/;"	n	file:
+rendering	src/Rendering/Sphere.hpp	/^namespace rendering$/;"	n
+rendering	src/Rendering/Triangle.cpp	/^namespace rendering$/;"	n	file:
+rendering	src/Rendering/Triangle.hpp	/^namespace rendering$/;"	n
+results	src/Utils/Client.hpp	/^	boost::shared_ptr<std::vector<float> > results;\/** Vector with pixel colors of rendered scene part *\/$/;"	m	class:Client
+results	src/Utils/Frame.hpp	/^	std::vector<float> results; \/** Vector with rendered, received pixels, which is saved to image when is fill completelly *\/$/;"	m	class:Frame
+save	src/Utils/Part.hpp	/^	boost::function<long (boost::shared_ptr<std::vector<float> > pixels,const int partNr)> save;$/;"	m	class:Part
 saveImageToDb	src/SqlModule/SqlReader.cpp	/^void SqlReader::saveImageToDb(int taskId,std::string path){$/;"	f	class:SqlReader
-savePart	src/Utils/Part.cpp	/^bool Part::savePart(boost::shared_ptr<std::vector<float> > pixels, const int partNr)$/;"	f	class:Part
-saveToImage	src/Utils/Frame.cpp	/^bool Frame::saveToImage(boost::shared_ptr<std::vector<float> > pixels, const int partNr)$/;"	f	class:Frame
+savePart	src/Utils/Part.cpp	/^long Part::savePart(boost::shared_ptr<std::vector<float> > pixels, const int partNr)$/;"	f	class:Part
+saveToImage	src/Utils/Frame.cpp	/^long Frame::saveToImage(boost::shared_ptr<std::vector<float> > pixels, const int partNr,const int taskId)$/;"	f	class:Frame
 saveToImage	src/Utils/ImageCreator.cpp	/^string ImageCreator::saveToImage(vector<float>& pixels, const int dimX,const int dimY, int imageNumber, int taskId)$/;"	f	class:ImageCreator
 saveVideoToDb	src/SqlModule/SqlReader.cpp	/^void SqlReader::saveVideoToDb(int taskId,std::string path){$/;"	f	class:SqlReader
 sblue	src/XMLParser/scene.cxx	/^sblue () const$/;"	f	class:colorInterface
@@ -675,6 +843,7 @@ sblue_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< sblue_type > sblue_;$/
 sblue_default_value	src/XMLParser/scene.cxx	/^sblue_default_value ()$/;"	f	class:colorInterface
 sblue_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< sblue_type, char > sblue_traits;$/;"	t	class:colorInterface
 sblue_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ sblue_type;$/;"	t	class:colorInterface
+scene	src/Rendering/RayRenderer.hpp	/^	boost::shared_ptr<Scene> scene;$/;"	m	class:rendering::RayRenderer
 scene	src/XMLParser/scene.cxx	/^scene (::std::istream& is,$/;"	f
 scene	src/XMLParser/scene.cxx	/^scene (::xercesc::InputSource& i,$/;"	f
 scene	src/XMLParser/scene.cxx	/^scene (::xml_schema::dom::auto_ptr< ::xercesc::DOMDocument >& d,$/;"	f
@@ -684,8 +853,11 @@ sceneInterface	src/XMLParser/scene.cxx	/^sceneInterface (const ::xercesc::DOMEle
 sceneInterface	src/XMLParser/scene.cxx	/^sceneInterface (const frames_type& frames,$/;"	f	class:sceneInterface
 sceneInterface	src/XMLParser/scene.cxx	/^sceneInterface (const sceneInterface& x,$/;"	f	class:sceneInterface
 sceneInterface	src/XMLParser/scene.hxx	/^class sceneInterface: public ::xml_schema::type$/;"	c
+serialize	src/Utils/Context.h	/^		void serialize(Archive & ar, const unsigned int version)$/;"	f	class:Context::Box
 serialize	src/Utils/Context.h	/^		void serialize(Archive & ar, const unsigned int version)$/;"	f	class:Context::Light
+serialize	src/Utils/Context.h	/^		void serialize(Archive & ar, const unsigned int version)$/;"	f	class:Context::Plane
 serialize	src/Utils/Context.h	/^		void serialize(Archive & ar, const unsigned int version)$/;"	f	class:Context::Sphere
+serialize	src/Utils/Context.h	/^		void serialize(Archive & ar, const unsigned int version)$/;"	f	class:Context::Triangle
 serialize	src/Utils/Context.h	/^	void serialize(Archive & ar, const unsigned int version)$/;"	f	class:Context
 serveTasks	src/Utils/FramesManager.cpp	/^void FramesManager::serveTasks()$/;"	f	class:FramesManager
 server	src/SqlModule/SqlReader.hpp	/^	const std::string server;$/;"	m	class:SqlReader
@@ -701,8 +873,14 @@ sgreen_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ sgreen_type
 short_	src/XMLParser/scene.hxx	/^  typedef short short_;$/;"	t	namespace:xml_schema
 si	src/XMLParser/SceneReader.hpp	/^    auto_ptr<sceneInterface> si;$/;"	m	class:SceneReader
 simple_type	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::simple_type< type > simple_type;$/;"	t	namespace:xml_schema
-specular	src/Utils/Context.h	/^		float specular[3]; $/;"	m	class:Context::Light
-specular	src/Utils/Context.h	/^		float specular[3];$/;"	m	class:Context::Sphere
+specular	src/Rendering/Object.hpp	/^	Ogre::ColourValue specular;$/;"	m	class:rendering::Object
+specular	src/Utils/Context.h	/^		float specular[3]; \/** Specular rgb colours in phong light description system*\/ $/;"	m	class:Context::Box
+specular	src/Utils/Context.h	/^		float specular[3]; \/** Specular rgb colours in phong light description system*\/ $/;"	m	class:Context::Light
+specular	src/Utils/Context.h	/^		float specular[3]; \/** Specular rgb colours in phong light description system*\/ $/;"	m	class:Context::Plane
+specular	src/Utils/Context.h	/^		float specular[3]; \/** Specular rgb colours in phong light description system*\/ $/;"	m	class:Context::Sphere
+specular	src/Utils/Context.h	/^		float specular[3]; \/** Specular rgb colours in phong light description system*\/ $/;"	m	class:Context::Triangle
+sphere	src/Rendering/Light.hpp	/^	Ogre::Sphere sphere;$/;"	m	class:rendering::Light
+sphere	src/Rendering/Sphere.hpp	/^	Ogre::Sphere sphere;	$/;"	m	class:rendering::Sphere
 sphere	src/XMLParser/scene.cxx	/^sphere () const$/;"	f	class:sceneInterface
 sphere	src/XMLParser/scene.cxx	/^sphere ()$/;"	f	class:sceneInterface
 sphere	src/XMLParser/scene.cxx	/^sphere (const sphere_sequence& s)$/;"	f	class:sceneInterface
@@ -716,7 +894,7 @@ sphere_iterator	src/XMLParser/scene.hxx	/^  typedef sphere_sequence::iterator sp
 sphere_sequence	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::sequence< sphere_type > sphere_sequence;$/;"	t	class:sceneInterface
 sphere_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< sphere_type, char > sphere_traits;$/;"	t	class:sceneInterface
 sphere_type	src/XMLParser/scene.hxx	/^  typedef ::sphereInterface sphere_type;$/;"	t	class:sceneInterface
-spheres	src/Utils/Context.h	/^  std::vector < Sphere > spheres;$/;"	m	class:Context
+spheres	src/Utils/Context.h	/^  std::vector < Sphere > spheres; \/** Vector of the spheres on the scene *\/$/;"	m	class:Context
 sqlReader	src/Utils/FramesManager.hpp	/^	SqlReader& sqlReader;$/;"	m	class:FramesManager
 sred	src/XMLParser/scene.cxx	/^sred () const$/;"	f	class:colorInterface
 sred	src/XMLParser/scene.cxx	/^sred ()$/;"	f	class:colorInterface
@@ -739,9 +917,14 @@ storeFrameNumber	src/SqlModule/SqlReader.cpp	/^void SqlReader::storeFrameNumber(
 string	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::string< char, simple_type > string;$/;"	t	namespace:xml_schema
 subtaskHeight	src/Utils/Task.hpp	/^	unsigned int doneFrames,subtaskWidth,subtaskHeight,status,totalFrames;$/;"	m	class:Task
 subtaskWidth	src/Utils/Task.hpp	/^	unsigned int doneFrames,subtaskWidth,subtaskHeight,status,totalFrames;$/;"	m	class:Task
-task	src/Utils/Client.hpp	/^	boost::shared_ptr<Part> task;$/;"	m	class:Client
-taskAdded	src/Utils/Client.hpp	/^	boost::condition_variable taskAdded;$/;"	m	class:Client
+tBox	src/Rendering/MaterialObject.hpp	/^	enum ObjectTypes {tBox,tPlane,tSphere,tTriangle};$/;"	e	enum:rendering::MaterialObject::ObjectTypes
+tPlane	src/Rendering/MaterialObject.hpp	/^	enum ObjectTypes {tBox,tPlane,tSphere,tTriangle};$/;"	e	enum:rendering::MaterialObject::ObjectTypes
+tSphere	src/Rendering/MaterialObject.hpp	/^	enum ObjectTypes {tBox,tPlane,tSphere,tTriangle};$/;"	e	enum:rendering::MaterialObject::ObjectTypes
+tTriangle	src/Rendering/MaterialObject.hpp	/^	enum ObjectTypes {tBox,tPlane,tSphere,tTriangle};$/;"	e	enum:rendering::MaterialObject::ObjectTypes
+task	src/Utils/Client.hpp	/^	boost::shared_ptr<Part> task;\/** *\/$/;"	m	class:Client
+taskAdded	src/Utils/Client.hpp	/^	boost::condition_variable taskAdded;\/** Condition variable which inform about available task *\/$/;"	m	class:Client
 taskId	src/Utils/Part.hpp	/^	const unsigned int taskId;$/;"	m	class:Part
+taskMutex	src/Utils/FramesManager.hpp	/^	boost::mutex taskMutex; \/** Block reading of new task when there is no need *\/$/;"	m	class:FramesManager
 taskService	src/Utils/FramesManager.hpp	/^	boost::thread taskService;$/;"	m	class:FramesManager
 tasks	src/SqlModule/SqlReader.hpp	/^	std::queue<Task> tasks;$/;"	m	class:SqlReader
 tasks	src/Utils/FramesManager.hpp	/^	std::map<int,map<int,boost::shared_ptr<Frame> > > tasks;$/;"	m	class:FramesManager
@@ -756,6 +939,20 @@ to_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ to_type;$/;"	t	
 token	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::token< char, normalized_string > token;$/;"	t	namespace:xml_schema
 totalFrames	src/Utils/Task.hpp	/^	unsigned int doneFrames,subtaskWidth,subtaskHeight,status,totalFrames;$/;"	m	class:Task
 tree_node_key	src/XMLParser/scene.hxx	/^    const XMLCh* const tree_node_key = ::xsd::cxx::tree::user_data_keys::node;$/;"	m	namespace:xml_schema::dom
+triangle	src/XMLParser/scene.cxx	/^triangle () const$/;"	f	class:sceneInterface
+triangle	src/XMLParser/scene.cxx	/^triangle ()$/;"	f	class:sceneInterface
+triangle	src/XMLParser/scene.cxx	/^triangle (const triangle_sequence& s)$/;"	f	class:sceneInterface
+triangleInterface	src/XMLParser/scene.cxx	/^triangleInterface (const ::xercesc::DOMElement& e,$/;"	f	class:triangleInterface
+triangleInterface	src/XMLParser/scene.cxx	/^triangleInterface (const id_type& id,$/;"	f	class:triangleInterface
+triangleInterface	src/XMLParser/scene.cxx	/^triangleInterface (const triangleInterface& x,$/;"	f	class:triangleInterface
+triangleInterface	src/XMLParser/scene.hxx	/^class triangleInterface: public ::objectInterface$/;"	c
+triangle_	src/XMLParser/scene.hxx	/^  triangle_sequence triangle_;$/;"	m	class:sceneInterface
+triangle_const_iterator	src/XMLParser/scene.hxx	/^  typedef triangle_sequence::const_iterator triangle_const_iterator;$/;"	t	class:sceneInterface
+triangle_iterator	src/XMLParser/scene.hxx	/^  typedef triangle_sequence::iterator triangle_iterator;$/;"	t	class:sceneInterface
+triangle_sequence	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::sequence< triangle_type > triangle_sequence;$/;"	t	class:sceneInterface
+triangle_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< triangle_type, char > triangle_traits;$/;"	t	class:sceneInterface
+triangle_type	src/XMLParser/scene.hxx	/^  typedef ::triangleInterface triangle_type;$/;"	t	class:sceneInterface
+triangles	src/Utils/Context.h	/^  std::vector < Triangle > triangles; \/** Vector of the triangles on the scene *\/$/;"	m	class:Context
 tween	src/XMLParser/scene.cxx	/^tween () const$/;"	f	class:tweenInterface
 tween	src/XMLParser/scene.cxx	/^tween ()$/;"	f	class:tweenInterface
 tween	src/XMLParser/scene.cxx	/^tween (const ::xercesc::DOMElement& e,$/;"	f	class:tween
@@ -773,6 +970,7 @@ tween_iterator	src/XMLParser/scene.hxx	/^  typedef tween_sequence::iterator twee
 tween_sequence	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::sequence< tween_type > tween_sequence;$/;"	t	class:tweenInterface
 tween_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< tween_type, char > tween_traits;$/;"	t	class:tweenInterface
 tween_type	src/XMLParser/scene.hxx	/^  typedef ::tween tween_type;$/;"	t	class:tweenInterface
+type	src/Rendering/MaterialObject.hpp	/^	ObjectTypes type;$/;"	m	class:rendering::MaterialObject
 type	src/XMLParser/scene.cxx	/^type () const$/;"	f	class:tween
 type	src/XMLParser/scene.cxx	/^type ()$/;"	f	class:tween
 type	src/XMLParser/scene.cxx	/^type (::std::auto_ptr< type_type > x)$/;"	f	class:tween
@@ -794,20 +992,15 @@ unexpected_element	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::unexpec
 unexpected_enumerator	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::unexpected_enumerator< char > unexpected_enumerator;$/;"	t	namespace:xml_schema
 unsigned_byte	src/XMLParser/scene.hxx	/^  typedef unsigned char unsigned_byte;$/;"	t	namespace:xml_schema
 unsigned_int	src/XMLParser/scene.hxx	/^  typedef unsigned int unsigned_int;$/;"	t	namespace:xml_schema
-unsigned_long	src/XMLParser/scene.hxx	/^  typedef unsigned long unsigned_long;$/;"	t	namespace:xml_schema
+unsigned_long	src/XMLParser/scene.hxx	/^  typedef unsigned long long unsigned_long;$/;"	t	namespace:xml_schema
 unsigned_short	src/XMLParser/scene.hxx	/^  typedef unsigned short unsigned_short;$/;"	t	namespace:xml_schema
 uri	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::uri< char, simple_type > uri;$/;"	t	namespace:xml_schema
 user	src/SqlModule/SqlReader.hpp	/^	const std::string user;$/;"	m	class:SqlReader
 user_id	src/Utils/Task.hpp	/^	unsigned int user_id;$/;"	m	class:Task
 value	src/XMLParser/scene.hxx	/^  enum value$/;"	g	class:property
 value	src/XMLParser/scene.hxx	/^  enum value$/;"	g	class:type
-viewportSize	src/Utils/Context.h	/^  float viewportSize[3]; \/\/rozmiar ukladu rzeczywistego$/;"	m	class:Context
-vx	src/XMLParser/scene.cxx	/^vx () const$/;"	f	class:elipsoidInterface
-vx	src/XMLParser/scene.cxx	/^vx () const$/;"	f	class:planeInterface
-vx	src/XMLParser/scene.cxx	/^vx ()$/;"	f	class:elipsoidInterface
-vx	src/XMLParser/scene.cxx	/^vx ()$/;"	f	class:planeInterface
-vx	src/XMLParser/scene.cxx	/^vx (const vx_type& x)$/;"	f	class:elipsoidInterface
-vx	src/XMLParser/scene.cxx	/^vx (const vx_type& x)$/;"	f	class:planeInterface
+viewportSize	src/Rendering/Scene.hpp	/^	Ogre::Vector3 viewportSize; \/** Size of the real system *\/$/;"	m	class:rendering::Scene
+viewportSize	src/Utils/Context.h	/^  float viewportSize[3]; \/** Size of the real system *\/$/;"	m	class:Context
 vx	src/XMLParser/scene.hxx	/^    vx,$/;"	e	enum:property::value
 vx1	src/XMLParser/scene.cxx	/^vx1 () const$/;"	f	class:cameraInterface
 vx1	src/XMLParser/scene.cxx	/^vx1 ()$/;"	f	class:cameraInterface
@@ -833,20 +1026,6 @@ vx3_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< vx3_type > vx3_;$/;"	m	c
 vx3_default_value	src/XMLParser/scene.cxx	/^vx3_default_value ()$/;"	f	class:cameraInterface
 vx3_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< vx3_type, char > vx3_traits;$/;"	t	class:cameraInterface
 vx3_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ vx3_type;$/;"	t	class:cameraInterface
-vx_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< vx_type > vx_;$/;"	m	class:elipsoidInterface
-vx_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< vx_type > vx_;$/;"	m	class:planeInterface
-vx_default_value	src/XMLParser/scene.cxx	/^vx_default_value ()$/;"	f	class:elipsoidInterface
-vx_default_value	src/XMLParser/scene.cxx	/^vx_default_value ()$/;"	f	class:planeInterface
-vx_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< vx_type, char > vx_traits;$/;"	t	class:elipsoidInterface
-vx_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< vx_type, char > vx_traits;$/;"	t	class:planeInterface
-vx_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ vx_type;$/;"	t	class:elipsoidInterface
-vx_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ vx_type;$/;"	t	class:planeInterface
-vy	src/XMLParser/scene.cxx	/^vy () const$/;"	f	class:elipsoidInterface
-vy	src/XMLParser/scene.cxx	/^vy () const$/;"	f	class:planeInterface
-vy	src/XMLParser/scene.cxx	/^vy ()$/;"	f	class:elipsoidInterface
-vy	src/XMLParser/scene.cxx	/^vy ()$/;"	f	class:planeInterface
-vy	src/XMLParser/scene.cxx	/^vy (const vy_type& x)$/;"	f	class:elipsoidInterface
-vy	src/XMLParser/scene.cxx	/^vy (const vy_type& x)$/;"	f	class:planeInterface
 vy	src/XMLParser/scene.hxx	/^    vy,$/;"	e	enum:property::value
 vy1	src/XMLParser/scene.cxx	/^vy1 () const$/;"	f	class:cameraInterface
 vy1	src/XMLParser/scene.cxx	/^vy1 ()$/;"	f	class:cameraInterface
@@ -872,20 +1051,6 @@ vy3_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< vy3_type > vy3_;$/;"	m	c
 vy3_default_value	src/XMLParser/scene.cxx	/^vy3_default_value ()$/;"	f	class:cameraInterface
 vy3_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< vy3_type, char > vy3_traits;$/;"	t	class:cameraInterface
 vy3_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ vy3_type;$/;"	t	class:cameraInterface
-vy_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< vy_type > vy_;$/;"	m	class:elipsoidInterface
-vy_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< vy_type > vy_;$/;"	m	class:planeInterface
-vy_default_value	src/XMLParser/scene.cxx	/^vy_default_value ()$/;"	f	class:elipsoidInterface
-vy_default_value	src/XMLParser/scene.cxx	/^vy_default_value ()$/;"	f	class:planeInterface
-vy_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< vy_type, char > vy_traits;$/;"	t	class:elipsoidInterface
-vy_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< vy_type, char > vy_traits;$/;"	t	class:planeInterface
-vy_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ vy_type;$/;"	t	class:elipsoidInterface
-vy_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ vy_type;$/;"	t	class:planeInterface
-vz	src/XMLParser/scene.cxx	/^vz () const$/;"	f	class:elipsoidInterface
-vz	src/XMLParser/scene.cxx	/^vz () const$/;"	f	class:planeInterface
-vz	src/XMLParser/scene.cxx	/^vz ()$/;"	f	class:elipsoidInterface
-vz	src/XMLParser/scene.cxx	/^vz ()$/;"	f	class:planeInterface
-vz	src/XMLParser/scene.cxx	/^vz (const vz_type& x)$/;"	f	class:elipsoidInterface
-vz	src/XMLParser/scene.cxx	/^vz (const vz_type& x)$/;"	f	class:planeInterface
 vz	src/XMLParser/scene.hxx	/^    vz,$/;"	e	enum:property::value
 vz1	src/XMLParser/scene.cxx	/^vz1 () const$/;"	f	class:cameraInterface
 vz1	src/XMLParser/scene.cxx	/^vz1 ()$/;"	f	class:cameraInterface
@@ -911,21 +1076,12 @@ vz3_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< vz3_type > vz3_;$/;"	m	c
 vz3_default_value	src/XMLParser/scene.cxx	/^vz3_default_value ()$/;"	f	class:cameraInterface
 vz3_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< vz3_type, char > vz3_traits;$/;"	t	class:cameraInterface
 vz3_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ vz3_type;$/;"	t	class:cameraInterface
-vz_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< vz_type > vz_;$/;"	m	class:elipsoidInterface
-vz_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< vz_type > vz_;$/;"	m	class:planeInterface
-vz_default_value	src/XMLParser/scene.cxx	/^vz_default_value ()$/;"	f	class:elipsoidInterface
-vz_default_value	src/XMLParser/scene.cxx	/^vz_default_value ()$/;"	f	class:planeInterface
-vz_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< vz_type, char > vz_traits;$/;"	t	class:elipsoidInterface
-vz_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< vz_type, char > vz_traits;$/;"	t	class:planeInterface
-vz_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ vz_type;$/;"	t	class:elipsoidInterface
-vz_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ vz_type;$/;"	t	class:planeInterface
 w	src/XMLParser/scene.cxx	/^w () const$/;"	f	class:sceneInterface
 w	src/XMLParser/scene.cxx	/^w ()$/;"	f	class:sceneInterface
 w	src/XMLParser/scene.cxx	/^w (const w_type& x)$/;"	f	class:sceneInterface
 w_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< w_type > w_;$/;"	m	class:sceneInterface
 w_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< w_type, char > w_traits;$/;"	t	class:sceneInterface
 w_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ w_type;$/;"	t	class:sceneInterface
-waitForFreeClient	src/Utils/FramesManager.cpp	/^void FramesManager::waitForFreeClient()$/;"	f	class:FramesManager
 width	src/XMLParser/scene.cxx	/^width () const$/;"	f	class:sceneInterface
 width	src/XMLParser/scene.cxx	/^width ()$/;"	f	class:sceneInterface
 width	src/XMLParser/scene.cxx	/^width (const width_type& x)$/;"	f	class:sceneInterface
@@ -933,10 +1089,11 @@ width_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< width_type > width_;$/
 width_default_value	src/XMLParser/scene.cxx	/^width_default_value ()$/;"	f	class:sceneInterface
 width_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< width_type, char > width_traits;$/;"	t	class:sceneInterface
 width_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::integer width_type;$/;"	t	class:sceneInterface
-window	src/Utils/Context.h	/^  int window[2][2]; \/\/rozmiar czesci, 2 punkty prostokata$/;"	m	class:Context
+window	src/Rendering/Scene.hpp	/^	int window[2][2]; \/** Size of the part which has to be computed, describes two points of the rectangle*\/ $/;"	m	class:rendering::Scene
+window	src/Utils/Context.h	/^  int window[2][2]; \/** Size of the part which has to be computed, describes two points of the rectangle*\/ $/;"	m	class:Context
 world	src/Cluster/Master.hpp	/^	mpi::communicator& world;	\/** MPI environment *\/		$/;"	m	class:Master
-world	src/Cluster/Slave.hpp	/^	mpi::communicator& world;	$/;"	m	class:Slave
-world	src/Utils/Client.hpp	/^	mpi::communicator& world;$/;"	m	class:Client
+world	src/Cluster/Slave.hpp	/^	mpi::communicator& world; \/** MPI environment *\/	$/;"	m	class:Slave
+world	src/Utils/Client.hpp	/^	mpi::communicator& world;\/** MPI environment *\/$/;"	m	class:Client
 world	src/Utils/FramesManager.hpp	/^	mpi::communicator& world;$/;"	m	class:FramesManager
 x	src/XMLParser/scene.cxx	/^x () const$/;"	f	class:cameraInterface
 x	src/XMLParser/scene.cxx	/^x () const$/;"	f	class:lightInterface
@@ -948,6 +1105,18 @@ x	src/XMLParser/scene.cxx	/^x (const x_type& x)$/;"	f	class:cameraInterface
 x	src/XMLParser/scene.cxx	/^x (const x_type& x)$/;"	f	class:lightInterface
 x	src/XMLParser/scene.cxx	/^x (const x_type& x)$/;"	f	class:objectInterface
 x	src/XMLParser/scene.hxx	/^    x,$/;"	e	enum:property::value
+x1	src/XMLParser/scene.cxx	/^x1 () const$/;"	f	class:triangleInterface
+x1	src/XMLParser/scene.cxx	/^x1 ()$/;"	f	class:triangleInterface
+x1	src/XMLParser/scene.cxx	/^x1 (const x1_type& x)$/;"	f	class:triangleInterface
+x1_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< x1_type > x1_;$/;"	m	class:triangleInterface
+x1_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< x1_type, char > x1_traits;$/;"	t	class:triangleInterface
+x1_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ x1_type;$/;"	t	class:triangleInterface
+x2	src/XMLParser/scene.cxx	/^x2 () const$/;"	f	class:triangleInterface
+x2	src/XMLParser/scene.cxx	/^x2 ()$/;"	f	class:triangleInterface
+x2	src/XMLParser/scene.cxx	/^x2 (const x2_type& x)$/;"	f	class:triangleInterface
+x2_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< x2_type > x2_;$/;"	m	class:triangleInterface
+x2_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< x2_type, char > x2_traits;$/;"	t	class:triangleInterface
+x2_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ x2_type;$/;"	t	class:triangleInterface
 x_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< x_type > x_;$/;"	m	class:cameraInterface
 x_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< x_type > x_;$/;"	m	class:lightInterface
 x_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< x_type > x_;$/;"	m	class:objectInterface
@@ -959,6 +1128,12 @@ x_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ x_type;$/;"	t	cl
 x_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ x_type;$/;"	t	class:objectInterface
 xmlStream	src/XMLParser/SceneReader.hpp	/^    istream &xmlStream;$/;"	m	class:SceneReader
 xml_schema	src/XMLParser/scene.hxx	/^namespace xml_schema$/;"	n
+xn	src/XMLParser/scene.cxx	/^xn () const$/;"	f	class:triangleInterface
+xn	src/XMLParser/scene.cxx	/^xn ()$/;"	f	class:triangleInterface
+xn	src/XMLParser/scene.cxx	/^xn (const xn_type& x)$/;"	f	class:triangleInterface
+xn_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< xn_type > xn_;$/;"	m	class:triangleInterface
+xn_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< xn_type, char > xn_traits;$/;"	t	class:triangleInterface
+xn_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ xn_type;$/;"	t	class:triangleInterface
 y	src/XMLParser/scene.cxx	/^y () const$/;"	f	class:cameraInterface
 y	src/XMLParser/scene.cxx	/^y () const$/;"	f	class:lightInterface
 y	src/XMLParser/scene.cxx	/^y () const$/;"	f	class:objectInterface
@@ -969,6 +1144,18 @@ y	src/XMLParser/scene.cxx	/^y (const y_type& x)$/;"	f	class:cameraInterface
 y	src/XMLParser/scene.cxx	/^y (const y_type& x)$/;"	f	class:lightInterface
 y	src/XMLParser/scene.cxx	/^y (const y_type& x)$/;"	f	class:objectInterface
 y	src/XMLParser/scene.hxx	/^    y,$/;"	e	enum:property::value
+y1	src/XMLParser/scene.cxx	/^y1 () const$/;"	f	class:triangleInterface
+y1	src/XMLParser/scene.cxx	/^y1 ()$/;"	f	class:triangleInterface
+y1	src/XMLParser/scene.cxx	/^y1 (const y1_type& x)$/;"	f	class:triangleInterface
+y1_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< y1_type > y1_;$/;"	m	class:triangleInterface
+y1_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< y1_type, char > y1_traits;$/;"	t	class:triangleInterface
+y1_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ y1_type;$/;"	t	class:triangleInterface
+y2	src/XMLParser/scene.cxx	/^y2 () const$/;"	f	class:triangleInterface
+y2	src/XMLParser/scene.cxx	/^y2 ()$/;"	f	class:triangleInterface
+y2	src/XMLParser/scene.cxx	/^y2 (const y2_type& x)$/;"	f	class:triangleInterface
+y2_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< y2_type > y2_;$/;"	m	class:triangleInterface
+y2_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< y2_type, char > y2_traits;$/;"	t	class:triangleInterface
+y2_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ y2_type;$/;"	t	class:triangleInterface
 y_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< y_type > y_;$/;"	m	class:cameraInterface
 y_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< y_type > y_;$/;"	m	class:lightInterface
 y_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< y_type > y_;$/;"	m	class:objectInterface
@@ -978,6 +1165,12 @@ y_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< y_type, c
 y_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ y_type;$/;"	t	class:cameraInterface
 y_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ y_type;$/;"	t	class:lightInterface
 y_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ y_type;$/;"	t	class:objectInterface
+yn	src/XMLParser/scene.cxx	/^yn () const$/;"	f	class:triangleInterface
+yn	src/XMLParser/scene.cxx	/^yn ()$/;"	f	class:triangleInterface
+yn	src/XMLParser/scene.cxx	/^yn (const yn_type& x)$/;"	f	class:triangleInterface
+yn_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< yn_type > yn_;$/;"	m	class:triangleInterface
+yn_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< yn_type, char > yn_traits;$/;"	t	class:triangleInterface
+yn_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ yn_type;$/;"	t	class:triangleInterface
 z	src/XMLParser/scene.cxx	/^z () const$/;"	f	class:cameraInterface
 z	src/XMLParser/scene.cxx	/^z () const$/;"	f	class:lightInterface
 z	src/XMLParser/scene.cxx	/^z () const$/;"	f	class:objectInterface
@@ -988,6 +1181,18 @@ z	src/XMLParser/scene.cxx	/^z (const z_type& x)$/;"	f	class:cameraInterface
 z	src/XMLParser/scene.cxx	/^z (const z_type& x)$/;"	f	class:lightInterface
 z	src/XMLParser/scene.cxx	/^z (const z_type& x)$/;"	f	class:objectInterface
 z	src/XMLParser/scene.hxx	/^    z,$/;"	e	enum:property::value
+z1	src/XMLParser/scene.cxx	/^z1 () const$/;"	f	class:triangleInterface
+z1	src/XMLParser/scene.cxx	/^z1 ()$/;"	f	class:triangleInterface
+z1	src/XMLParser/scene.cxx	/^z1 (const z1_type& x)$/;"	f	class:triangleInterface
+z1_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< z1_type > z1_;$/;"	m	class:triangleInterface
+z1_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< z1_type, char > z1_traits;$/;"	t	class:triangleInterface
+z1_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ z1_type;$/;"	t	class:triangleInterface
+z2	src/XMLParser/scene.cxx	/^z2 () const$/;"	f	class:triangleInterface
+z2	src/XMLParser/scene.cxx	/^z2 ()$/;"	f	class:triangleInterface
+z2	src/XMLParser/scene.cxx	/^z2 (const z2_type& x)$/;"	f	class:triangleInterface
+z2_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< z2_type > z2_;$/;"	m	class:triangleInterface
+z2_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< z2_type, char > z2_traits;$/;"	t	class:triangleInterface
+z2_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ z2_type;$/;"	t	class:triangleInterface
 z_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< z_type > z_;$/;"	m	class:cameraInterface
 z_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< z_type > z_;$/;"	m	class:lightInterface
 z_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< z_type > z_;$/;"	m	class:objectInterface
@@ -997,17 +1202,24 @@ z_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< z_type, c
 z_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ z_type;$/;"	t	class:cameraInterface
 z_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ z_type;$/;"	t	class:lightInterface
 z_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ z_type;$/;"	t	class:objectInterface
+zn	src/XMLParser/scene.cxx	/^zn () const$/;"	f	class:triangleInterface
+zn	src/XMLParser/scene.cxx	/^zn ()$/;"	f	class:triangleInterface
+zn	src/XMLParser/scene.cxx	/^zn (const zn_type& x)$/;"	f	class:triangleInterface
+zn_	src/XMLParser/scene.hxx	/^  ::xsd::cxx::tree::one< zn_type > zn_;$/;"	m	class:triangleInterface
+zn_traits	src/XMLParser/scene.hxx	/^  typedef ::xsd::cxx::tree::traits< zn_type, char > zn_traits;$/;"	t	class:triangleInterface
+zn_type	src/XMLParser/scene.hxx	/^  typedef ::xml_schema::float_ zn_type;$/;"	t	class:triangleInterface
 ~FramesManager	src/Utils/FramesManager.cpp	/^FramesManager::~FramesManager()$/;"	f	class:FramesManager
 ~ImageCreator	src/Utils/ImageCreator.cpp	/^ImageCreator::~ImageCreator()$/;"	f	class:ImageCreator
 ~MovieCreator	src/Utils/MovieCreator.cpp	/^MovieCreator::~MovieCreator()$/;"	f	class:MovieCreator
 ~Raytracer	src/Rendering/Raytracer.cpp	/^Raytracer::~Raytracer() {}$/;"	f	class:Raytracer
+~boxInterface	src/XMLParser/scene.cxx	/^~boxInterface ()$/;"	f	class:boxInterface
 ~cameraInterface	src/XMLParser/scene.cxx	/^~cameraInterface ()$/;"	f	class:cameraInterface
 ~colorInterface	src/XMLParser/scene.cxx	/^~colorInterface ()$/;"	f	class:colorInterface
-~elipsoidInterface	src/XMLParser/scene.cxx	/^~elipsoidInterface ()$/;"	f	class:elipsoidInterface
 ~lightInterface	src/XMLParser/scene.cxx	/^~lightInterface ()$/;"	f	class:lightInterface
 ~objectInterface	src/XMLParser/scene.cxx	/^~objectInterface ()$/;"	f	class:objectInterface
 ~planeInterface	src/XMLParser/scene.cxx	/^~planeInterface ()$/;"	f	class:planeInterface
 ~sceneInterface	src/XMLParser/scene.cxx	/^~sceneInterface ()$/;"	f	class:sceneInterface
 ~sphereInterface	src/XMLParser/scene.cxx	/^~sphereInterface ()$/;"	f	class:sphereInterface
+~triangleInterface	src/XMLParser/scene.cxx	/^~triangleInterface ()$/;"	f	class:triangleInterface
 ~tween	src/XMLParser/scene.cxx	/^~tween ()$/;"	f	class:tween
 ~tweenInterface	src/XMLParser/scene.cxx	/^~tweenInterface ()$/;"	f	class:tweenInterface

@@ -35,19 +35,22 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build
+CMAKE_BINARY_DIR = /home/ssteku/ClusterBuild
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
-	/usr/bin/cmake -i .
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -66,9 +69,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ssteku/ClusterBuild/CMakeFiles /home/ssteku/ClusterBuild/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ssteku/Dokumenty/PracaInzynierska/Projekt/ClusterRendering/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ssteku/ClusterBuild/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -180,6 +183,150 @@ src/Cluster/WorkerObject.cpp.s:
 	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Cluster/WorkerObject.cpp.s
 .PHONY : src/Cluster/WorkerObject.cpp.s
 
+src/Rendering/Box.o: src/Rendering/Box.cpp.o
+.PHONY : src/Rendering/Box.o
+
+# target to build an object file
+src/Rendering/Box.cpp.o:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.o
+.PHONY : src/Rendering/Box.cpp.o
+
+src/Rendering/Box.i: src/Rendering/Box.cpp.i
+.PHONY : src/Rendering/Box.i
+
+# target to preprocess a source file
+src/Rendering/Box.cpp.i:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.i
+.PHONY : src/Rendering/Box.cpp.i
+
+src/Rendering/Box.s: src/Rendering/Box.cpp.s
+.PHONY : src/Rendering/Box.s
+
+# target to generate assembly for a file
+src/Rendering/Box.cpp.s:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Box.cpp.s
+.PHONY : src/Rendering/Box.cpp.s
+
+src/Rendering/Light.o: src/Rendering/Light.cpp.o
+.PHONY : src/Rendering/Light.o
+
+# target to build an object file
+src/Rendering/Light.cpp.o:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.o
+.PHONY : src/Rendering/Light.cpp.o
+
+src/Rendering/Light.i: src/Rendering/Light.cpp.i
+.PHONY : src/Rendering/Light.i
+
+# target to preprocess a source file
+src/Rendering/Light.cpp.i:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.i
+.PHONY : src/Rendering/Light.cpp.i
+
+src/Rendering/Light.s: src/Rendering/Light.cpp.s
+.PHONY : src/Rendering/Light.s
+
+# target to generate assembly for a file
+src/Rendering/Light.cpp.s:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Light.cpp.s
+.PHONY : src/Rendering/Light.cpp.s
+
+src/Rendering/MaterialObject.o: src/Rendering/MaterialObject.cpp.o
+.PHONY : src/Rendering/MaterialObject.o
+
+# target to build an object file
+src/Rendering/MaterialObject.cpp.o:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.o
+.PHONY : src/Rendering/MaterialObject.cpp.o
+
+src/Rendering/MaterialObject.i: src/Rendering/MaterialObject.cpp.i
+.PHONY : src/Rendering/MaterialObject.i
+
+# target to preprocess a source file
+src/Rendering/MaterialObject.cpp.i:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.i
+.PHONY : src/Rendering/MaterialObject.cpp.i
+
+src/Rendering/MaterialObject.s: src/Rendering/MaterialObject.cpp.s
+.PHONY : src/Rendering/MaterialObject.s
+
+# target to generate assembly for a file
+src/Rendering/MaterialObject.cpp.s:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/MaterialObject.cpp.s
+.PHONY : src/Rendering/MaterialObject.cpp.s
+
+src/Rendering/Object.o: src/Rendering/Object.cpp.o
+.PHONY : src/Rendering/Object.o
+
+# target to build an object file
+src/Rendering/Object.cpp.o:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.o
+.PHONY : src/Rendering/Object.cpp.o
+
+src/Rendering/Object.i: src/Rendering/Object.cpp.i
+.PHONY : src/Rendering/Object.i
+
+# target to preprocess a source file
+src/Rendering/Object.cpp.i:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.i
+.PHONY : src/Rendering/Object.cpp.i
+
+src/Rendering/Object.s: src/Rendering/Object.cpp.s
+.PHONY : src/Rendering/Object.s
+
+# target to generate assembly for a file
+src/Rendering/Object.cpp.s:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Object.cpp.s
+.PHONY : src/Rendering/Object.cpp.s
+
+src/Rendering/Plane.o: src/Rendering/Plane.cpp.o
+.PHONY : src/Rendering/Plane.o
+
+# target to build an object file
+src/Rendering/Plane.cpp.o:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.o
+.PHONY : src/Rendering/Plane.cpp.o
+
+src/Rendering/Plane.i: src/Rendering/Plane.cpp.i
+.PHONY : src/Rendering/Plane.i
+
+# target to preprocess a source file
+src/Rendering/Plane.cpp.i:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.i
+.PHONY : src/Rendering/Plane.cpp.i
+
+src/Rendering/Plane.s: src/Rendering/Plane.cpp.s
+.PHONY : src/Rendering/Plane.s
+
+# target to generate assembly for a file
+src/Rendering/Plane.cpp.s:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Plane.cpp.s
+.PHONY : src/Rendering/Plane.cpp.s
+
+src/Rendering/RayRenderer.o: src/Rendering/RayRenderer.cpp.o
+.PHONY : src/Rendering/RayRenderer.o
+
+# target to build an object file
+src/Rendering/RayRenderer.cpp.o:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.o
+.PHONY : src/Rendering/RayRenderer.cpp.o
+
+src/Rendering/RayRenderer.i: src/Rendering/RayRenderer.cpp.i
+.PHONY : src/Rendering/RayRenderer.i
+
+# target to preprocess a source file
+src/Rendering/RayRenderer.cpp.i:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.i
+.PHONY : src/Rendering/RayRenderer.cpp.i
+
+src/Rendering/RayRenderer.s: src/Rendering/RayRenderer.cpp.s
+.PHONY : src/Rendering/RayRenderer.s
+
+# target to generate assembly for a file
+src/Rendering/RayRenderer.cpp.s:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/RayRenderer.cpp.s
+.PHONY : src/Rendering/RayRenderer.cpp.s
+
 src/Rendering/Raytracer.o: src/Rendering/Raytracer.cpp.o
 .PHONY : src/Rendering/Raytracer.o
 
@@ -203,6 +350,102 @@ src/Rendering/Raytracer.s: src/Rendering/Raytracer.cpp.s
 src/Rendering/Raytracer.cpp.s:
 	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Raytracer.cpp.s
 .PHONY : src/Rendering/Raytracer.cpp.s
+
+src/Rendering/Scene.o: src/Rendering/Scene.cpp.o
+.PHONY : src/Rendering/Scene.o
+
+# target to build an object file
+src/Rendering/Scene.cpp.o:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.o
+.PHONY : src/Rendering/Scene.cpp.o
+
+src/Rendering/Scene.i: src/Rendering/Scene.cpp.i
+.PHONY : src/Rendering/Scene.i
+
+# target to preprocess a source file
+src/Rendering/Scene.cpp.i:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.i
+.PHONY : src/Rendering/Scene.cpp.i
+
+src/Rendering/Scene.s: src/Rendering/Scene.cpp.s
+.PHONY : src/Rendering/Scene.s
+
+# target to generate assembly for a file
+src/Rendering/Scene.cpp.s:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Scene.cpp.s
+.PHONY : src/Rendering/Scene.cpp.s
+
+src/Rendering/SceneFactory.o: src/Rendering/SceneFactory.cpp.o
+.PHONY : src/Rendering/SceneFactory.o
+
+# target to build an object file
+src/Rendering/SceneFactory.cpp.o:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.o
+.PHONY : src/Rendering/SceneFactory.cpp.o
+
+src/Rendering/SceneFactory.i: src/Rendering/SceneFactory.cpp.i
+.PHONY : src/Rendering/SceneFactory.i
+
+# target to preprocess a source file
+src/Rendering/SceneFactory.cpp.i:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.i
+.PHONY : src/Rendering/SceneFactory.cpp.i
+
+src/Rendering/SceneFactory.s: src/Rendering/SceneFactory.cpp.s
+.PHONY : src/Rendering/SceneFactory.s
+
+# target to generate assembly for a file
+src/Rendering/SceneFactory.cpp.s:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/SceneFactory.cpp.s
+.PHONY : src/Rendering/SceneFactory.cpp.s
+
+src/Rendering/Sphere.o: src/Rendering/Sphere.cpp.o
+.PHONY : src/Rendering/Sphere.o
+
+# target to build an object file
+src/Rendering/Sphere.cpp.o:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.o
+.PHONY : src/Rendering/Sphere.cpp.o
+
+src/Rendering/Sphere.i: src/Rendering/Sphere.cpp.i
+.PHONY : src/Rendering/Sphere.i
+
+# target to preprocess a source file
+src/Rendering/Sphere.cpp.i:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.i
+.PHONY : src/Rendering/Sphere.cpp.i
+
+src/Rendering/Sphere.s: src/Rendering/Sphere.cpp.s
+.PHONY : src/Rendering/Sphere.s
+
+# target to generate assembly for a file
+src/Rendering/Sphere.cpp.s:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Sphere.cpp.s
+.PHONY : src/Rendering/Sphere.cpp.s
+
+src/Rendering/Triangle.o: src/Rendering/Triangle.cpp.o
+.PHONY : src/Rendering/Triangle.o
+
+# target to build an object file
+src/Rendering/Triangle.cpp.o:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.o
+.PHONY : src/Rendering/Triangle.cpp.o
+
+src/Rendering/Triangle.i: src/Rendering/Triangle.cpp.i
+.PHONY : src/Rendering/Triangle.i
+
+# target to preprocess a source file
+src/Rendering/Triangle.cpp.i:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.i
+.PHONY : src/Rendering/Triangle.cpp.i
+
+src/Rendering/Triangle.s: src/Rendering/Triangle.cpp.s
+.PHONY : src/Rendering/Triangle.s
+
+# target to generate assembly for a file
+src/Rendering/Triangle.cpp.s:
+	$(MAKE) -f CMakeFiles/ClusterRenderingExe.dir/build.make CMakeFiles/ClusterRenderingExe.dir/src/Rendering/Triangle.cpp.s
+.PHONY : src/Rendering/Triangle.cpp.s
 
 src/SqlModule/SqlReader.o: src/SqlModule/SqlReader.cpp.o
 .PHONY : src/SqlModule/SqlReader.o
@@ -462,9 +705,39 @@ help:
 	@echo "... src/Cluster/WorkerObject.o"
 	@echo "... src/Cluster/WorkerObject.i"
 	@echo "... src/Cluster/WorkerObject.s"
+	@echo "... src/Rendering/Box.o"
+	@echo "... src/Rendering/Box.i"
+	@echo "... src/Rendering/Box.s"
+	@echo "... src/Rendering/Light.o"
+	@echo "... src/Rendering/Light.i"
+	@echo "... src/Rendering/Light.s"
+	@echo "... src/Rendering/MaterialObject.o"
+	@echo "... src/Rendering/MaterialObject.i"
+	@echo "... src/Rendering/MaterialObject.s"
+	@echo "... src/Rendering/Object.o"
+	@echo "... src/Rendering/Object.i"
+	@echo "... src/Rendering/Object.s"
+	@echo "... src/Rendering/Plane.o"
+	@echo "... src/Rendering/Plane.i"
+	@echo "... src/Rendering/Plane.s"
+	@echo "... src/Rendering/RayRenderer.o"
+	@echo "... src/Rendering/RayRenderer.i"
+	@echo "... src/Rendering/RayRenderer.s"
 	@echo "... src/Rendering/Raytracer.o"
 	@echo "... src/Rendering/Raytracer.i"
 	@echo "... src/Rendering/Raytracer.s"
+	@echo "... src/Rendering/Scene.o"
+	@echo "... src/Rendering/Scene.i"
+	@echo "... src/Rendering/Scene.s"
+	@echo "... src/Rendering/SceneFactory.o"
+	@echo "... src/Rendering/SceneFactory.i"
+	@echo "... src/Rendering/SceneFactory.s"
+	@echo "... src/Rendering/Sphere.o"
+	@echo "... src/Rendering/Sphere.i"
+	@echo "... src/Rendering/Sphere.s"
+	@echo "... src/Rendering/Triangle.o"
+	@echo "... src/Rendering/Triangle.i"
+	@echo "... src/Rendering/Triangle.s"
 	@echo "... src/SqlModule/SqlReader.o"
 	@echo "... src/SqlModule/SqlReader.i"
 	@echo "... src/SqlModule/SqlReader.s"
