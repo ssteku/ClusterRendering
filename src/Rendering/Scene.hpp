@@ -16,9 +16,9 @@ namespace rendering
 class Scene 
 {
 public:
-	vector<boost::shared_ptr<MaterialObject> > objects;
+	vector<std::shared_ptr<MaterialObject> > objects;
 
-	vector<boost::shared_ptr<Light> > lights;
+	vector<std::shared_ptr<Light> > lights;
 
 	//TODO
 	//Powinno być w Ogre!!!

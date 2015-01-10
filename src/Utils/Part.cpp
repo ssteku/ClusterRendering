@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Part::Part(boost::shared_ptr<Context> cont, boost::function<long (boost::shared_ptr<std::vector<float> > pixels, 
+Part::Part(std::shared_ptr<Context> cont, boost::function<long (std::shared_ptr<std::vector<char> > pixels,
 		const int partNr)> s, unsigned int tId,unsigned int partNr, const unsigned int fNr) : 
 	context(cont), save(s),taskId(tId), partNumber(partNr), frameNr(fNr)
 {
@@ -30,9 +30,9 @@ Context* Part::getContext()
 	return (context.get());
 }
 
-long Part::savePart(boost::shared_ptr<std::vector<float> > pixels, const int partNr)
+long Part::savePart(std::shared_ptr<std::vector<char> > pixels, const int partNr)
 {
-	boost::mutex::scoped_lock lock(io_mutex);
+	std::unique_lock<std::mutex> lock(io_mutex);
 	long ret = save(pixels, partNr);
 	return ret;
 }

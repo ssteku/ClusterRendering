@@ -1,9 +1,8 @@
 #include "WorkerObject.hpp"
-#include <boost/function.hpp>
-#include <boost/bind.hpp>
+
 
 void WorkerObject::startBehavior(){
-	executedThread = boost::thread(&WorkerObject::manageWork, this);  		
+	executedThread = std::thread(&WorkerObject::manageWork, this);
 }
 
 void WorkerObject::join(){

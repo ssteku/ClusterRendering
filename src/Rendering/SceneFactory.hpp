@@ -1,6 +1,7 @@
 #ifndef _SCENEFACTORY_HPP_
 #define _SCENEFACTORY_HPP_
-#include <boost/shared_ptr.hpp>
+
+#include <memory>
 
 class Context;
 
@@ -12,7 +13,7 @@ class Scene;
 class SceneFactory
 {
 public:
-	boost::shared_ptr<Scene> createScene(Context* context);
+	std::shared_ptr<Scene> createScene(Context* context);
 };
 
 } //namespace rendering

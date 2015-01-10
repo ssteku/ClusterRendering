@@ -11,7 +11,7 @@
 #include <fstream>
 using namespace std;
 
-SceneReader::SceneReader(istream &is):xmlStream(is) {
+SceneReader::SceneReader(istream &is) {
     try {
         si= scene(is);
     }

@@ -18,8 +18,7 @@ using namespace std;
 
 class SceneReader {
 private:
-    istream &xmlStream;
-    
+
     auto_ptr<sceneInterface> si;
     
 public:

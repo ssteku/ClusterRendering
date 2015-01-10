@@ -2,7 +2,7 @@
 #define _IMAGECREATOR_H_
 #include <vector>
 #include <string>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 class ImageCreator {
 private:
@@ -11,7 +11,7 @@ public:
 ImageCreator();
 virtual ~ImageCreator();
 
-virtual std::string saveToImage(std::vector<float>& pixels, const int dimX,const int dimY, int imageNumber, int taskId);
+virtual std::string saveToImage(std::vector<char>& pixels, const int dimX,const int dimY, int imageNumber, int taskId);
 
 };
 

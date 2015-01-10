@@ -12,7 +12,7 @@ namespace rendering
 {
 
 
-RayRenderer::RayRenderer(boost::shared_ptr<Scene> scene) : scene(scene), MAX_DISTANCE(999999.0f), 
+RayRenderer::RayRenderer(std::shared_ptr<Scene> scene) : scene(scene), MAX_DISTANCE(999999.0f),
 	NO_OBJECT(-1), NO_COLOR(0.0,0.0,0.0,1.0),START_LEVEL(0),START_COEF(1.0),ANTYALIASING_FACTOR(4)
 {
 
@@ -133,7 +133,7 @@ void RayRenderer::render(std::vector < float > *pixels)
 	                }
 					for(unsigned int m=0;m<scene->lights.size();++m)
 					{
-						boost::shared_ptr<Light> current = scene->lights[m];
+						std::shared_ptr<Light> current = scene->lights[m];
 		          
 		                Ogre::Vector3 lightVec = current->getSphere().getCenter()-newStart;
 		                lightVec.normalise();

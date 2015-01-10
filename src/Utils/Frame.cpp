@@ -13,14 +13,14 @@ Frame::Frame(const int nr, const int parts,const int dimX,const int dimY,unsigne
 }
 
 
-long Frame::saveToImage(boost::shared_ptr<std::vector<float> > pixels, const int partNr,const int taskId)
+long Frame::saveToImage(std::shared_ptr<std::vector<char> > pixels, const int partNr,const int taskId)
 {
 	if(leftParts == numberOfParts)
 	{
 		mst1 = boost::posix_time::microsec_clock::universal_time();
 	}
 	
-	boost::mutex::scoped_lock lock(io_mutex);
+	std::unique_lock<std::mutex> lock(io_mutex);
 	 
 	 --leftParts;
 

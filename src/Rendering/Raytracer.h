@@ -19,10 +19,10 @@ class Raytracer {
 	enum INTERSECT_STATUS {
 	  LIGHT_SOURCE, NO_INTERSECTION, INTERSECTION
 	};
-	const static float MINIMAL_LIGHT_VISIBILITY = 0.01;
-	const static float LIGHT_DISTANCE_PARAM_A = 0.001;
-	const static float LIGHT_DISTANCE_PARAM_B = 0.01;
-	const static float LIGHT_DISTANCE_PARAM_C = 1.0;
+	constexpr static float MINIMAL_LIGHT_VISIBILITY = 0.01;
+	constexpr static float LIGHT_DISTANCE_PARAM_A = 0.001;
+	constexpr static float LIGHT_DISTANCE_PARAM_B = 0.01;
+	constexpr static float LIGHT_DISTANCE_PARAM_C = 1.0;
 
 	float MAX_LIGHT_DISTANCE;
 	Context *context;

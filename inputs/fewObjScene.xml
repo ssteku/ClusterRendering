@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bblue="0.0" bgreen="0.0" bred="0.0" d="20" fps="24" frames="1" glblue="0.15" glgreen="0.380" glred="0.054" h="5.4" height="1080" w="9.6" width="1920" xsi:noNamespaceSchemaLocation="scene.xsd" antyalias="1">
+	<camera id="camera1" vx1="1.0" vx2="0" vx3="0" vy1="0" vy2="1.0" vy3="0" vz1="0" vz2="0" vz3="1.0" x="0" y="0" z="19.941"/>
+	<sphere phongN="1" blinnN="10000" ablue="0.88" agreen="0.21" ared="0.24" dblue="0.9" dgreen="0.170" dred="0.07" id="Layer 0 - Sphere" n="0.99" r="1.2" sblue="0.9" sgreen="0.0" sred="0.13"  x="0" y="0" z="0">	
+	</sphere>
+
+	<sphere phongN="1" blinnN="10000" ablue="0.28" agreen="0.51" ared="0.34" dblue="0.1" dgreen="0.570" dred="0.47" id="Layer 0 - Sphere" n="0.999" r="1" sblue="0.19" sgreen="0.50" sred="0.6"  x="-3" y="0" z="0">	
+	</sphere>
+	
+	<sphere phongN="1" blinnN="10000" ablue="0.68" agreen="0.21" ared="0.54" dblue="0.99" dgreen="0.270" dred="0.87" id="Layer 0 - Sphere" n="0.99" r="1" sblue="0.9" sgreen="0.00" sred="0.83"  x="3" y="0" z="0">	
+	</sphere>
+
+	<plane id="plane" x="0.0" y="2.0" z="1.0" d="40.0" ablue="0.1" agreen="0.1" ared="0.1" dblue="0.9" dgreen="0.9" dred="0.9" sblue="0.9" sgreen="0.9" sred="0.9" n="0.09" phongN="2.0" blinnN="4.0" >
+	</plane>
+	<light ablue="0.15" agreen="0.1" ared="0.14" dblue="0.15" dgreen="0.158" dred="0.18" id="Layer 9 - Light" r="0.02" sblue="0.18" sgreen="0.17" sred="0.15"  x="-3" y="12" z="-15">
+	</light>
+	<light id="light2" x="-30.0" y="11.0" z="14.0" r="0.02" ared="0.0" agreen="0.9" ablue="0.3" dred="0.1" dgreen="0.2" dblue="1.0" sred="0.01" sgreen="0.01" sblue="0.01" />  
+</scene>

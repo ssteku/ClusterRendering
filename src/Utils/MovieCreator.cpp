@@ -1,5 +1,5 @@
 #include "MovieCreator.hpp"
-
+#include <iostream>
 using namespace std;
 
 MovieCreator::MovieCreator()
@@ -22,10 +22,10 @@ void MovieCreator::createMovie(int taskId)
 	commStream<<" movies/"<<taskId<<".avi";
 	
 	command = 	commStream.str();
-	cout<<"Executing command : "<<command<<endl;
+	std::cout<<"Executing command : "<<command<<endl;
 	if(0 != system(command.c_str()))
 	{
-		cout<<"Command system during movie generation returned error code !"<<endl;
+		std::cout<<"Command system during movie generation returned error code !"<<endl;
 	}
 
 

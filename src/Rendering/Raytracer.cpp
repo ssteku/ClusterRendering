@@ -6,8 +6,10 @@
  */
 
 #include "Raytracer.h"
-#include <cmath>
+
 #include <iostream>
+
+
 Raytracer::Raytracer(Context *cont) : context(cont) {
 	calculateMLD();
 

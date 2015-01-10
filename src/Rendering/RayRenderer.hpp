@@ -1,7 +1,7 @@
 #ifndef _RAYRENDERER_HPP_
 #define _RAYRENDERER_HPP_
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include "Scene.hpp"
 #include <vector>
 #include <OGRE/OgreColourValue.h>
@@ -18,7 +18,7 @@ namespace rendering
 class RayRenderer
 {
 public:
-	RayRenderer(boost::shared_ptr<Scene> scene);
+	RayRenderer(std::shared_ptr<Scene> scene);
 	void render(std::vector < float > *pixels);
 
 private:
@@ -27,7 +27,7 @@ private:
 	void countBlinn(Ogre::ColourValue& pixel, const Ogre::Ray& lightRay, 
 		const Ogre::Ray& ray, const Ogre::Vector3& normalVec, Light& current, const int currenObjId, float coef);
 
-	boost::shared_ptr<Scene> scene;
+	std::shared_ptr<Scene> scene;
 	const float MAX_DISTANCE;
 	const int NO_OBJECT;
 	const Ogre::ColourValue NO_COLOR;

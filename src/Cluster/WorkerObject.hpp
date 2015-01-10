@@ -1,7 +1,7 @@
 #ifndef _WORKEROBJECT_H_
 #define _WORKEROBJECT_H_
 
-#include <boost/thread.hpp>
+#include <thread>
 
 /**
  * Interface class representing thread 
@@ -13,7 +13,7 @@ public:
 	void startBehavior(); /** Function which starts thread */
 	void join(); /** Function which wait for thread to be finished */
 protected:
-	boost::thread executedThread; /** Thread object */
+	std::thread executedThread; /** Thread object */
 };
 
 #endif //_WORKEROBJECT_H_

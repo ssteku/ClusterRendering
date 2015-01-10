@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bblue="0.1" bgreen="0.1" bred="0.1" d="20" fps="24" frames="100" glblue="0.1568627450980392" glgreen="0.3803921568627451" glred="0.054901960784313725" h="5.4" height="1080" w="9.6" width="1920" xsi:noNamespaceSchemaLocation="scene.xsd" antyalias="4">
+	<camera id="camera1" vx1="1.0" vx2="0" vx3="0" vy1="0" vy2="1.0" vy3="0" vz1="0" vz2="0" vz3="1.0" x="0" y="0" z="19.941666666666666"/>
+	<sphere phongN="1" blinnN="10000" ablue="0.6862745098039216" agreen="0.8196078431372549" ared="0.5490196078431373" dblue="0.8" dgreen="0.47058823529411764" dred="0.5764705882352941" id="Layer 0 - Sphere" n="0.8" r="3" sblue="0.34901960784313724" sgreen="0.5098039215686274" sred="0.6392156862745098"  x="0" y="0" z="0">
+		<tween end="100" from="0" property="z" start="0" to="-15" type="linear"/>
+		<tween end="100" from="0" property="y" start="0" to="-15" type="linear"/>
+	</sphere>
+	<sphere phongN="1" blinnN="10000" ablue="0.17647058823529413" agreen="0.403921568627451" ared="0.8901960784313725" dblue="0.08627450980392157" dgreen="0.1411764705882353" dred="0.8901960784313725" id="Layer 1 - Sphere" n="0.5" r="0.5" sblue="0.07058823529411765" sgreen="0.8901960784313725" sred="0.796078431372549"  x="-3" y="-3" z="0">
+				
+	</sphere>
+	<sphere phongN="1" blinnN="10000" ablue="0.9294117647058824" agreen="0.8" ared="0.8862745098039215" dblue="0.8392156862745098" dgreen="0.5764705882352941" dred="0.44313725490196076" id="Layer 2 - Sphere" n="0.5" r="0.5" sblue="0.5686274509803921" sgreen="0.8392156862745098" sred="0.7058823529411765"  x="3" y="3" z="0">
+	</sphere>
+	<sphere phongN="1" blinnN="10000" ablue="0.3176470588235294" agreen="0.09019607843137255" ared="1" dblue="0.8117647058823529" dgreen="0.5450980392156862" dred="0.19607843137254902" id="Layer 3 - Sphere" n="0.5" r="0.5" sblue="0.5450980392156862" sgreen="0.6901960784313725" sred="0.8784313725490196"  x="3.25" y="-3" z="0">
+	</sphere>
+	<sphere phongN="1" blinnN="10000" ablue="0.8" agreen="0.5764705882352941" ared="0.6666666666666666" dblue="0.7215686274509804" dgreen="0.27450980392156865" dred="0.6078431372549019" id="Layer 4 - Sphere" n="0.5" r="0.5" sblue="0.3411764705882353" sgreen="0.5490196078431373" sred="0.7411764705882353"  x="-3" y="3" z="0">
+	</sphere>
+	<sphere phongN="1" blinnN="10000" ablue="0.611764705882353" agreen="0.803921568627451" ared="0.9019607843137255" dblue="0.12156862745098039" dgreen="0.23137254901960785" dred="0.8588235294117647" id="Layer 5 - Sphere" n="0.5" r="0.5" sblue="0.8588235294117647" sgreen="0.3254901960784314" sred="0.7529411764705882"  x="3" y="3" z="3">
+	</sphere>
+	<sphere phongN="1" blinnN="10000" ablue="0.10196078431372549" agreen="0.4470588235294118" ared="0.5019607843137255" dblue="0.8392156862745098" dgreen="0.16862745098039217" dred="0.7058823529411765" id="Layer 6 - Sphere" n="0.5" r="0.5" sblue="0.5647058823529412" sgreen="0.7607843137254902" sred="0.6627450980392157"  x="-3" y="3" z="3">
+	</sphere>
+	<sphere phongN="1" blinnN="10000" ablue="0.07450980392156863" agreen="0.9607843137254902" ared="0.7529411764705882" dblue="0.09019607843137255" dgreen="0.34509803921568627" dred="0.9019607843137255" id="Layer 7 - Sphere" n="0.5" r="0.5" sblue="0.054901960784313725" sgreen="0.792156862745098" sred="0.9411764705882353"  x="-2.75" y="-3" z="3">
+	</sphere>
+	<sphere phongN="1" blinnN="10000" ablue="0.3" agreen="0.5" ared="0.1" dblue="0.1" dgreen="0.3" dred="0.2" id="Layer 8 - Sphere" n="0.5" r="0.5" sblue="0.1" sgreen="0.3" sred="0.2"  x="3" y="-3" z="3">
+	</sphere>
+	<light ablue="0.15686274509803921" agreen="0.117294117647058823" ared="0.140784313725490196" dblue="0.15647058823529412" dgreen="0.15843137254901961" dred="0.18196078431372549" id="Layer 9 - Light" r="0.02" sblue="0.18313725490196079" sgreen="0.17764705882352941" sred="0.15647058823529412"  x="-3" y="12" z="-15">
+		<tween end="100" from="-3" property="x" start="0" to="-15" type="linear"/>
+	</light>
+</scene>

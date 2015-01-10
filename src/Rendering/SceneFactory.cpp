@@ -15,9 +15,9 @@ using namespace std;
 namespace rendering
 {
 	
-boost::shared_ptr<Scene> SceneFactory::createScene(Context* context)
+std::shared_ptr<Scene> SceneFactory::createScene(Context* context)
 {
-	boost::shared_ptr<Scene> scene(new Scene());
+	std::shared_ptr<Scene> scene(new Scene());
 
 	scene->dimension[0] = context->dimension[0];
 	scene->dimension[1] = context->dimension[1];

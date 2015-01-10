@@ -3,13 +3,11 @@
 
 using namespace std;
 
-Master::Master(mpi::communicator& comm) : world(comm){
+Master::Master(){
 	createDirectoriesTree();
-	frameManager.reset(new FramesManager(world,reader));
-
+	frameManager.reset(new FramesManager());
 	frameManager->startBehavior();
 }
-
 
 void Master::createDirectoriesTree(){
 	mkdir("images",  S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
