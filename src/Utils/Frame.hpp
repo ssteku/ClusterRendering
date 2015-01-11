@@ -5,31 +5,33 @@
 #include <vector>
 #include <mutex>
 #include "boost/date_time/posix_time/posix_time.hpp"
+#include "DataDefs.hpp"
+#include "Context.h"
 
- /**
+/**
   * Class representing one frame of the animation, it contains all information about one frame and it can save itself to image
   * when is complete
   */
 class Frame
 {
-	const int nr; /** Unique frame id */
 	const int numberOfParts; /** Number of parts which frame has to compute */
 	int leftParts; /** Number of parts which still hase to be rendered */
 	const int dimX; /** Width of the frame */
 	const int dimY; /** Height of the frame */
-	unsigned int partLength; /** Length of result pixel vector (except the last part), used to check if everything was received properly*/
-	std::vector<char> results; /** Vector with rendered, received pixels, which is saved to image when is fill completelly */
+	unsigned int partLengthInPixels;
+	/** Length of result pixel vector (except the last part), used to check if everything was received properly*/
+	Pixels results;
+	/** Vector with rendered, received pixels, which is saved to image when is fill completelly */
 	boost::posix_time::ptime mst1; /** Time of frame life, show how much time it took to render frame after it's creation */
-	std::mutex io_mutex; /** Mutex which prevents saving to image by many threads */
-	
-
+	Context frameContext;
+	Parts parts_;
 
 public:
-	Frame(const int nr, const int parts,const int dimX,const int dimY,unsigned int partLength);
+	Frame(const Context &context);
 	/**
 	 * Function get vector of pixels and then add it to results vector and if frame is complete, save itself to image
 	 */
-	long saveToImage(std::shared_ptr<std::vector<char> > pixels, const int partNr,const int taskId);
+	long saveToImage(std::shared_ptr<Pixels> pixels, const int partNr, const int taskId);
 };
 
 #endif

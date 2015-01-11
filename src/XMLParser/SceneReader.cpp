@@ -8,7 +8,6 @@
 #include "SceneReader.hpp"
 
 //temporary file reader
-#include <fstream>
 using namespace std;
 
 SceneReader::SceneReader(istream &is) {
@@ -681,6 +680,7 @@ void SceneReader::passPlaneData(Context &c, int frame) {
 
 Context SceneReader::getFrameContext(Context &c, int frame) {
     //putting camera data into c
+    c.frameId = frame;
     passCameraData(c, frame);
     
     //getting sphereData

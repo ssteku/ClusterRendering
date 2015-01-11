@@ -10,6 +10,8 @@
 #include <map>
 #include <mutex>
 #include "FileManager.hpp"
+#include "DataDefs.hpp"
+
 class Task;
 class Part;
 class Frame;
@@ -23,18 +25,12 @@ class Client;
   */
 class FramesManager : public WorkerObject
 {
-	unsigned long avTime;
-	unsigned long framesDone;
-	
+
 	/**
 	 * @brief object which allows to read tasks from files
 	 */
 	FileManager fileManager_;
 
-	/**
-	  * @brief tasks provide undone Frames for given taskId
-	  */
-	std::map<int,map<int,std::shared_ptr<Frame> > > tasks;
 
 	bool hasFreeClient; /** Variable containing information if there are free clients */
 	bool needNewTask; /** Variable which has information if new task should be taken from database */
@@ -48,7 +44,9 @@ class FramesManager : public WorkerObject
 	/**
 	  * 
 	  */
-	void calculateTask(Task &task);
+	void calculateTask(const Task &task);
+
+	Frames getFrames(const Task &task);
 
 	std::string createMoviePathName(int taskId); /** Function creates path for saving movie with given taskId */
 

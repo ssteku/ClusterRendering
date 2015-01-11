@@ -6,7 +6,7 @@
  */
 
 #include "Raytracer.h"
-
+#include <cmath>
 #include <iostream>
 
 
