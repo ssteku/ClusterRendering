@@ -11,7 +11,7 @@ Slave::Slave(){
 }
 
 void Slave::render(const Context &context) {
-	std::vector <float> pixels;
+	std::vector<char> pixels;
 	rendering::SceneFactory factory;
 	std::shared_ptr<rendering::Scene> scene;
 

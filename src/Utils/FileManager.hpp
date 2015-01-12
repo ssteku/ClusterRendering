@@ -73,7 +73,9 @@ public:
         {
                 task = tasks.front();
                 tasks.pop();
-        }                
+			cout << "FileManager: return task" << endl;
+		}
+
         return task;
 	} 
 	

@@ -6,6 +6,7 @@
 #include <mutex>
 #include <vector>
 #include "Context.h"
+#include "DataDefs.hpp"
 
 class Context;
 
@@ -19,10 +20,7 @@ public:
 
 	Part(Context cont, unsigned int partNr);
 
-	unsigned int getPartNumber() const ;
-
-	const Context &getContext();
-
+	Pixels calculatePart();
 };
 
 #endif //_PART_H_
