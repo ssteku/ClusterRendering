@@ -15,7 +15,6 @@
 class Frame
 {
 	const int numberOfParts; /** Number of parts which frame has to compute */
-	int leftParts; /** Number of parts which still hase to be rendered */
 	const int dimX; /** Width of the frame */
 	const int dimY; /** Height of the frame */
 	unsigned int partLengthInPixels;
@@ -23,8 +22,6 @@ class Frame
 
 	//TODO WRONG~!~~~~~
 	mutable Pixels results;
-	/** Vector with rendered, received pixels, which is saved to image when is fill completelly */
-	boost::posix_time::ptime mst1; /** Time of frame life, show how much time it took to render frame after it's creation */
 	Context frameContext;
 	Parts parts_;
 private:
@@ -34,7 +31,7 @@ public:
 	/**
 	 * Function get vector of pixels and then add it to results vector and if frame is complete, save itself to image
 	 */
-	long saveToImage(const Pixels &pixels, const int partNr, const int taskId) const;
+	void saveToImage(const Pixels &pixels, const int partNr, const int taskId) const;
 
 	void generateImage() const;
 };

@@ -6,7 +6,7 @@
 using namespace std;
 
 Frame::Frame(const Context &context) :
-        frameContext(context), numberOfParts(8), dimX(context.dimension[0]), dimY(context.dimension[1]) {
+        frameContext(context), numberOfParts(11), dimX(context.dimension[0]), dimY(context.dimension[1]) {
     auto partLength = static_cast<unsigned int>(floor(context.dimension[1] / (numberOfParts)));
     partLengthInPixels = partLength * context.dimension[0] * 3;
 
@@ -32,8 +32,7 @@ Part Frame::createPart(unsigned partNr, unsigned partLength) {
     return Part(currentContext, partNr);
 }
 
-long Frame::saveToImage(const Pixels &pixels, const int partNr, const int taskId) const {
-    std::cout << "Frame::saveToImage: pixels.size: " << pixels.size() << " partNr: " << partNr << std::endl;
+void Frame::saveToImage(const Pixels &pixels, const int partNr, const int taskId) const {
     if (partNr + 1 != numberOfParts) {
         assert(partLengthInPixels == pixels.size());
         int end = partNr * partLengthInPixels + partLengthInPixels;
@@ -50,20 +49,12 @@ long Frame::saveToImage(const Pixels &pixels, const int partNr, const int taskId
         for (int i = partNr * partLengthInPixels; i < dimX * dimY * 3; ++i) {
             results[i] = pixels[old];
             ++old;
-
         }
     }
 
     if (partNr == parts_.size() - 1) {
         ImageCreator imgCreator;
         imgCreator.saveToImage(results, dimX, dimY, frameContext.frameId, taskId);
-        boost::posix_time::ptime mst2 = boost::posix_time::microsec_clock::universal_time();
-        boost::posix_time::time_duration diff = mst2 - mst1;
-        long int timeRender = diff.total_milliseconds();
-        return timeRender;
-    }
-    else {
-        return 0;
     }
 }
 

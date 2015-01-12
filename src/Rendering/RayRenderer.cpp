@@ -1,5 +1,6 @@
 #include "RayRenderer.hpp"
 #include <OGRE/OgreRay.h>
+#include <chrono>
 
 using namespace std;
 
@@ -17,9 +18,6 @@ namespace rendering {
     }
 
     void RayRenderer::render(std::vector<char> *pixels) {
-        cout << "Antyaliasing: " << scene->antyAliasing << endl;
-
-        // pixels->resize(3*(scene->window[1][1]-scene->window[0][1])*(scene->window[1][0]-scene->window[0][0]));
         float x, y;
         float x_fl, y_fl;    // pozycja rysowanego piksela "zmiennoprzecinkowa"
         float x_flTmp, y_flTmp;
@@ -42,15 +40,14 @@ namespace rendering {
 
         Ogre::Ray ray(starting_point, starting_direction);
         const int maxBounceRate = scene->maxRayBounce;
-        int currenObjId = NO_OBJECT;
+        int currentObjectId = NO_OBJECT;
         int currentLevel = START_LEVEL;
         float coef = START_COEF;
-
 
         Ogre::Vector3 normalVec;
         const float sampleRatio = 1 / ANTYALIASING_FACTOR;
         const float sampleDiff = 1 / Ogre::Math::Sqrt(ANTYALIASING_FACTOR);
-        // cout<<"Sample: "<<sampleDiff<<" sqrt: "<<Ogre::Math::Sqrt(ANTYALIASING_FACTOR)<<endl;
+
         for (y = im_size_y_2 - float(scene->window[0][1]); y > im_size_y_2 - float(scene->window[1][1]); --y) {
             for (x = -im_size_x_2 + float(scene->window[0][0]); x < -im_size_x_2 + float(scene->window[1][0]); ++x) {
 
@@ -79,48 +76,38 @@ namespace rendering {
 
                         ray.setDirection(starting_point - scene->cameraPosition);
                         do {
-                            currenObjId = NO_OBJECT;
+                            currentObjectId = NO_OBJECT;
                             d = MAX_DISTANCE;
 
                             for (unsigned int g = 0; g < scene->objects.size(); g++) {
-                                std::pair<bool, float> isInt = scene->objects[g]->intersects(ray);
-                                if (isInt.first && isInt.second < d) {
-                                    Ogre::Vector3 nVec = scene->objects[g]->getNormalVector(ray.getPoint(d));
-                                    Ogre::Radian nRad = nVec.angleBetween(ray.getPoint(d));
-                                    Ogre::Radian ang(Ogre::Degree(180.0));
-
-                                    // if( nRad < ang)
-                                    // {
-                                    d = isInt.second;
-                                    currenObjId = g;
-                                    // }
-                                }
-                            }
-                            for (unsigned int g = 0; g < scene->lights.size(); g++) {
-                                std::pair<bool, float> isInt = scene->lights[g]->intersects(ray);
-                                if (isInt.first && isInt.second < d) {
-                                    pixel = scene->lights[g]->getAmbient();
-                                    break;
+                                std::pair<bool, float> isIntersecting = scene->objects[g]->intersects(ray);
+                                if (isIntersecting.first && isIntersecting.second < d) {
+                                    d = isIntersecting.second;
+                                    currentObjectId = g;
                                 }
                             }
 
-
-                            if (currenObjId == -1) {
+                            if (currentObjectId == -1) {
                                 pixel += scene->background;
                                 break;
                             }
 
-
                             Ogre::Vector3 newStart = ray.getPoint(d);
-                            normalVec = scene->objects[currenObjId]->getNormalVector(newStart);
+                            normalVec = scene->objects[currentObjectId]->getNormalVector(newStart);
                             normalVec.normalise();
 
 
                             if (currentLevel == 0) {
-                                pixel += scene->objects[currenObjId]->getAmbient() * scene->globalLight;
+                                pixel += scene->objects[currentObjectId]->getAmbient() * scene->globalLight;
                             }
-                            for (unsigned int m = 0; m < scene->lights.size(); ++m) {
-                                std::shared_ptr<Light> current = scene->lights[m];
+                            for (const auto &light : scene->lights) {
+                                std::pair<bool, float> isIntersecting = light->intersects(ray);
+                                if (isIntersecting.first && isIntersecting.second < d) {
+                                    pixel = light->getAmbient();
+                                    break;
+                                }
+                                ////////////
+                                std::shared_ptr<Light> current = light;
 
                                 Ogre::Vector3 lightVec = current->getSphere().getCenter() - newStart;
                                 lightVec.normalise();
@@ -128,19 +115,17 @@ namespace rendering {
 
                                 bool inShadow = false;
                                 for (unsigned int h = 0; h < scene->objects.size(); ++h) {
-                                    std::pair<bool, float> isInt = scene->objects[h]->intersects(lightRay);
-                                    if (isInt.first) {
+                                    std::pair<bool, float> isIntersecting = scene->objects[h]->intersects(lightRay);
+                                    if (isIntersecting.first) {
                                         inShadow = true;
                                         break;
                                     }
                                 }
                                 if (!inShadow) {
-
-
-                                    countPhong(pixel, lightRay, ray, normalVec, current.operator*(), currenObjId, coef);
-                                    countBlinn(pixel, lightRay, ray, normalVec, current.operator*(), currenObjId, coef);
-                                    pixel += current->getAmbient() * scene->objects[currenObjId]->getAmbient();
-                                    coef *= scene->objects[currenObjId]->getN();
+                                    countPhong(pixel, lightRay, ray, normalVec, current.operator*(), currentObjectId, coef);
+                                    countBlinn(pixel, lightRay, ray, normalVec, current.operator*(), currentObjectId, coef);
+                                    pixel += current->getAmbient() * scene->objects[currentObjectId]->getAmbient();
+                                    coef *= scene->objects[currentObjectId]->getN();
                                 }
 
                             }
@@ -161,7 +146,6 @@ namespace rendering {
                 pixels->push_back(static_cast<unsigned char>(round((finalPixel.b > 1.0 ? 1.0 : finalPixel.b) * 255)));
             }
         }
-
     }
 
     void RayRenderer::countPhong(Ogre::ColourValue &pixel, const Ogre::Ray &lightRay,
