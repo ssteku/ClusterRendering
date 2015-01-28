@@ -32,8 +32,6 @@ class FramesManager : public WorkerObject
 	FileManager fileManager_;
 
 
-	bool hasFreeClient; /** Variable containing information if there are free clients */
-	bool needNewTask; /** Variable which has information if new task should be taken from database */
 	const unsigned short piecesPerSlave; /** Variable informing how many pieces of frame is for one client */
 
 	/**

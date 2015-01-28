@@ -7,7 +7,7 @@
 using namespace std;
 
 FramesManager::FramesManager() :
-		fileManager_("input"), hasFreeClient(false),needNewTask(true),piecesPerSlave(1)
+        fileManager_("/home/ssteku/input"), piecesPerSlave(1)
 {
 	fileManager_.startBehavior();
 	cout<<"Pieces per slave: "<<piecesPerSlave<<endl;

@@ -19,16 +19,16 @@ using namespace std;
 class SceneReader {
 private:
 
-    auto_ptr<sceneInterface> si;
+    unique_ptr<sceneInterface> si;
     
 public:
     SceneReader(istream & is);
     //SceneReader(string s);
-    
+
     void initContext(Context &c);
-    
+
     int getFrames();
-    
+
     void initSceneData(Context& c);
     void initCameraData(Context& c);
     void initSphereData(Context& c);
@@ -44,7 +44,7 @@ public:
     void passBoxData(Context& c, int frame);
     void passTriangleData(Context& c, int frame);
     void passLightData(Context &c, int frame);
-    
+
     Context getFrameContext(Context &c, int frame);
 };
 

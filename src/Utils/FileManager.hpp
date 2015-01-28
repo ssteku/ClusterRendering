@@ -25,7 +25,7 @@ private:
 		while(1)
 		{
 			bool end = false;
-			cout << "Reading directory: "<< filesPath_ <<endl;
+            cout << "Reading directory: " << filesPath_ << endl;
 			namespace fs = boost::filesystem;
 			fs::path someDir(filesPath_);
 			fs::directory_iterator end_iter;

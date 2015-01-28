@@ -22,13 +22,13 @@ SceneReader::SceneReader(istream &is) {
 void SceneReader::initContext(Context &c) {
     //getting scene data
     initSceneData(c);
-    
+
     //getting camera data
     initCameraData(c);
-    
+
     //getting sphere data
     initSphereData(c);
-    
+
     //getting light data
     initLightData(c);
 
@@ -682,10 +682,10 @@ Context SceneReader::getFrameContext(Context &c, int frame) {
     //putting camera data into c
     c.frameId = frame;
     passCameraData(c, frame);
-    
+
     //getting sphereData
     passSphereData(c, frame);
-    
+
     //getting lightData
     passLightData(c, frame);
 
@@ -694,24 +694,12 @@ Context SceneReader::getFrameContext(Context &c, int frame) {
     passBoxData(c, frame);
 
     passTriangleData(c,frame);
-    
-    //debugging
+
     cout << "Frame #" << frame << endl;
-    //cout << "\t\tx\ty\tz\tvx1\tvx2\tvx3\tvy1\tvy2\tvy3\tvz1\tvz2\tvz2\tvz3\tared\";
     cout << "Camera\t\t";
     cout << c.cameraPosition[0] << "\t" << c.cameraPosition[1] << "\t" << c.cameraPosition[2] << endl;
 
-    // for(vector<Context::Sphere>::iterator it = c.spheres.begin(); it != c.spheres.end(); it++) {
-    //     cout << "Sphere #" << it->id << "\t";
-    //     cout << it->position[0] << "\t" << it->position[1] << "\t" << it->position[2] << "\t" << it->ambient[0] << "\t" << it->ambient[1] << "\t" << it->ambient[2] << "\t" << it->specular[0] << "\t" << it->specular[1] << "\t" << it->specular[2] << "\t" << it->diffuse[0] << "\t" << it->diffuse[1] << "\t" << it->diffuse[2] << "\t n:" << it->n << "\t phong: " << "\t blinn:"<< it->phongN<< it->blinnN << "\t"<< endl;
-    // }
-    
-    // for(vector<Context::Light>::iterator it = c.lights.begin(); it != c.lights.end(); it++) {
-    //     cout << "Light #" << it->id << "\t";
-    //     cout << it->position[0] << "\t" << it->position[1] << "\t" << it->position[2] << "\t" << it->ambient[0] << "\t" << it->ambient[1] << "\t" << it->ambient[2] << "\t" << it->specular[0] << "\t" << it->specular[1] << "\t" << it->specular[2] << "\t" << it->diffuse[0] << "\t" << it->diffuse[1] << "\t" << it->diffuse[2] << endl;
-    // }
-    // cout << endl << endl;
-    
+
     return c;
 }
 

@@ -14,10 +14,14 @@
   */
 class Frame
 {
-	const int numberOfParts; /** Number of parts which frame has to compute */
-	const int dimX; /** Width of the frame */
-	const int dimY; /** Height of the frame */
-	unsigned int partLengthInPixels;
+    const unsigned int numberOfPixelColors_;
+    const unsigned int numberOfParts_;
+    /** Number of parts which frame has to compute */
+    const unsigned int dimensionX_;
+    /** Width of the frame */
+    const unsigned int dimensionY_;
+    /** Height of the frame */
+    const unsigned int partLength_;
 	/** Length of result pixel vector (except the last part), used to check if everything was received properly*/
 
 	//TODO WRONG~!~~~~~

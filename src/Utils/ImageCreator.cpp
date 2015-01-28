@@ -2,9 +2,7 @@
 #include "assert.h"
 #include <sstream>
 #include <sys/stat.h>
-#include <math.h>
 #include <png++/png.hpp>
-#include <iostream>
 
 using namespace std;
 
@@ -31,9 +29,6 @@ string ImageCreator::saveToImage(vector<char>& pixels, const int dimX,const int 
 		// cout<<"y:"<<y<<endl;
 		for(int x = 0; x < myDimX; ++x) {
 			// cout<<"x:"<<x<<endl;
-			// unsigned char r = static_cast<unsigned char>(round((pixels[cI] > 1.0 ? 1.0 : pixels[cI])*255));
-			// unsigned char g = static_cast<unsigned char>(round((pixels[cI+1] > 1.0 ? 1.0 : pixels[cI+1])*255));
-			// unsigned char b = static_cast<unsigned char>(round((pixels[cI+2] > 1.0 ? 1.0 : pixels[cI+2])*255));
 			unsigned char r = pixels[cI];
 			unsigned char g = pixels[cI+1];
 			unsigned char b = pixels[cI+2];
@@ -47,9 +42,10 @@ string ImageCreator::saveToImage(vector<char>& pixels, const int dimX,const int 
 	// cout<<"yuppi"<<endl;
 	stringstream stream,paths;
 	string path;
-	paths<<"images/"<<taskId<<"/";
+    paths << "/home/ssteku/input/images/" << taskId << "/";
 	paths>>path;
 	// cout<<"Path dla obrazka to :"<<path<<endl;
+    mkdir("/home/ssteku/input/images", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 	mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
 	if(imageNumber<10){

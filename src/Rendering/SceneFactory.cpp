@@ -1,15 +1,10 @@
 #include "SceneFactory.hpp"
 #include "Scene.hpp"
 #include "Context.h"
-#include "Light.hpp"
 #include "Sphere.hpp"
 #include "Plane.hpp"
 #include "Box.hpp"
 #include "Triangle.hpp"
-
-#include <OGRE/OgreVector3.h>
-#include <OGRE/OgreColourValue.h>
-#include <iostream>
 
 using namespace std;
 namespace rendering
@@ -26,8 +21,7 @@ std::shared_ptr<Scene> SceneFactory::createScene(Context* context)
 	scene->window[1][0] = context->window[1][0];
 	scene->window[1][1] = context->window[1][1];
 	scene->antyAliasing = context->antyAliasing;
-	cout<<"Antyalias scenecreator: "<<context->antyAliasing<<endl;
-	scene->viewportSize = 
+    scene->viewportSize =
 		Ogre::Vector3(context->viewportSize[0],context->viewportSize[1],context->viewportSize[2]);
 	scene->background = 
 		Ogre::ColourValue(context->background[0],context->background[1],context->background[2]);
