@@ -33,7 +33,7 @@ Part Frame::createPart(unsigned partNr, unsigned partLength) {
 
 void Frame::saveToImage(const Pixels &pixels, const int partNr, const int taskId) const {
     auto partLengthInPixels =
-            dimensionX_ * numberOfPixelColors_ * partLength_
+            dimensionX_ * numberOfPixelColors_ * partLength_;
     unsigned pixelOffset = partNr * partLengthInPixels;
 
     for (const auto &pixel : pixels) {

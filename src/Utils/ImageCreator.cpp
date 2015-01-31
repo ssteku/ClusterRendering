@@ -6,7 +6,7 @@
 
 using namespace std;
 
-ImageCreator::ImageCreator()
+ImageCreator::ImageCreator() : taskDirectory_("/home/ssteku/input/images/"), pngFileExtension_(".png")
 {
 
 }
@@ -19,50 +19,50 @@ string ImageCreator::saveToImage(vector<char>& pixels, const int dimX,const int 
 {
 	assert(imageNumber>=0);
 	assert(imageNumber<=999);
-	// cout<<"saveToImage results.size: "<<pixels.size()<<" should be : "<<dimX*dimY<<endl;
-	int myDimX = dimX;
-	int myDimY = dimY;
-	png::image< png::rgb_pixel > image(myDimX, myDimY);
-	// cout<<"y: "<<myDimY<<"x: "<<myDimX<<endl;
+    png::image<png::rgb_pixel> image(dimX, dimY);
 	long cI = 0;
-	for(int y = 0; y < myDimY; ++y) {
-		// cout<<"y:"<<y<<endl;
-		for(int x = 0; x < myDimX; ++x) {
-			// cout<<"x:"<<x<<endl;
-			unsigned char r = pixels[cI];
-			unsigned char g = pixels[cI+1];
-			unsigned char b = pixels[cI+2];
-			image[y][x] =  png::rgb_pixel(r, g, b);
-			cI += 3;
-			// cout<<cI<<endl;
-		}
-		// cout<<cI<<endl;
-	}
+    for (int y = 0; y < dimX; ++y) {
+        for (int x = 0; x < dimY; ++x) {
+            unsigned char r = pixels[cI];
+            unsigned char g = pixels[cI + 1];
+            unsigned char b = pixels[cI + 2];
+            image[y][x] = png::rgb_pixel(r, g, b);
+            cI += 3;
+        }
+    }
 
-	// cout<<"yuppi"<<endl;
-	stringstream stream,paths;
-	string path;
-    paths << "/home/ssteku/input/images/" << taskId << "/";
-	paths>>path;
-	// cout<<"Path dla obrazka to :"<<path<<endl;
-    mkdir("/home/ssteku/input/images", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-	mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+    const std::string imageDirectory = createTaskDirectoryName(taskId);
+    createDirectories(imageDirectory);
+    const std::string imageFileName = createImageFileName(imageDirectory, imageNumber);
 
-	if(imageNumber<10){
-		stream<<path<<"image-00"<<imageNumber<<".png";
-	}
-	else{
-		if(imageNumber>=10 && imageNumber<=99){
-			stream<<path<<"image-0"<<imageNumber <<".png";
-		}
-		else
-		{
-			stream<<path<<"image-"<<imageNumber<<".png";
-		}	
-	}
+    image.write(imageFileName.c_str());
+    return imageFileName;
+}
 
-	string fileName;
-	stream>>fileName;
-	image.write(fileName.c_str());
-	return fileName;	
+std::string ImageCreator::createTaskDirectoryName(int taskId) {
+    stringstream paths;
+    paths << taskDirectory_ << taskId << "/";
+    return paths.str();
+}
+
+void ImageCreator::createDirectories(const std::string &imageDirectory) {
+    mkdir(taskDirectory_.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+    mkdir(imageDirectory.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+}
+
+std::string ImageCreator::createImageFileName(const std::string &imageDirectory, int imageNumber) {
+    stringstream stream;
+    stream << imageDirectory;
+    if (imageNumber < 10) {
+        stream << "image-00" << imageNumber << pngFileExtension_;
+    }
+    else {
+        if (imageNumber >= 10 && imageNumber <= 99) {
+            stream << "image-0" << imageNumber << pngFileExtension_;
+        }
+        else {
+            stream << "image-" << imageNumber << pngFileExtension_;
+        }
+    }
+    return stream.str();
 }
