@@ -1,7 +1,8 @@
 cmake_minimum_required (VERSION 2.6)
 PROJECT(ClusterRendering)
 
-SET(CMAKE_CXX_COMPILER clang)
+SET(CMAKE_CXX_COMPILER clang-3.5)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_FLAGS "-g3 -Wall -DDEBUG -O3 -Wconversion -Wformat -std=c++11")
 
 include_directories(./xsd/xsd/libxsd /usr/include/xsd)

@@ -21,8 +21,8 @@ string ImageCreator::saveToImage(vector<unsigned char>& pixels, const int dimX,c
 	assert(imageNumber<=999);
     png::image<png::rgb_pixel> image(dimX, dimY);
 	long cI = 0;
-    for (int y = 0; y < dimX; ++y) {
-        for (int x = 0; x < dimY; ++x) {
+    for (int y = 0; y < dimY; ++y) {
+        for (int x = 0; x < dimX; ++x) {
             unsigned char r = pixels[cI];
             unsigned char g = pixels[cI + 1];
             unsigned char b = pixels[cI + 2];
