@@ -13,8 +13,6 @@ class Context;
 class Part 
 {
 	Context context;
-	const unsigned int partNumber;
-
 
 public:
 

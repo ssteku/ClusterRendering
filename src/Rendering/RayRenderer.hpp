@@ -5,7 +5,7 @@
 #include "Scene.hpp"
 #include <vector>
 #include <OGRE/OgreColourValue.h>
-
+#include "DataDefs.hpp"
 namespace Ogre
 {
 	class Ray;
@@ -19,7 +19,7 @@ namespace rendering
 	public:
 		RayRenderer(std::shared_ptr<Scene> scene);
 
-		void render(std::vector<char> *pixels);
+        void render(Pixels *pixels);
 
 	private:
 		void countPhong(Ogre::ColourValue &pixel, const Ogre::Ray &lightRay,

@@ -15,7 +15,7 @@ ImageCreator::~ImageCreator()
 
 }
 
-string ImageCreator::saveToImage(vector<char>& pixels, const int dimX,const int dimY, int imageNumber, int taskId)
+string ImageCreator::saveToImage(vector<unsigned char>& pixels, const int dimX,const int dimY, int imageNumber, int taskId)
 {
 	assert(imageNumber>=0);
 	assert(imageNumber<=999);

@@ -5,14 +5,14 @@
 using namespace std;
 
 Part::Part(Context cont, unsigned int partNr) :
-		context(cont), partNumber(partNr)
+        context(cont)
 {
 
 }
 
 Pixels Part::calculatePart()
 {
-	std::vector<char> pixels;
+    Pixels pixels;
 	rendering::SceneFactory factory;
 	std::shared_ptr<rendering::Scene> scene;
 

@@ -17,7 +17,7 @@ namespace rendering {
 
     }
 
-    void RayRenderer::render(std::vector<char> *pixels) {
+    void RayRenderer::render(Pixels *pixels) {
         float x, y;
         float x_fl, y_fl;    // pozycja rysowanego piksela "zmiennoprzecinkowa"
         float x_flTmp, y_flTmp;
@@ -69,7 +69,6 @@ namespace rendering {
                         starting_point[0] = scene->cameraPosition[0] + (x_fl * scene->cameraX[0] + y_fl * scene->cameraY[0]) - dist * scene->cameraZ[0];
                         starting_point[1] = scene->cameraPosition[1] + (x_fl * scene->cameraX[1] + y_fl * scene->cameraY[1]) - dist * scene->cameraZ[1];
                         starting_point[2] = scene->cameraPosition[2] + (x_fl * scene->cameraX[2] + y_fl * scene->cameraY[2]) - dist * scene->cameraZ[2];// transformacja wsp kamery na globalne
-                        // cout<<"Start: "<<starting_point[0]<<" ,"<<starting_point[1]<<" ,"<<starting_point[2]<<endl;
 
 
                         ray.setOrigin(scene->cameraPosition);
@@ -114,8 +113,8 @@ namespace rendering {
                                 Ogre::Ray lightRay(newStart, lightVec);
 
                                 bool inShadow = false;
-                                for (unsigned int h = 0; h < scene->objects.size(); ++h) {
-                                    std::pair<bool, float> isIntersecting = scene->objects[h]->intersects(lightRay);
+                                for (auto &elem : scene->objects) {
+                                    std::pair<bool, float> isIntersecting = elem->intersects(lightRay);
                                     if (isIntersecting.first) {
                                         inShadow = true;
                                         break;

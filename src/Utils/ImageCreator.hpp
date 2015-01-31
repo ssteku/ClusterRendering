@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include "DataDefs.hpp"
 
 class ImageCreator {
 private:
@@ -11,7 +12,7 @@ public:
 ImageCreator();
 virtual ~ImageCreator();
 
-virtual std::string saveToImage(std::vector<char>& pixels, const int dimX,const int dimY, int imageNumber, int taskId);
+    virtual std::string saveToImage(Pixels &pixels, const int dimX, const int dimY, int imageNumber, int taskId);
 
 private:
     std::string createTaskDirectoryName(int taskId);

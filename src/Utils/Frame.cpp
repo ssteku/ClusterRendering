@@ -16,7 +16,7 @@ Frame::Frame(const Context &context) :
     for (unsigned int i = 0; i < numberOfParts_; ++i) {
         parts_.push_back(createPart(i, partLength_));
     }
-    results.resize(dimensionX_ * dimensionY_ * numberOfPixelColors_);
+    results_.resize(dimensionX_ * dimensionY_ * numberOfPixelColors_);
 }
 
 Part Frame::createPart(unsigned partNr, unsigned partLength) {
@@ -37,13 +37,13 @@ void Frame::saveToImage(const Pixels &pixels, const int partNr, const int taskId
     unsigned pixelOffset = partNr * partLengthInPixels;
 
     for (const auto &pixel : pixels) {
-        results[pixelOffset] = pixel;
+        results_[pixelOffset] = pixel;
         ++pixelOffset;
     }
 
     if (partNr == parts_.size() - 1) {
         ImageCreator imgCreator;
-        imgCreator.saveToImage(results, dimensionX_, dimensionY_, frameContext.frameId, taskId);
+        imgCreator.saveToImage(results_, dimensionX_, dimensionY_, frameContext.frameId, taskId);
     }
 }
 

@@ -25,7 +25,7 @@ class Frame
 	/** Length of result pixel vector (except the last part), used to check if everything was received properly*/
 
 	//TODO WRONG~!~~~~~
-	mutable Pixels results;
+    mutable Pixels results_;
 	Context frameContext;
 	Parts parts_;
 private:

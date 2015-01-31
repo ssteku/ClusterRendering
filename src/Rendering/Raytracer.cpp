@@ -47,26 +47,26 @@ void Raytracer::Phong(point q, myVector n, myVector V, unsigned int objectId, co
 	  std::vector < myColor > singlePhongColors;
 	  color ambientSum = {0.0, 0.0, 0.0};
 	  Normalization(V);
-	  for(unsigned int Li = 0; Li < context->lights.size(); ++Li) {
-		float lightLen = Distance(q, context->lights[Li].position);
+    for (auto &elem : context->lights) {
+        float lightLen = Distance(q, elem.position);
 		if(lightLen >= MAX_LIGHT_DISTANCE) continue;
 		bool isVisible = true;
-		myVector L = {context->lights[Li].position[0]-q[0],
-					context->lights[Li].position[1]-q[1],
-					context->lights[Li].position[2]-q[2]};
+        myVector L = {elem.position[0] - q[0],
+                elem.position[1] - q[1],
+                elem.position[2] - q[2]};
 		Normalization(L);
 		for(unsigned int Si = 0; Si < context->spheres.size(); ++Si) {
 		  if(Si == objectId) continue;
 		  INTERSECT_STATUS status;
 		  point tmp;
-		  IntersectWithSphere(context->lights[Li].position, L, &status, Si, tmp);
+            IntersectWithSphere(elem.position, L, &status, Si, tmp);
 		  if(status == INTERSECTION) {
-			myVector tmp2 =  {context->lights[Li].position[0]-tmp[0],
-						   context->lights[Li].position[1]-tmp[1],
-						   context->lights[Li].position[2]-tmp[2]};
+              myVector tmp2 = {elem.position[0] - tmp[0],
+                      elem.position[1] - tmp[1],
+                      elem.position[2] - tmp[2]};
 			Normalization(tmp2);
 			if(tmp2[0] != L[0] && tmp2[1] != L[1] && tmp2[2] != L[2]) continue;
-			if(Distance(tmp, context->lights[Li].position) < lightLen) {
+              if (Distance(tmp, elem.position) < lightLen) {
 			  isVisible = false;
 			  break;
 			}
@@ -75,30 +75,30 @@ void Raytracer::Phong(point q, myVector n, myVector V, unsigned int objectId, co
 		if(!isVisible) continue;
 		color tmpC = {0.0, 0.0, 0.0};
 		myVector R;
-		Reflect(context->lights[Li].position, q, n,  R);
+        Reflect(elem.position, q, n, R);
 		Normalization(R);
 		float RdotV = dotProduct(R, V);
 		if(RdotV >  0) {
 
 		  RdotV = pow(RdotV, float(context->spheres[objectId].n));
-		  tmpC[0] = context->spheres[objectId].specular[0]*context->lights[Li].specular[0]*RdotV;
-		  tmpC[1] = context->spheres[objectId].specular[1]*context->lights[Li].specular[1]*RdotV;
-		  tmpC[2] = context->spheres[objectId].specular[2]*context->lights[Li].specular[2]*RdotV;
+            tmpC[0] = context->spheres[objectId].specular[0] * elem.specular[0] * RdotV;
+            tmpC[1] = context->spheres[objectId].specular[1] * elem.specular[1] * RdotV;
+            tmpC[2] = context->spheres[objectId].specular[2] * elem.specular[2] * RdotV;
 		}
 		float NdotL = dotProduct(n, L);
 		if(NdotL > 0) {
-		  tmpC[0] += context->spheres[objectId].diffuse[0]*context->lights[Li].diffuse[0]*NdotL;
-		  tmpC[1] += context->spheres[objectId].diffuse[1]*context->lights[Li].diffuse[1]*NdotL;
-		  tmpC[2] += context->spheres[objectId].diffuse[2]*context->lights[Li].diffuse[2]*NdotL;
+            tmpC[0] += context->spheres[objectId].diffuse[0] * elem.diffuse[0] * NdotL;
+            tmpC[1] += context->spheres[objectId].diffuse[1] * elem.diffuse[1] * NdotL;
+            tmpC[2] += context->spheres[objectId].diffuse[2] * elem.diffuse[2] * NdotL;
 		}
 		float dist = Fatt(lightLen);
 		tmpC[0] *= dist;
 		tmpC[1] *= dist;
 		tmpC[2] *= dist;
 
-		ambientSum[0] = context->lights[Li].ambient[0];
-		ambientSum[1] = context->lights[Li].ambient[1];
-		ambientSum[2] = context->lights[Li].ambient[2];
+        ambientSum[0] = elem.ambient[0];
+        ambientSum[1] = elem.ambient[1];
+        ambientSum[2] = elem.ambient[2];
 		myColor tmpColor;
 		tmpColor.R = tmpC[0];
 		tmpColor.G = tmpC[1];
