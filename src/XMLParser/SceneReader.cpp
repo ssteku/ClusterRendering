@@ -362,50 +362,50 @@ void SceneReader::passCameraData(Context &c, int frame) {
 void SceneReader::passSphereData(Context &c, int frame) {
     try {
         for(sceneInterface::sphere_const_iterator s (si->sphere().begin()); s != si->sphere().end(); s++) {
-            for(tweenInterface::tween_const_iterator t (s->tween().begin()); t != s->tween().end(); t++) {
-                for(vector<Context::Sphere>::iterator it = c.spheres.begin(); it != c.spheres.end(); it++) {
-                    if(it->id == s->id()) {
-                        if((string)t->type() == "linear") {
+            for (const auto &elem : s->tween()) {
+                for (auto &_it : c.spheres) {
+                    if (_it.id == s->id()) {
+                        if ((string) elem.type() == "linear") {
                             //does animation take place in current frame?
-                            if(t->start() <= frame && t->end() >= frame) {
+                            if (elem.start() <= frame && elem.end() >= frame) {
                                 //counting current value of property
-                                float timePart = float(frame - t->start())/float(t->end() - t->start());
-                                float result = float(t->from()) + timePart*float(t->to() - t->from());
-                                
-                                if((string)t->property() == "x") {
-                                    it->position[0] = result;
-                                } else if((string)t->property() == "y") {
-                                    it->position[1] = result;
-                                } else if((string)t->property() == "z") {
-                                    it->position[2] = result;
-                                } else if((string)t->property() == "r") {
-                                    it->r = result;
-                                } else if((string)t->property() == "ared") {
-                                    it->ambient[0] = result;
-                                } else if((string)t->property() == "agreen") {
-                                    it->ambient[1] = result;
-                                } else if((string)t->property() == "ablue") {
-                                    it->ambient[2] = result;
-                                } else if((string)t->property() == "dred") {
-                                    it->diffuse[0] = result;
-                                } else if((string)t->property() == "dgreen") {
-                                    it->diffuse[1] = result;
-                                } else if((string)t->property() == "dblue") {
-                                    it->diffuse[2] = result;
-                                } else if((string)t->property() == "sred") {
-                                    it->specular[0] = result;
-                                } else if((string)t->property() == "sgreen") {
-                                    it->specular[1] = result;
-                                } else if((string)t->property() == "sblue") {
-                                    it->specular[2] = result;
-                                } else if((string)t->property() == "n") {
-                                    it->n = result;
-                                } else if((string)t->property() == "phongN") {
-                                    it->phongN = result;
+                                float timePart = float(frame - elem.start()) / float(elem.end() - elem.start());
+                                float result = float(elem.from()) + timePart * float(elem.to() - elem.from());
+
+                                if ((string) elem.property() == "x") {
+                                    _it.position[0] = result;
+                                } else if ((string) elem.property() == "y") {
+                                    _it.position[1] = result;
+                                } else if ((string) elem.property() == "z") {
+                                    _it.position[2] = result;
+                                } else if ((string) elem.property() == "r") {
+                                    _it.r = result;
+                                } else if ((string) elem.property() == "ared") {
+                                    _it.ambient[0] = result;
+                                } else if ((string) elem.property() == "agreen") {
+                                    _it.ambient[1] = result;
+                                } else if ((string) elem.property() == "ablue") {
+                                    _it.ambient[2] = result;
+                                } else if ((string) elem.property() == "dred") {
+                                    _it.diffuse[0] = result;
+                                } else if ((string) elem.property() == "dgreen") {
+                                    _it.diffuse[1] = result;
+                                } else if ((string) elem.property() == "dblue") {
+                                    _it.diffuse[2] = result;
+                                } else if ((string) elem.property() == "sred") {
+                                    _it.specular[0] = result;
+                                } else if ((string) elem.property() == "sgreen") {
+                                    _it.specular[1] = result;
+                                } else if ((string) elem.property() == "sblue") {
+                                    _it.specular[2] = result;
+                                } else if ((string) elem.property() == "n") {
+                                    _it.n = result;
+                                } else if ((string) elem.property() == "phongN") {
+                                    _it.phongN = result;
                                     cout<<endl<<"Phong: "<< result<<endl;
 
-                                } else if((string)t->property() == "blinnN") {
-                                    it->blinnN = result;
+                                } else if ((string) elem.property() == "blinnN") {
+                                    _it.blinnN = result;
                                     cout<<endl<<"Blinn: "<< result<<endl;
 
                                 }
@@ -425,42 +425,42 @@ void SceneReader::passSphereData(Context &c, int frame) {
 void SceneReader::passLightData(Context &c, int frame) {
     try {
         for(sceneInterface::light_const_iterator l (si->light().begin()); l != si->light().end(); l++) {
-            for(tweenInterface::tween_const_iterator t (l->tween().begin()); t != l->tween().end(); t++) {
-                for(vector<Context::Light>::iterator it = c.lights.begin(); it != c.lights.end(); it++) {
-                    if(it->id == l->id()) {
-                        if((string)t->type() == "linear") {
+            for (const auto &elem : l->tween()) {
+                for (auto &_it : c.lights) {
+                    if (_it.id == l->id()) {
+                        if ((string) elem.type() == "linear") {
                             //does animation take place in current frame?
-                            if(t->start() <= frame && t->end() >= frame) {
+                            if (elem.start() <= frame && elem.end() >= frame) {
                                 //counting current value of property
-                                float timePart = float(frame - t->start())/float(t->end() - t->start());
-                                float result = float(t->from()) + timePart*float(t->to() - t->from());
-                                
-                                if((string)t->property() == "x") {
-                                    it->position[0] = result;
-                                } else if((string)t->property() == "y") {
-                                    it->position[1] = result;
-                                } else if((string)t->property() == "z") {
-                                    it->position[2] = result;
-                                } else if((string)t->property() == "r") {
-                                    it->r = result;
-                                } else if((string)t->property() == "ared") {
-                                    it->ambient[0] = result;
-                                } else if((string)t->property() == "agreen") {
-                                    it->ambient[1] = result;
-                                } else if((string)t->property() == "ablue") {
-                                    it->ambient[2] = result;
-                                } else if((string)t->property() == "dred") {
-                                    it->diffuse[0] = result;
-                                } else if((string)t->property() == "dgreen") {
-                                    it->diffuse[1] = result;
-                                } else if((string)t->property() == "dblue") {
-                                    it->diffuse[2] = result;
-                                } else if((string)t->property() == "sred") {
-                                    it->specular[0] = result;
-                                } else if((string)t->property() == "sgreen") {
-                                    it->specular[1] = result;
-                                } else if((string)t->property() == "sblue") {
-                                    it->specular[2] = result;
+                                float timePart = float(frame - elem.start()) / float(elem.end() - elem.start());
+                                float result = float(elem.from()) + timePart * float(elem.to() - elem.from());
+
+                                if ((string) elem.property() == "x") {
+                                    _it.position[0] = result;
+                                } else if ((string) elem.property() == "y") {
+                                    _it.position[1] = result;
+                                } else if ((string) elem.property() == "z") {
+                                    _it.position[2] = result;
+                                } else if ((string) elem.property() == "r") {
+                                    _it.r = result;
+                                } else if ((string) elem.property() == "ared") {
+                                    _it.ambient[0] = result;
+                                } else if ((string) elem.property() == "agreen") {
+                                    _it.ambient[1] = result;
+                                } else if ((string) elem.property() == "ablue") {
+                                    _it.ambient[2] = result;
+                                } else if ((string) elem.property() == "dred") {
+                                    _it.diffuse[0] = result;
+                                } else if ((string) elem.property() == "dgreen") {
+                                    _it.diffuse[1] = result;
+                                } else if ((string) elem.property() == "dblue") {
+                                    _it.diffuse[2] = result;
+                                } else if ((string) elem.property() == "sred") {
+                                    _it.specular[0] = result;
+                                } else if ((string) elem.property() == "sgreen") {
+                                    _it.specular[1] = result;
+                                } else if ((string) elem.property() == "sblue") {
+                                    _it.specular[2] = result;
                                 }
                             }
                         }
@@ -479,52 +479,52 @@ void SceneReader::passLightData(Context &c, int frame) {
 void SceneReader::passBoxData(Context& c, int frame) {
    try {
         for(sceneInterface::box_const_iterator b (si->box().begin()); b != si->box().end(); b++) {
-            for(tweenInterface::tween_const_iterator t (b->tween().begin()); t != b->tween().end(); t++) {
-                for(vector<Context::Box>::iterator it = c.boxes.begin(); it != c.boxes.end(); it++) {
-                    if(it->id == b->id()) {
-                        if((string)t->type() == "linear") {
+            for (const auto &elem : b->tween()) {
+                for (auto &_it : c.boxes) {
+                    if (_it.id == b->id()) {
+                        if ((string) elem.type() == "linear") {
                             //does animation take place in current frame?
-                            if(t->start() <= frame && t->end() >= frame) {
+                            if (elem.start() <= frame && elem.end() >= frame) {
                                 //counting current value of property
-                                float timePart = float(frame - t->start())/float(t->end() - t->start());
-                                float result = float(t->from()) + timePart*float(t->to() - t->from());
-                                
-                                if((string)t->property() == "x") {
-                                    it->minVector[0] = result;
-                                } else if((string)t->property() == "y") {
-                                    it->minVector[1] = result;
-                                } else if((string)t->property() == "z") {
-                                    it->minVector[2] = result;
-                                } else if((string)t->property() == "maxx") {
-                                    it->maxVector[0] = result;
-                                } else if((string)t->property() == "maxy") {
-                                    it->maxVector[1] = result;
-                                } else if((string)t->property() == "maxz") {
-                                    it->maxVector[2] = result;
-                                } else if((string)t->property() == "ared") {
-                                    it->ambient[0] = result;
-                                } else if((string)t->property() == "agreen") {
-                                    it->ambient[1] = result;
-                                } else if((string)t->property() == "ablue") {
-                                    it->ambient[2] = result;
-                                } else if((string)t->property() == "dred") {
-                                    it->diffuse[0] = result;
-                                } else if((string)t->property() == "dgreen") {
-                                    it->diffuse[1] = result;
-                                } else if((string)t->property() == "dblue") {
-                                    it->diffuse[2] = result;
-                                } else if((string)t->property() == "sred") {
-                                    it->specular[0] = result;
-                                } else if((string)t->property() == "sgreen") {
-                                    it->specular[1] = result;
-                                } else if((string)t->property() == "sblue") {
-                                    it->specular[2] = result;
-                                } else if((string)t->property() == "n") {
-                                    it->n = result;
-                                } else if((string)t->property() == "phongN") {
-                                    it->phongN = result;
-                                } else if((string)t->property() == "blinnN") {
-                                    it->blinnN = result;
+                                float timePart = float(frame - elem.start()) / float(elem.end() - elem.start());
+                                float result = float(elem.from()) + timePart * float(elem.to() - elem.from());
+
+                                if ((string) elem.property() == "x") {
+                                    _it.minVector[0] = result;
+                                } else if ((string) elem.property() == "y") {
+                                    _it.minVector[1] = result;
+                                } else if ((string) elem.property() == "z") {
+                                    _it.minVector[2] = result;
+                                } else if ((string) elem.property() == "maxx") {
+                                    _it.maxVector[0] = result;
+                                } else if ((string) elem.property() == "maxy") {
+                                    _it.maxVector[1] = result;
+                                } else if ((string) elem.property() == "maxz") {
+                                    _it.maxVector[2] = result;
+                                } else if ((string) elem.property() == "ared") {
+                                    _it.ambient[0] = result;
+                                } else if ((string) elem.property() == "agreen") {
+                                    _it.ambient[1] = result;
+                                } else if ((string) elem.property() == "ablue") {
+                                    _it.ambient[2] = result;
+                                } else if ((string) elem.property() == "dred") {
+                                    _it.diffuse[0] = result;
+                                } else if ((string) elem.property() == "dgreen") {
+                                    _it.diffuse[1] = result;
+                                } else if ((string) elem.property() == "dblue") {
+                                    _it.diffuse[2] = result;
+                                } else if ((string) elem.property() == "sred") {
+                                    _it.specular[0] = result;
+                                } else if ((string) elem.property() == "sgreen") {
+                                    _it.specular[1] = result;
+                                } else if ((string) elem.property() == "sblue") {
+                                    _it.specular[2] = result;
+                                } else if ((string) elem.property() == "n") {
+                                    _it.n = result;
+                                } else if ((string) elem.property() == "phongN") {
+                                    _it.phongN = result;
+                                } else if ((string) elem.property() == "blinnN") {
+                                    _it.blinnN = result;
                                 }
 
                             }
@@ -545,64 +545,64 @@ void SceneReader::passTriangleData(Context& c, int frame)
 {
    try {
         for(sceneInterface::triangle_const_iterator b (si->triangle().begin()); b != si->triangle().end(); b++) {
-            for(tweenInterface::tween_const_iterator t (b->tween().begin()); t != b->tween().end(); t++) {
-                for(vector<Context::Triangle>::iterator it = c.triangles.begin(); it != c.triangles.end(); it++) {
-                    if(it->id == b->id()) {
-                        if((string)t->type() == "linear") {
+            for (const auto &elem : b->tween()) {
+                for (auto &_it : c.triangles) {
+                    if (_it.id == b->id()) {
+                        if ((string) elem.type() == "linear") {
                             //does animation take place in current frame?
-                            if(t->start() <= frame && t->end() >= frame) {
+                            if (elem.start() <= frame && elem.end() >= frame) {
                                 //counting current value of property
-                                float timePart = float(frame - t->start())/float(t->end() - t->start());
-                                float result = float(t->from()) + timePart*float(t->to() - t->from());
+                                float timePart = float(frame - elem.start()) / float(elem.end() - elem.start());
+                                float result = float(elem.from()) + timePart * float(elem.to() - elem.from());
                                 cout<<"Czyta trojkat"<<endl;
-                                if((string)t->property() == "x") {
-                                    it->point1[0] = result;
-                                } else if((string)t->property() == "y") {
-                                    it->point1[1] = result;
-                                } else if((string)t->property() == "z") {
-                                    it->point1[2] = result;
-                                } else if((string)t->property() == "x1") {
-                                    it->point2[0] = result;
-                                } else if((string)t->property() == "y1") {
-                                    it->point2[1] = result;
-                                } else if((string)t->property() == "z1") {
-                                    it->point2[2] = result;  
-                                } else if((string)t->property() == "x2") {
-                                    it->point3[0] = result;
-                                } else if((string)t->property() == "y2") {
-                                    it->point3[1] = result;
-                                } else if((string)t->property() == "z2") {
-                                    it->point3[2] = result; 
-                                } else if((string)t->property() == "xn") {
-                                    it->normalVec[0] = result;
-                                } else if((string)t->property() == "yn") {
-                                    it->normalVec[1] = result;
-                                } else if((string)t->property() == "zn") {
-                                    it->normalVec[2] = result;                                     
-                                } else if((string)t->property() == "ared") {
-                                    it->ambient[0] = result;
-                                } else if((string)t->property() == "agreen") {
-                                    it->ambient[1] = result;
-                                } else if((string)t->property() == "ablue") {
-                                    it->ambient[2] = result;
-                                } else if((string)t->property() == "dred") {
-                                    it->diffuse[0] = result;
-                                } else if((string)t->property() == "dgreen") {
-                                    it->diffuse[1] = result;
-                                } else if((string)t->property() == "dblue") {
-                                    it->diffuse[2] = result;
-                                } else if((string)t->property() == "sred") {
-                                    it->specular[0] = result;
-                                } else if((string)t->property() == "sgreen") {
-                                    it->specular[1] = result;
-                                } else if((string)t->property() == "sblue") {
-                                    it->specular[2] = result;
-                                } else if((string)t->property() == "n") {
-                                    it->n = result;
-                                } else if((string)t->property() == "phongN") {
-                                    it->phongN = result;
-                                } else if((string)t->property() == "blinnN") {
-                                    it->blinnN = result;
+                                if ((string) elem.property() == "x") {
+                                    _it.point1[0] = result;
+                                } else if ((string) elem.property() == "y") {
+                                    _it.point1[1] = result;
+                                } else if ((string) elem.property() == "z") {
+                                    _it.point1[2] = result;
+                                } else if ((string) elem.property() == "x1") {
+                                    _it.point2[0] = result;
+                                } else if ((string) elem.property() == "y1") {
+                                    _it.point2[1] = result;
+                                } else if ((string) elem.property() == "z1") {
+                                    _it.point2[2] = result;
+                                } else if ((string) elem.property() == "x2") {
+                                    _it.point3[0] = result;
+                                } else if ((string) elem.property() == "y2") {
+                                    _it.point3[1] = result;
+                                } else if ((string) elem.property() == "z2") {
+                                    _it.point3[2] = result;
+                                } else if ((string) elem.property() == "xn") {
+                                    _it.normalVec[0] = result;
+                                } else if ((string) elem.property() == "yn") {
+                                    _it.normalVec[1] = result;
+                                } else if ((string) elem.property() == "zn") {
+                                    _it.normalVec[2] = result;
+                                } else if ((string) elem.property() == "ared") {
+                                    _it.ambient[0] = result;
+                                } else if ((string) elem.property() == "agreen") {
+                                    _it.ambient[1] = result;
+                                } else if ((string) elem.property() == "ablue") {
+                                    _it.ambient[2] = result;
+                                } else if ((string) elem.property() == "dred") {
+                                    _it.diffuse[0] = result;
+                                } else if ((string) elem.property() == "dgreen") {
+                                    _it.diffuse[1] = result;
+                                } else if ((string) elem.property() == "dblue") {
+                                    _it.diffuse[2] = result;
+                                } else if ((string) elem.property() == "sred") {
+                                    _it.specular[0] = result;
+                                } else if ((string) elem.property() == "sgreen") {
+                                    _it.specular[1] = result;
+                                } else if ((string) elem.property() == "sblue") {
+                                    _it.specular[2] = result;
+                                } else if ((string) elem.property() == "n") {
+                                    _it.n = result;
+                                } else if ((string) elem.property() == "phongN") {
+                                    _it.phongN = result;
+                                } else if ((string) elem.property() == "blinnN") {
+                                    _it.blinnN = result;
                                 }
 
                             }
@@ -621,48 +621,48 @@ void SceneReader::passTriangleData(Context& c, int frame)
 void SceneReader::passPlaneData(Context &c, int frame) {
     try {
          for(sceneInterface::plane_const_iterator p (si->plane().begin()); p != si->plane().end(); p++) {
-            for(tweenInterface::tween_const_iterator t (p->tween().begin()); t != p->tween().end(); t++) {
-                for(vector<Context::Plane>::iterator it = c.planes.begin(); it != c.planes.end(); it++) {
-                    if(it->id == p->id()) {
-                        if((string)t->type() == "linear") {
+             for (const auto &elem : p->tween()) {
+                 for (auto &_it : c.planes) {
+                     if (_it.id == p->id()) {
+                         if ((string) elem.type() == "linear") {
                             //does animation take place in current frame?
-                            if(t->start() <= frame && t->end() >= frame) {
+                             if (elem.start() <= frame && elem.end() >= frame) {
                                 //counting current value of property
-                                float timePart = float(frame - t->start())/float(t->end() - t->start());
-                                float result = float(t->from()) + timePart*float(t->to() - t->from());
-                                
-                                if((string)t->property() == "x") {
-                                    it->normalVector[0] = result;
-                                } else if((string)t->property() == "y") {
-                                    it->normalVector[1] = result;
-                                } else if((string)t->property() == "z") {
-                                    it->normalVector[2] = result;
-                                } else if((string)t->property() == "d") {
-                                    it->distance = result;
-                                } else if((string)t->property() == "ared") {
-                                    it->ambient[0] = result;
-                                } else if((string)t->property() == "agreen") {
-                                    it->ambient[1] = result;
-                                } else if((string)t->property() == "ablue") {
-                                    it->ambient[2] = result;
-                                } else if((string)t->property() == "dred") {
-                                    it->diffuse[0] = result;
-                                } else if((string)t->property() == "dgreen") {
-                                    it->diffuse[1] = result;
-                                } else if((string)t->property() == "dblue") {
-                                    it->diffuse[2] = result;
-                                } else if((string)t->property() == "sred") {
-                                    it->specular[0] = result;
-                                } else if((string)t->property() == "sgreen") {
-                                    it->specular[1] = result;
-                                } else if((string)t->property() == "sblue") {
-                                    it->specular[2] = result;
-                                } else if((string)t->property() == "n") {
-                                    it->n = result;
-                                } else if((string)t->property() == "phongN") {
-                                    it->phongN = result;
-                                } else if((string)t->property() == "blinnN") {
-                                    it->blinnN = result;
+                                 float timePart = float(frame - elem.start()) / float(elem.end() - elem.start());
+                                 float result = float(elem.from()) + timePart * float(elem.to() - elem.from());
+
+                                 if ((string) elem.property() == "x") {
+                                     _it.normalVector[0] = result;
+                                 } else if ((string) elem.property() == "y") {
+                                     _it.normalVector[1] = result;
+                                 } else if ((string) elem.property() == "z") {
+                                     _it.normalVector[2] = result;
+                                 } else if ((string) elem.property() == "d") {
+                                     _it.distance = result;
+                                 } else if ((string) elem.property() == "ared") {
+                                     _it.ambient[0] = result;
+                                 } else if ((string) elem.property() == "agreen") {
+                                     _it.ambient[1] = result;
+                                 } else if ((string) elem.property() == "ablue") {
+                                     _it.ambient[2] = result;
+                                 } else if ((string) elem.property() == "dred") {
+                                     _it.diffuse[0] = result;
+                                 } else if ((string) elem.property() == "dgreen") {
+                                     _it.diffuse[1] = result;
+                                 } else if ((string) elem.property() == "dblue") {
+                                     _it.diffuse[2] = result;
+                                 } else if ((string) elem.property() == "sred") {
+                                     _it.specular[0] = result;
+                                 } else if ((string) elem.property() == "sgreen") {
+                                     _it.specular[1] = result;
+                                 } else if ((string) elem.property() == "sblue") {
+                                     _it.specular[2] = result;
+                                 } else if ((string) elem.property() == "n") {
+                                     _it.n = result;
+                                 } else if ((string) elem.property() == "phongN") {
+                                     _it.phongN = result;
+                                 } else if ((string) elem.property() == "blinnN") {
+                                     _it.blinnN = result;
                                 }
 
                             }
