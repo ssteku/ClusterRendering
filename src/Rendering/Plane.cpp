@@ -1,11 +1,11 @@
 #include "Plane.hpp"
-#include <OGRE/OgreMath.h> 
 
 namespace rendering
 {
 
-Plane::Plane(const float a[],const float d[], const float s[],float normalVec[],float dist, float n,float phongN, float blinnN)
-	:MaterialObject(a,d,s,n,phongN,blinnN,MaterialObject::tPlane), plane(normalVec[0],normalVec[1],normalVec[2],dist)
+    Plane::Plane(float const a[], float const d[], float const s[], float normalVec[], float dist, float n, float phongN, float blinnN, const unsigned id)
+            : MaterialObject(a, d, s, n, phongN, blinnN, MaterialObject::tPlane, id),
+              plane(normalVec[0], normalVec[1], normalVec[2], dist)
 {
 }
 const Ogre::Plane& Plane::getPlane()

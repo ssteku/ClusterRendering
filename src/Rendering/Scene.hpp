@@ -9,6 +9,7 @@
 #include <vector>
 
 using namespace std;
+using MaterialObjectPtrVec = std::vector<rendering::MaterialObjectPtr>;
 
 namespace rendering
 {
@@ -16,7 +17,7 @@ namespace rendering
 class Scene 
 {
 public:
-	vector<std::shared_ptr<MaterialObject> > objects;
+    MaterialObjectPtrVec objects;
 
 	vector<std::shared_ptr<Light> > lights;
 

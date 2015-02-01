@@ -1,15 +1,15 @@
 #include "Triangle.hpp"
-#include <OGRE/OgreMath.h>
-#include <OGRE/OgreVector3.h>
 #include <OGRE/OgreRay.h>
-#include <iostream>
 
 using namespace std;
 namespace rendering
 {
 
-Triangle::Triangle(const float a[],const float d[], const float s[],float point1[],float point2[],float point3[], float nVec[], float n,float phongN, float blinnN)
-	: MaterialObject(a,d,s,n,phongN, blinnN, MaterialObject::tTriangle), p1(point1[0],point1[1],point1[2]),p2(point2[0],point2[1],point2[2]),p3(point3[0],point3[1],point3[2]),
+    Triangle::Triangle(float const a[], float const d[], float const s[], float point1[], float point2[], float point3[], float nVec[], float n, float phongN, float blinnN, const unsigned id)
+            : MaterialObject(a, d, s, n, phongN, blinnN, MaterialObject::tTriangle, id),
+              p1(point1[0], point1[1], point1[2]),
+              p2(point2[0], point2[1], point2[2]),
+              p3(point3[0], point3[1], point3[2]),
 	normalVec(nVec[0],nVec[1],nVec[2])
 {
 }

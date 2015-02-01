@@ -104,7 +104,6 @@ private:
         tasks.push(task);
 	}
 
-
 	std::string filesPath_;
 	time_t lastFileWriteTime_;
 	std::queue<Task> tasks;

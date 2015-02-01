@@ -9,7 +9,7 @@ namespace rendering
 class Triangle : public MaterialObject
 {
 public:
-	Triangle(const float a[],const float d[], const float s[],float point1[],float point2[],float point3[], float nVec[], float n,float phongN, float blinnN);
+    Triangle(float const a[], float const d[], float const s[], float point1[], float point2[], float point3[], float nVec[], float n, float phongN, float blinnN, const unsigned id);
 	const Ogre::Vector3& getP1();
 	const Ogre::Vector3& getP2();
 	const Ogre::Vector3& getP3();

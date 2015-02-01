@@ -3,8 +3,8 @@
 namespace rendering
 {
 
-MaterialObject::MaterialObject(const float a[],const float d[], const float s[], float n,float phongN, float blinnN, ObjectTypes type )
-	: Object(a,d,s), n(n), phongN(phongN), blinnN(blinnN),type(type)
+    MaterialObject::MaterialObject(float const a[], float const d[], float const s[], float n, float phongN, float blinnN, ObjectTypes type, const unsigned id)
+            : Object(a, d, s, id), n(n), phongN(phongN), blinnN(blinnN), type(type)
 {	
 }
 

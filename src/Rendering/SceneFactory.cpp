@@ -47,8 +47,7 @@ std::shared_ptr<Scene> SceneFactory::createScene(Context* context)
 		// cout << "Light #" << context->lights[i].id << "\t";
   //       cout << context->lights[i].position[0] << "\t" << context->lights[i].position[1] << "\t" << context->lights[i].position[2] << "\t" << context->lights[i].ambient[0] << "\t" << context->lights[i].ambient[1] << "\t" << context->lights[i].ambient[2] << "\t" << context->lights[i].specular[0] << "\t" << context->lights[i].specular[1] << "\t" << context->lights[i].specular[2] << "\t" << context->lights[i].diffuse[0] << "\t" << context->lights[i].diffuse[1] << "\t" << context->lights[i].diffuse[2] << endl;
 		scene->lights[i].reset(
-			new Light(context->lights[i].ambient,context->lights[i].diffuse,context->lights[i].specular,context->lights[i].r,
-			context->lights[i].position));
+                new Light(context->lights[i].ambient, context->lights[i].diffuse, context->lights[i].specular, context->lights[i].r, context->lights[i].position, i));
 	}
 
 	scene->objects.resize(context->spheres.size()
@@ -63,9 +62,7 @@ std::shared_ptr<Scene> SceneFactory::createScene(Context* context)
 		// cout << context->spheres[g].position[0] << "\t" << context->spheres[g].position[1] << "\t" << context->spheres[g].position[2] << "\t" << context->spheres[g].ambient[0] << "\t" << context->spheres[g].ambient[1] << "\t" << context->spheres[g].ambient[2] << "\t" << context->spheres[g].specular[0] << "\t" << context->spheres[g].specular[1] << "\t" << context->spheres[g].specular[2] << "\t" << context->spheres[g].diffuse[0] << "\t" << context->spheres[g].diffuse[1] << "\t" << context->spheres[g].diffuse[2] << "\t" << context->spheres[g].n << "\t" << "\t"<< context->spheres[g].phongN<< context->spheres[g].blinnN << "\t"<< endl;
 
 		scene->objects[i].reset(
-			new Sphere(context->spheres[g].ambient,context->spheres[g].diffuse,context->spheres[g].specular,
-				context->spheres[g].r,context->spheres[g].position, context->spheres[g].n,
-				context->spheres[g].phongN, context->spheres[g].blinnN ));
+                new Sphere(context->spheres[g].ambient, context->spheres[g].diffuse, context->spheres[g].specular, context->spheres[g].r, context->spheres[g].position, context->spheres[g].n, context->spheres[g].phongN, context->spheres[g].blinnN, i));
 	}
 
 	actualObjectSize = i;
@@ -73,9 +70,7 @@ std::shared_ptr<Scene> SceneFactory::createScene(Context* context)
 	for(unsigned int g = 0; i<context->planes.size()+actualObjectSize;++i,++g)
 	{
 		scene->objects[i].reset(
-			new Plane(context->planes[g].ambient,context->planes[g].diffuse,context->planes[g].specular,
-				context->planes[g].normalVector,context->planes[g].distance, context->planes[g].n,
-				context->planes[g].phongN, context->planes[g].blinnN ));
+                new Plane(context->planes[g].ambient, context->planes[g].diffuse, context->planes[g].specular, context->planes[g].normalVector, context->planes[g].distance, context->planes[g].n, context->planes[g].phongN, context->planes[g].blinnN, i));
 	}
 
 	actualObjectSize = i;
@@ -84,10 +79,7 @@ std::shared_ptr<Scene> SceneFactory::createScene(Context* context)
 	{
 
 		scene->objects[i].reset(
-			new Triangle(context->triangles[g].ambient,context->triangles[g].diffuse,context->triangles[g].specular,
-				context->triangles[g].point1,context->triangles[g].point2, context->triangles[g].point3,
-				context->triangles[g].normalVec, context->triangles[g].n,
-				context->triangles[g].phongN, context->triangles[g].blinnN ));
+                new Triangle(context->triangles[g].ambient, context->triangles[g].diffuse, context->triangles[g].specular, context->triangles[g].point1, context->triangles[g].point2, context->triangles[g].point3, context->triangles[g].normalVec, context->triangles[g].n, context->triangles[g].phongN, context->triangles[g].blinnN, i));
 		// cout<<"Triangle phong: "<<context->triangles[g].phongN<<" blinn: "<<context->triangles[g].blinnN<<" n: "<<context->triangles[g].n<<endl;
 	}
 
@@ -96,9 +88,7 @@ std::shared_ptr<Scene> SceneFactory::createScene(Context* context)
 	for(unsigned int g = 0; i<context->boxes.size()+actualObjectSize;++i,++g)
 	{
 		scene->objects[i].reset(
-			new Box(context->boxes[g].ambient,context->boxes[g].diffuse,context->boxes[g].specular,
-				context->boxes[g].minVector,context->boxes[g].maxVector, context->boxes[g].n,
-				context->boxes[g].phongN, context->boxes[g].blinnN ));
+                new Box(context->boxes[g].ambient, context->boxes[g].diffuse, context->boxes[g].specular, context->boxes[g].minVector, context->boxes[g].maxVector, context->boxes[g].n, context->boxes[g].phongN, context->boxes[g].blinnN, i));
 	}
 	return scene;
 }

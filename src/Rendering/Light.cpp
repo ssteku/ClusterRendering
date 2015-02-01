@@ -1,11 +1,10 @@
 #include "Light.hpp"
-#include <OGRE/OgreMath.h> 
 
 namespace rendering
 {
 
-Light::Light(const float a[],const float d[], const float s[],float r,float pos[])
-	: Object(a,d,s), sphere(Ogre::Vector3(pos[0],pos[1],pos[2]),r)
+    Light::Light(float const a[], float const d[], float const s[], float r, float pos[], const unsigned id)
+            : Object(a, d, s, id), sphere(Ogre::Vector3(pos[0], pos[1], pos[2]), r)
 {
 
 }

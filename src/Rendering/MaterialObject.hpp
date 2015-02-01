@@ -16,7 +16,7 @@ class MaterialObject : public Object
 public:
 	enum ObjectTypes {tBox,tPlane,tSphere,tTriangle};
 
-	MaterialObject(const float a[],const float d[], const float s[], float n,float phongN, float blinnN, ObjectTypes type );
+    MaterialObject(float const a[], float const d[], float const s[], float n, float phongN, float blinnN, ObjectTypes type, const unsigned id);
 	virtual inline float getN()
 	{
 		return n;
@@ -47,6 +47,8 @@ protected:
 	float blinnN;
 	ObjectTypes type;
 };
+
+    using MaterialObjectPtr = std::shared_ptr<MaterialObject>;
 
 } //namespace rendering
 

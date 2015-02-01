@@ -19,15 +19,12 @@ namespace rendering {
 
     void RayRenderer::render(Pixels *pixels) {
         float x, y;
-        float x_fl, y_fl;    // pozycja rysowanego piksela "zmiennoprzecinkowa"
         float x_flTmp, y_flTmp;
         float x_fbase, y_fbase; //
-        float im_size_x_2;       // po�owa rozmiaru obrazu w pikselach
-        float im_size_y_2;
+        float halfOfImageXSize = static_cast<float>(scene->dimension[0]) / 2;
+        float halfOfImageYSize = static_cast<float>(scene->dimension[1]) / 2;
         Ogre::Vector3 starting_point;
         Ogre::Vector3 starting_direction(-scene->cameraZ[0], -scene->cameraZ[1], -scene->cameraZ[2]); // wektor opisuj�cy kierunek promienia
-        im_size_x_2 = static_cast<float>(scene->dimension[0]) / 2;    // obliczenie po�owy rozmiaru obrazu w pikselach
-        im_size_y_2 = static_cast<float>(scene->dimension[1]) / 2;
 
         x_fbase = static_cast<float>(scene->dimension[0]) / static_cast<float>(scene->viewportSize[0]);
         y_fbase = static_cast<float>(scene->dimension[1]) / static_cast<float>(scene->viewportSize[1]);
@@ -48,8 +45,8 @@ namespace rendering {
         const float sampleRatio = 1 / ANTYALIASING_FACTOR;
         const float sampleDiff = 1 / Ogre::Math::Sqrt(ANTYALIASING_FACTOR);
 
-        for (y = im_size_y_2 - float(scene->window[0][1]); y > im_size_y_2 - float(scene->window[1][1]); --y) {
-            for (x = -im_size_x_2 + float(scene->window[0][0]); x < -im_size_x_2 + float(scene->window[1][0]); ++x) {
+        for (y = halfOfImageYSize - float(scene->window[0][1]); y > halfOfImageYSize - float(scene->window[1][1]); --y) {
+            for (x = -halfOfImageXSize + float(scene->window[0][0]); x < -halfOfImageXSize + float(scene->window[1][0]); ++x) {
 
                 finalPixel = NO_COLOR;
 
@@ -58,46 +55,50 @@ namespace rendering {
                         coef = START_COEF;
                         currentLevel = START_LEVEL;
 
-                        x_flTmp = (float) fragmentx / x_fbase;
-                        y_flTmp = (float) fragmenty / y_fbase;
+                        x_flTmp = fragmentx / x_fbase;
+                        y_flTmp = fragmenty / y_fbase;
 
 
                         pixel = NO_COLOR;
 
-                        x_fl = x_flTmp;
-                        y_fl = y_flTmp;
-                        starting_point[0] = scene->cameraPosition[0] + (x_fl * scene->cameraX[0] + y_fl * scene->cameraY[0]) - dist * scene->cameraZ[0];
-                        starting_point[1] = scene->cameraPosition[1] + (x_fl * scene->cameraX[1] + y_fl * scene->cameraY[1]) - dist * scene->cameraZ[1];
-                        starting_point[2] = scene->cameraPosition[2] + (x_fl * scene->cameraX[2] + y_fl * scene->cameraY[2]) - dist * scene->cameraZ[2];// transformacja wsp kamery na globalne
+                        starting_point[0] = scene->cameraPosition[0] + (x_flTmp * scene->cameraX[0] + y_flTmp * scene->cameraY[0]) - dist * scene->cameraZ[0];
+                        starting_point[1] = scene->cameraPosition[1] + (x_flTmp * scene->cameraX[1] + y_flTmp * scene->cameraY[1]) - dist * scene->cameraZ[1];
+                        starting_point[2] = scene->cameraPosition[2] + (x_flTmp * scene->cameraX[2] + y_flTmp * scene->cameraY[2]) - dist * scene->cameraZ[2];// transformacja wsp kamery na globalne
 
 
                         ray.setOrigin(scene->cameraPosition);
 
                         ray.setDirection(starting_point - scene->cameraPosition);
                         do {
+//                            currentObjectId = findIntersectingObject(scene->objects, ray);
                             currentObjectId = NO_OBJECT;
+
                             d = MAX_DISTANCE;
+
 
                             for (unsigned int g = 0; g < scene->objects.size(); g++) {
                                 std::pair<bool, float> isIntersecting = scene->objects[g]->intersects(ray);
+                                assert(scene->objects[g]->getId() == g);
                                 if (isIntersecting.first && isIntersecting.second < d) {
                                     d = isIntersecting.second;
                                     currentObjectId = g;
                                 }
                             }
 
-                            if (currentObjectId == -1) {
+                            if (currentObjectId == NO_OBJECT) {
                                 pixel += scene->background;
                                 break;
                             }
 
+                            const auto &currentObject = scene->objects[currentObjectId];
+
                             Ogre::Vector3 newStart = ray.getPoint(d);
-                            normalVec = scene->objects[currentObjectId]->getNormalVector(newStart);
+                            normalVec = currentObject->getNormalVector(newStart);
                             normalVec.normalise();
 
 
                             if (currentLevel == 0) {
-                                pixel += scene->objects[currentObjectId]->getAmbient() * scene->globalLight;
+                                pixel += currentObject->getAmbient() * scene->globalLight;
                             }
                             for (const auto &light : scene->lights) {
                                 std::pair<bool, float> isIntersecting = light->intersects(ray);
@@ -121,10 +122,16 @@ namespace rendering {
                                     }
                                 }
                                 if (!inShadow) {
-                                    countPhong(pixel, lightRay, ray, normalVec, current.operator*(), currentObjectId, coef);
-                                    countBlinn(pixel, lightRay, ray, normalVec, current.operator*(), currentObjectId, coef);
-                                    pixel += current->getAmbient() * scene->objects[currentObjectId]->getAmbient();
-                                    coef *= scene->objects[currentObjectId]->getN();
+                                    const auto &blinnDirection = calculateBlinnDirection(lightRay, ray);
+                                    auto blinnValue = calculateBlinnValue(blinnDirection, normalVec, currentObject, coef);
+                                    pixel += countBlinnOffset(blinnValue, current.operator*(), currentObject);
+
+                                    const auto &phongDirection = calculatePhongDirection(lightRay, normalVec);
+                                    auto phongValue = calculatePhongValue(phongDirection, ray, currentObject, coef);
+                                    pixel += calculatePhongOffset(phongValue, currentObject, current.operator*());
+
+                                    pixel += current->getAmbient() * currentObject->getAmbient();
+                                    coef *= currentObject->getN();
                                 }
 
                             }
@@ -147,25 +154,70 @@ namespace rendering {
         }
     }
 
-    void RayRenderer::countPhong(Ogre::ColourValue &pixel, const Ogre::Ray &lightRay,
-            const Ogre::Ray &ray, const Ogre::Vector3 &normalVec, Light &current, const int currenObjId, float coef) {
-        float lighRayReflect = 2 * lightRay.getDirection().dotProduct(normalVec);
-        Ogre::Vector3 phongDir = lightRay.getDirection() - (lighRayReflect * normalVec);
-        float phongTerm = max(phongDir.dotProduct(ray.getDirection()), 0.0f);
-        phongTerm = scene->objects[currenObjId]->getN() * Ogre::Math::Pow(phongTerm, scene->objects[currenObjId]->getPhongN()) * coef;
-        pixel += phongTerm * current.getDiffuse() * scene->objects[currenObjId]->getDiffuse();
+    ObjectId RayRenderer::findIntersectingObject(
+            const MaterialObjectPtrVec &sceneObjects, const Ogre::Ray &ray) const {
+        using Distance = float;
+        using IsIntersecting = bool;
+        using IntersectsDistancePair = std::pair<IsIntersecting, Distance>;
+        using ObjectIdToIntersectsDistancePairMap = std::map<ObjectId, Distance>;
+
+        ObjectIdToIntersectsDistancePairMap intersectingObjInformation =
+                std::accumulate(std::begin(sceneObjects), std::end(sceneObjects), ObjectIdToIntersectsDistancePairMap(),
+                        [&ray](const ObjectIdToIntersectsDistancePairMap &intersectionInformations, const MaterialObjectPtrVec::value_type &object)
+                                -> ObjectIdToIntersectsDistancePairMap {
+                            IntersectsDistancePair intersectionInformation = object->intersects(ray);
+                            if (intersectionInformation.first) {
+                                ObjectIdToIntersectsDistancePairMap newIntersectionInformations = intersectionInformations;
+                                newIntersectionInformations[object->getId()] = intersectionInformation.second;
+                                return newIntersectionInformations;
+                            }
+                            return intersectionInformations;
+                        });
+
+        if (!intersectingObjInformation.empty()) {
+            auto closestIntersecting
+                    = *min_element(std::begin(intersectingObjInformation), std::end(intersectingObjInformation),
+                            [](const ObjectIdToIntersectsDistancePairMap::value_type &lhs,
+                                    const ObjectIdToIntersectsDistancePairMap::value_type &rhs) {
+                                return lhs.second < rhs.second;
+                            });
+            return closestIntersecting.first;
+        }
+        else {
+            return NO_OBJECT;
+        }
     }
 
-    void RayRenderer::countBlinn(Ogre::ColourValue &pixel, const Ogre::Ray &lightRay,
-            const Ogre::Ray &ray, const Ogre::Vector3 &normalVec, Light &current, const int currenObjId, float coef) {
-        Ogre::Vector3 blinnDir = lightRay.getDirection() - ray.getDirection();
-        float temp = blinnDir.length();
-        if (temp != 0.0f) {
-            blinnDir = (1.0f / temp) * blinnDir;
-            float blinn = max(blinnDir.dotProduct(normalVec), 0.0f);
-            blinn = Ogre::Math::Pow(blinn, scene->objects[currenObjId]->getBlinnN()) * scene->objects[currenObjId]->getN() * coef;
-            pixel += blinn * current.getSpecular() * scene->objects[currenObjId]->getSpecular();
-        }
+    Ogre::ColourValue RayRenderer::calculatePhongOffset(
+            const float phongValue, const MaterialObjectPtr &currentObject, const Light &currentLight) {
+        return phongValue * currentLight.getDiffuse() * currentObject->getDiffuse();
+    }
+
+    Ogre::Vector3 RayRenderer::calculatePhongDirection(const Ogre::Ray &lightRay, const Ogre::Vector3 &normalVec) const {
+        float lighRayReflect = 2 * lightRay.getDirection().dotProduct(normalVec);
+        return lightRay.getDirection() - (lighRayReflect * normalVec);
+    }
+
+    float RayRenderer::calculatePhongValue(const Ogre::Vector3 &phongDirection, const Ogre::Ray &ray,
+            const MaterialObjectPtr &currentObject, const float coeficiency) const {
+        float phongTerm = max(phongDirection.dotProduct(ray.getDirection()), 0.0f);
+        return currentObject->getN() * Ogre::Math::Pow(phongTerm, currentObject->getPhongN()) * coeficiency;
+    }
+
+    Ogre::ColourValue RayRenderer::countBlinnOffset(const float blinnValue,
+            const Light &currentLight, const MaterialObjectPtr &currentObject) {
+        return blinnValue * currentLight.getSpecular() * currentObject->getSpecular();
+    }
+
+    Ogre::Vector3 RayRenderer::calculateBlinnDirection(const Ogre::Ray &lightRay, const Ogre::Ray &ray) const {
+        const auto &blinnDirection = lightRay.getDirection() - ray.getDirection();
+        return (1.0f / (blinnDirection.length() + 0.000001f)) * blinnDirection;
+    }
+
+    float RayRenderer::calculateBlinnValue(const Ogre::Vector3 &blinnDir, const Ogre::Vector3 &normalVec,
+            const MaterialObjectPtr &currentObject, const float coeficiency) const {
+        float blinn = std::max(blinnDir.dotProduct(normalVec), 0.0f);
+        return Ogre::Math::Pow(blinn, currentObject->getBlinnN()) * currentObject->getN() * coeficiency;
     }
 
 } //namespace rendering

@@ -9,7 +9,7 @@ namespace rendering
 class Plane : public MaterialObject
 {
 public:
-	Plane(const float a[],const float d[], const float s[],float normalVec[],float dist, float n,float phongN, float blinnN);
+    Plane(float const a[], float const d[], float const s[], float normalVec[], float dist, float n, float phongN, float blinnN, const unsigned id);
 	const Ogre::Plane& getPlane();
 	std::pair< bool, float > intersects(const Ogre::Ray &ray);
 	Ogre::Vector3 getNormalVector(const Ogre::Vector3& intersecPoint);

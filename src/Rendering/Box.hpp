@@ -10,7 +10,7 @@ namespace rendering
 class Box : public MaterialObject
 {
 public:
-	Box(const float a[],const float d[], const float s[],float miVec[],float maxVec[], float n,float phongN, float blinnN);
+    Box(float const a[], float const d[], float const s[], float miVec[], float maxVec[], float n, float phongN, float blinnN, const unsigned id);
 	const Ogre::AxisAlignedBox& getBox();
 	std::pair< bool, float > intersects(const Ogre::Ray &ray);
 	Ogre::Vector3 getNormalVector(const Ogre::Vector3& intersecPoint);

@@ -22,11 +22,25 @@ namespace rendering
         void render(Pixels *pixels);
 
 	private:
-		void countPhong(Ogre::ColourValue &pixel, const Ogre::Ray &lightRay,
-				const Ogre::Ray &ray, const Ogre::Vector3 &normalVec, Light &current, const int currenObjId, float coef);
+        ObjectId findIntersectingObject(
+                const MaterialObjectPtrVec &sceneObjects, const Ogre::Ray &ray) const;
 
-		void countBlinn(Ogre::ColourValue &pixel, const Ogre::Ray &lightRay,
-				const Ogre::Ray &ray, const Ogre::Vector3 &normalVec, Light &current, const int currenObjId, float coef);
+        Ogre::ColourValue calculatePhongOffset(
+                const float phongValue, const MaterialObjectPtr &currentObject, const Light &currentLight);
+
+        Ogre::Vector3 calculatePhongDirection(const Ogre::Ray &lightRay, const Ogre::Vector3 &normalVec) const;
+
+        float calculatePhongValue(
+                const Ogre::Vector3 &phongDirection, const Ogre::Ray &ray,
+                const MaterialObjectPtr &currentObject, const float coeficiency) const;
+
+        Ogre::ColourValue countBlinnOffset(const float blinnValue,
+                const Light &currentLight, const MaterialObjectPtr &currentObject);
+
+        Ogre::Vector3 calculateBlinnDirection(const Ogre::Ray &lightRay, const Ogre::Ray &ray) const;
+
+        float calculateBlinnValue(const Ogre::Vector3 &blinnDir, const Ogre::Vector3 &normalVec,
+                const MaterialObjectPtr &currentObject, const float coeficiency) const;
 
 		std::shared_ptr<Scene> scene;
 		const float MAX_DISTANCE;

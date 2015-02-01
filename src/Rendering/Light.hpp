@@ -10,7 +10,7 @@ namespace rendering
 class Light : public Object
 {
 public:
-	Light(const float a[],const float d[], const float s[],float r,float pos[]);
+    Light(float const a[], float const d[], float const s[], float r, float pos[], const unsigned id);
 	const Ogre::Sphere& getSphere();
 	std::pair< bool, float > intersects(const Ogre::Ray &ray);
 private:
