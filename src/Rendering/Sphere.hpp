@@ -14,6 +14,9 @@ public:
 	const Ogre::Sphere& getSphere();
 	std::pair< bool, float > intersects(const Ogre::Ray &ray);
 	Ogre::Vector3 getNormalVector(const Ogre::Vector3& intersecPoint);
+
+private:
+    std::pair<bool, float> checkIntersection(const Ogre::Ray &ray, const Ogre::Sphere &sphere);
 private:
 	Ogre::Sphere sphere;	
 	
